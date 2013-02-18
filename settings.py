@@ -1,9 +1,6 @@
 # Django settings for mechanicalmooc project.
 import os
 
-import djcelery
-djcelery.setup_loader()
-
 ROOT = os.path.dirname(os.path.abspath(__file__))
 path = lambda *a: os.path.join(ROOT, *a)
 
@@ -17,14 +14,14 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'db.sqlite',                    # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+#        'NAME': 'db.sqlite',                    # Or path to database file if using sqlite3.
+#        'USER': '',                      # Not used with sqlite3.
+#        'PASSWORD': '',                  # Not used with sqlite3.
+#        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+#        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+#    }
 }
 
 # Local time zone for this installation. Choices can be found here:
@@ -129,6 +126,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'kombu.transport.django',
     'djcelery',
     'signup',
 )
@@ -162,11 +160,13 @@ LOGGING = {
     }
 }
 
-BROKER_URL = 'amqp://guest:guest@localhost:5672/'
-
 MAILGUN_API_DOMAIN = 'https://api.mailgun.net/v2/mechanicalmooc.org'
 MAILGUN_API_KEY = ''
 
+BROKER_BACKEND = 'django'
+import djcelery
+djcelery.setup_loader()
+
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+DATABASES['default'] =  dj_database_url.config(default='sqlite:///{0}'.format(path('db.sqlite')))

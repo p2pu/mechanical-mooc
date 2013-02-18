@@ -22,7 +22,7 @@ def create_signup( email, questions ):
     )
     signup.save()
 
-    send_welcome_email.apply_async()
+    send_welcome_email.apply_async((email,))
 
     return get_signup(email)
 
