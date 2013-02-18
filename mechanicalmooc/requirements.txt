@@ -1,0 +1,4 @@
+Django
+requests
+celery
+django-celery
