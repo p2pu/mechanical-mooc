@@ -2,3 +2,6 @@ Django
 requests
 celery
 django-celery
+django_extensions
+psycopg2
+dj-database-url

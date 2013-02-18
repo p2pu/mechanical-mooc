@@ -163,3 +163,10 @@ LOGGING = {
 }
 
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+
+MAILGUN_API_DOMAIN = 'https://api.mailgun.net/v2/mechanicalmooc.org'
+MAILGUN_API_KEY = ''
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
