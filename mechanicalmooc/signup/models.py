@@ -1,7 +1,8 @@
 import random
 import string
-import simplejson
 from datetime import datetime
+
+from django.utils import simplejson
 
 from signup import db
 from signup.tasks import send_welcome_email
