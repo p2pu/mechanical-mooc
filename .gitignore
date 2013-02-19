@@ -1,2 +1,3 @@
 *.pyc
 celerybeat-schedule
+staticfiles
