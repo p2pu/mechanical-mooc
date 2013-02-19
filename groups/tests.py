@@ -7,8 +7,10 @@ class SimpleTest(TestCase):
         """
         Test group creation
         """
-
-        group = group_model.create_group('The A-Team')
+        group = group_model.create_group('ateam@mechmooc.com', 'The A team')
+        self.assertTrue('address' in group)
+        self.assertTrue('description' in group)
+        self.assertTrue('members' in group)
         group_copy = group_model.get_group(group['uri'])
 
         for key, value in group.items():
@@ -17,7 +19,7 @@ class SimpleTest(TestCase):
 
 
     def test_add_group_member(self):
-        group = group_model.create_group('The A team')
+        group = group_model.create_group('ateam@mechmooc.com', 'The A team')
         group_model.add_group_member(group['uri'], 'bob@mail.com')
         group = group_model.get_group(group['uri'])
         self.assertEqual(len(group['members']), 1)
@@ -25,7 +27,7 @@ class SimpleTest(TestCase):
 
 
     def test_remove_group_member(self):
-        group = group_model.create_group('The A team')
+        group = group_model.create_group('ateam@mechmooc.com', 'The A team')
         group_model.add_group_member(group['uri'], 'bob@mail.com')
         group_model.add_group_member(group['uri'], 'dick@mail.com')
         group_model.remove_group_member(group['uri'], 'dick@mail.com')
