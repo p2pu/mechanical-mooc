@@ -3,7 +3,8 @@ from signup import models as signup_model
 
 import random
 
-def create_groups(max_group_size=20):
+def prepare_groups(max_group_size=20):
+    """ Calculate grouping """
 
     # get all signups
     signups = signup_model.get_signups()
@@ -47,4 +48,13 @@ def create_groups(max_group_size=20):
     #TODO
 
     return groups
+
+
+def create_groups(groups, name_prefix="Group"):
+    """ Create the groups in the backed """
+    for i, group_data in enumerate(groups):
+        group = group_model.create_group("{0} {1}".format(name_prefix, i))
+
+        for member in group_data['members']:
+            group_model.add_group_member(group['uri'], member['email'])
 

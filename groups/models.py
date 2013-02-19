@@ -12,18 +12,28 @@ def group_id2uri( group_id ):
 def create_group( group_name ):
     group_db = db.Group(name=group_name)
     group_db.save()
+    #TODO create mailgun groups
     return get_group(group_id2uri(group_db.id))
 
 
-def get_group( group_uri ):
-    group_id = group_uri2id(group_uri)
-    group_db = db.Group.objects.get(id=group_id)
+def _group2json(group_db):
     group = {
         'uri': group_id2uri(group_db.id),
         'name': group_db.name,
     }
     group['members'] = [member.email for member in group_db.members.all()]
     return group
+ 
+
+
+def get_group( group_uri ):
+    group_id = group_uri2id(group_uri)
+    group_db = db.Group.objects.get(id=group_id)
+    return _group2json(group_db)
+
+
+def get_groups():
+    return [_group2json(group_db) for group_db in db.Group.objects.all()]
 
 
 def add_group_member( group_uri, member_email ):
