@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'kombu.transport.django',
     'djcelery',
     'signup',
+    'groups',
 )
 
 # A sample logging configuration. The only tangible logging
