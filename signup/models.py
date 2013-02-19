@@ -62,23 +62,4 @@ def get_signup( email ):
     return signup
 
 
-def create_group( ):
-    return get_group('/uri/group/1')
 
-
-def add_signup_to_group( email, group_uri ):
-    pass
-
-
-def remove_signup_from_group( email, group_uri ):
-    pass
-
-
-def get_group( group_uri ):
-    group = {
-        'uri': '/uri/groups/3',
-        'members': [
-            'dirk@p2pu.org',
-            'bob@mail.com'
-        ]
-    }
