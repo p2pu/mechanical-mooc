@@ -47,14 +47,9 @@ def create_or_update_signup( email, questions ):
         return create_signup(email, questions)
 
 
-def get_signup( email ):
-    if not db.UserSignup.objects.filter(email=email).exists():
-        raise Exception()
-
-    signup_db = db.UserSignup.objects.get(email=email)
-    
+def _signup2json( signup_db ):
     signup = {
-        'email': email,
+        'email': signup_db.email,
         'questions': simplejson.loads(signup_db.questions),
         'date_created': signup_db.date_added,
         'date_updated': signup_db.date_updated
@@ -62,4 +57,14 @@ def get_signup( email ):
     return signup
 
 
+def get_signup( email ):
+    if not db.UserSignup.objects.filter(email=email).exists():
+        raise Exception()
 
+    signup_db = db.UserSignup.objects.get(email=email)
+    
+    return _signup2json(signup_db)
+
+
+def get_signups( ):
+    return [_signup2json for signup in db.UserSignup.objects.all()]

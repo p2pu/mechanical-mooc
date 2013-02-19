@@ -35,3 +35,12 @@ class SimpleTest(TestCase):
         self.assertTrue('date_updated' in signup)
 
 
+    def test_get_signups(self):
+        signup_models.create_or_update_signup('user1@mail.com', {'q1':'a1', 'q2':'a2', 'q3':'a3'})
+        signup_models.create_or_update_signup('user1@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        signup_models.create_or_update_signup('user2@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        signup_models.create_or_update_signup('user3@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        signup_models.create_or_update_signup('user4@mail.com', {'q1':'ar1', 'q2':'ar2'})
+
+        self.assertEqual(len(signup_models.get_signups()), 4)
+
