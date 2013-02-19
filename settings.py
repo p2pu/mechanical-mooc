@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     'djcelery',
     'signup',
     'groups',
+    'grouping',
 )
 
 # A sample logging configuration. The only tangible logging

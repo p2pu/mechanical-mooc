@@ -67,4 +67,4 @@ def get_signup( email ):
 
 
 def get_signups( ):
-    return [_signup2json for signup in db.UserSignup.objects.all()]
+    return [_signup2json(signup) for signup in db.UserSignup.objects.all()]
