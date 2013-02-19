@@ -153,8 +153,8 @@ LOGGING = {
     }
 }
 
-MAILGUN_API_DOMAIN = 'https://api.mailgun.net/v2/mechanicalmooc.org'
-MAILGUN_API_KEY = ''
+MAILGUN_API_DOMAIN = os.environ.get('MAILGUN_API_DOMAIN', 'https://api.mailgun.net/v2')
+MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY', '')
 
 BROKER_BACKEND = 'django'
 import djcelery
@@ -163,3 +163,5 @@ djcelery.setup_loader()
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
 DATABASES['default'] =  dj_database_url.config(default='sqlite:///{0}'.format(path('db.sqlite')))
+
+DEFAULT_FROM_EMAIL = 'machine@mechanicalmooc.org'
