@@ -24,7 +24,7 @@ def create_groups(max_group_size=20):
 
         # create groups of max_group_size while there are enough signups
         timezone_groups = []
-        while len(signups) > max_group_size:
+        while len(signups) >= max_group_size:
             sample = random.sample(range(len(signups)), max_group_size)
             members = [signups[i] for i in sample]
             timezone_groups.append({
