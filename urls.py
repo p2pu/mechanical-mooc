@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
 
     url(r'', include('signup.urls')),
+    url(r'^mail/', include('mail.urls')),
 )
 
 #TODO - not the best way!

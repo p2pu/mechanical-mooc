@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Subject</th>
+          <th>Text</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for mail in schedule %}
+          <tr>          
+            <td></td>
+            <td>
+              {{ mail.subject }}
+            </td>
+            <td>
+              {{ mail.text_body|truncatewords:10 }}
+            </td>
+            <td>
+              <form>
+                <input id="id_date" type="datetime" {% if mail.send_date %}value="{{mail.send_date}}"{% endif %}>
+              </form>
+            </td>
+            <td>
+              <a class="btn" href="{% url mail_edit mail.id %}"><i class="icon-edit"></i> edit email</a>
+              <a class="btn" href=""><i class="icon-trash"></i> delete email</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <a class="btn" href="{% url mail_compose %}">Create new email</a>
+
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('input[type=datetime]').datepicker();
+    });
+  </script>
+{% endblock %}

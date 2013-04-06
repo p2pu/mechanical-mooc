@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block css %}
+  <!-- Le styles -->
+  <link href="{{STATIC_URL}}css/customizations.css" rel="stylesheet">
+  <link href="{{STATIC_URL}}css/jquery.tagit.css" rel="stylesheet">
+  <link href="{{STATIC_URL}}css/bootstrap-wysihtml5-0.0.2.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+  <div id="step1" class="container">
+    <h1>Mechanical Mooc Admin - Send Email</h1>
+    <div class="row">
+      <div class="span12">
+        <img src="{{STATIC_URL}}img/banner.png" alt="Mechanical MOOC banner">
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <form id="emailForm" class="form well" action="" method="post">
+          {% csrf_token %}
+          <label>
+            Tags<br />
+            <small>Available tags include: sequence_*, course, intro, week_*, encourage, assignment</small>
+          </label>
+          <input id="tags" name="tags" type="text"/>
+          <label>
+            Subject
+          </label>
+          <input id="subject" name="subject" class="full-width" type="text" placeholder="Subject..." {% if email.subject %}value="{{ email.subject }}"{% endif %}/>
+         
+          <label>
+            Message Body
+          </label>
+          <textarea id="body_text" name="body_text" class="full-width"
+            type="text" rows="20" placeholder="Hello MooCers...">{% if email.html_body %}{{ email.html_body }}{% endif %}</textarea>
+         
+          <label class="checkbox">
+            <input type="checkbox" name="include_footer" checked="checked"> Include the sequence footer?
+          </label>
+
+          <div class="form-actions">
+          <!-- This works better in the newer bootstrap but it breaks too much other stuff -->
+            <div class="input-prepend input-append">
+                <span class="add-on">Send a test email to</span>
+                <input id="test_email" class="span3" name="test_email" type="text"/>
+                <button id="send_preview" class="btn btn-success disabled"><i class="icon-ok"></i> Send Preview</button>
+            </div>
+            <br/>
+            <button id="finish" type="submit" class="btn btn-large">Save email</button>
+            <a class="btn btn-large" href={% url mail_schedule %}>Cancel</a>
+          </div>              
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+
+  {% block js %}
+
+  <script src="{{STATIC_URL}}js/tag-it.js"></script>
+  <script src="{{STATIC_URL}}js/wysihtml5.min.js"></script>
+  <script src="{{STATIC_URL}}js/bootstrap-wysihtml5-0.0.2.min.js"></script>
+  
+  <script>
+    $(document).ready(function () {
+
+      $("#tags").tagit({
+        showAutocompleteOnFocus: true,
+        availableTags: ["intro", "course", "sequence_1", "week_*", "sequence_2", "sequence_3", "assignment", "encourage"]
+      });
+      $("#tags").hide();
+
+      $("#body_text").wysihtml5({
+        "html": true,
+        "color": true
+      });
+
+    });
+
+    $('#send_preview').live('click', function(){
+      $.post("./admin/send-test-email", $("#emailForm").serialize());
+      return false;
+    });
+
+  </script>
+
+{% endblock %}
