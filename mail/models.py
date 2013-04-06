@@ -27,6 +27,11 @@ def update_email(uri, subject, text_body, html_body):
     return get_email(uri)
 
 
+def delete_email(uri):
+    email_db = db.Email.objects.get(id=uri2id(uri))
+    email_db.delete()
+
+
 def _2json(email_db):
     email_dict = {
         'id': email_db.id,

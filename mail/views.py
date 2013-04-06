@@ -51,6 +51,12 @@ def edit( request, id ):
     )
 
 
+def delete( request, id ):
+    email_uri = mail_api.id2uri(id)
+    mail_api.delete_email(email_uri)
+    return http.HttpResponseRedirect(reverse('mail_schedule'))
+
+
 def schedule( request ):
     context = {
         'schedule': mail_api.get_emails()
