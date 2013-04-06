@@ -37,8 +37,12 @@ def _2json(email_db):
         'id': email_db.id,
         'subject': email_db.subject,
         'text_body': email_db.text_body,
-        'html_body': email_db.html_body
+        'html_body': email_db.html_body,
     }
+    if email_db.date_scheduled:
+        email_dict['date_scheduled'] = email_db.date_scheduled
+    if email_db.date_sent:
+        email_dict['date_sent'] = email_db.date_sent
     return email_dict
 
 
@@ -51,5 +55,7 @@ def get_emails():
     return [_2json(em) for em in db.Email.objects.all()]
 
 
-def schedule_email(uri, send_datetime):
-    pass
+def schedule_email(uri, scheduled_datetime):
+    email_db = db.Email.objects.get(id=uri2id(uri))
+    email_db.date_scheduled = scheduled_datetime
+    email_db.save()

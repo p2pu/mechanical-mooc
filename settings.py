@@ -180,4 +180,4 @@ djcelery.setup_loader()
 import dj_database_url
 DATABASES['default'] =  dj_database_url.config(default='sqlite:///{0}'.format(path('db.sqlite')))
 
-DEFAULT_FROM_EMAIL = 'machine@mechanicalmooc.org'
+DEFAULT_FROM_EMAIL = 'missioncontrol@data.p2pu.org'

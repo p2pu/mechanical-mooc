@@ -43,8 +43,8 @@
           <!-- This works better in the newer bootstrap but it breaks too much other stuff -->
             <div class="input-prepend input-append">
                 <span class="add-on">Send a test email to</span>
-                <input id="test_email" class="span3" name="test_email" type="text"/>
-                <button id="send_preview" class="btn btn-success disabled"><i class="icon-ok"></i> Send Preview</button>
+                <input id="test_email" class="span3" name="test_email" type="email"/>
+                <button id="send_preview" class="btn btn-success"><i class="icon-ok"></i> Send Preview</button>
             </div>
             <br/>
             <button id="finish" type="submit" class="btn btn-large">Save email</button>
@@ -80,7 +80,7 @@
     });
 
     $('#send_preview').live('click', function(){
-      $.post("./admin/send-test-email", $("#emailForm").serialize());
+      $.post("{% url mail_send_preview %}", $("#emailForm").serialize());
       return false;
     });
 

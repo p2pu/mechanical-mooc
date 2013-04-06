@@ -16,7 +16,7 @@ def send_email(to_email, from_email, subject, text_body, html_body=None):
         'text': text_body
     }
     if html_body:
-        data['html'] = html_body
+        post_data['html'] = html_body
     sub_url = '/'.join([settings.MAILGUN_API_DOMAIN, 'messages'])
     resp = call_mailgun('POST', sub_url, post_data)
     if resp.status_code != 200:

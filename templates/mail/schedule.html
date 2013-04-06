@@ -24,9 +24,14 @@
               {{ mail.text_body|truncatewords:10 }}
             </td>
             <td>
-              <form>
-                <input id="id_date" type="datetime" {% if mail.send_date %}value="{{mail.send_date}}"{% endif %}>
+              {% if mail.date_sent %}
+                sent at {{mail.date_sent}}
+              {% else %}
+              <form action="{% url mail_schedule_email mail.id %}">
+                {% csrf_token %}
+                <input id="id_date_{{ mail.id }}" name="scheduled_date" type="datetime" {% if mail.scheduled_date %}value="{{mail.send_date}}"{% endif %}>
               </form>
+              {% endif %}
             </td>
             <td>
               <a class="btn" href="{% url mail_edit mail.id %}"><i class="icon-edit"></i> edit email</a>
@@ -45,7 +50,11 @@
 {% block js %}
   <script type="text/javascript">
     $(document).ready(function () {
-      $('input[type=datetime]').datepicker();
+      $('input[type=datetime]').datepicker({
+          onSelect: function(date, obj) {
+              $.post($(this).closest('form').attr('action'), $(this).closest('form').serialize());
+          }
+      });
     });
   </script>
 {% endblock %}
