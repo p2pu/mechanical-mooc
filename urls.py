@@ -17,6 +17,7 @@ urlpatterns = patterns('',
 
     url(r'', include('signup.urls')),
     url(r'^mail/', include('mail.urls')),
+    url(r'accounts/login/', 'django.contrib.auth.views.login'),
 )
 
 #TODO - not the best way!

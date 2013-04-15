@@ -5,7 +5,7 @@ from datetime import datetime
 from django.utils import simplejson
 
 from signup import db
-from signup.tasks import send_welcome_email
+from signup.emails import send_welcome_email
 
 def create_signup( email, questions ):
     if db.UserSignup.objects.filter(email=email).exists():
@@ -21,8 +21,7 @@ def create_signup( email, questions ):
         date_updated=datetime.utcnow()
     )
     signup.save()
-
-    send_welcome_email.apply_async((email,))
+    send_welcome_email(email)
 
     return get_signup(email)
 

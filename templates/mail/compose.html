@@ -23,7 +23,7 @@
             Tags<br />
             <small>Available tags include: sequence_*, course, intro, week_*, encourage, assignment</small>
           </label>
-          <input id="tags" name="tags" type="text"/>
+          <input id="tags" name="tags" type="text" {% if email.tags %}value="{{ email.tags }}"{% endif %}/>
           <label>
             Subject
           </label>
@@ -70,7 +70,6 @@
         showAutocompleteOnFocus: true,
         availableTags: ["intro", "course", "sequence_1", "week_*", "sequence_2", "sequence_3", "assignment", "encourage"]
       });
-      $("#tags").hide();
 
       $("#body_text").wysihtml5({
         "html": true,

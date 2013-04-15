@@ -9,7 +9,7 @@
           <th></th>
           <th>Subject</th>
           <th>Text</th>
-          <th>Date</th>
+          <th>Send at</th>
           <th></th>
         </tr>
       </thead>
@@ -29,7 +29,24 @@
               {% else %}
               <form action="{% url mail_schedule_email mail.id %}">
                 {% csrf_token %}
-                <input id="id_date_{{ mail.id }}" name="scheduled_date" type="datetime" {% if mail.scheduled_date %}value="{{mail.send_date}}"{% endif %}>
+                <input id="id_date_{{ mail.id }}" name="scheduled_date" type="datetime" {% if mail.date_scheduled %}value="{{mail.date_scheduled.date.isoformat}}"{% endif %}>
+                <select id="id_time_{{mail.id}}" name="scheduled_time">
+                  <option value="0600">06:00</option>
+                  <option value="0700">07:00</option>
+                  <option value="0800">08:00</option>
+                  <option value="0900">09:00</option>
+                  <option value="1000">10:00</option>
+                  <option value="1100">11:00</option>
+                  <option value="1200">12:00</option>
+                  <option value="1300">13:00</option>
+                  <option value="1400">14:00</option>
+                  <option value="1500">15:00</option>
+                  <option value="1600">16:00</option>
+                  <option value="1700">17:00</option>
+                  <option value="1800">18:00</option>
+                  <option value="1900">19:00</option>
+                  <option value="2000">20:00</option>
+                </select>
               </form>
               {% endif %}
             </td>
@@ -53,7 +70,11 @@
       $('input[type=datetime]').datepicker({
           onSelect: function(date, obj) {
               $.post($(this).closest('form').attr('action'), $(this).closest('form').serialize());
-          }
+          },
+          dateFormat: "yy-mm-dd",
+      });
+      $('select').change(function(obj){
+         $.post($(this).closest('form').attr('action'), $(this).closest('form').serialize());
       });
     });
   </script>
