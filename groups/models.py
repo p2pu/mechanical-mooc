@@ -1,4 +1,8 @@
+from django.conf import settings
+
 from groups import db
+
+from mailgun import api as mailgun_api
 
 
 def group_uri2id( group_uri ):
@@ -12,7 +16,8 @@ def group_id2uri( group_id ):
 def create_group( address, description ):
     group_db = db.Group(address=address, description=description)
     group_db.save()
-    #TODO create mailgun groups
+    mailgun_api.create_list(address, description=description, access_level='members')
+    mailgun_api.add_list_member(address, settings.DEFAULT_FROM_EMAIL)
     return get_group(group_id2uri(group_db.id))
 
 
@@ -41,9 +46,11 @@ def add_group_member( group_uri, member_email ):
     group_db = db.Group.objects.get(id=group_id)
     member = db.GroupMember(email=member_email, group=group_db)
     member.save()
+    mailgun_api.add_list_member(group_db.address, member.email)
 
 
 def remove_group_member( group_uri, member_email ):
+    raise Exception('Not implemented')
     group_id = group_uri2id(group_uri)
     group_db = db.Group.objects.get(id=group_id)
     group_db.members.get(email=member_email).delete()

@@ -8,7 +8,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
 from mail import models as mail_api
-from signup import mailgun
+from mailgun import api as mailgun_api
 
 import bleach
 import datetime
@@ -65,7 +65,7 @@ def send_preview( request ):
         html_body = request.POST.get('body_text')
         text_body = _clean_html(html_body)
         to_email = request.POST.get('test_email')
-        mailgun.send_email(to_email, settings.DEFAULT_FROM_EMAIL, subject, text_body, html_body)
+        mailgun_api.send_email(to_email, settings.DEFAULT_FROM_EMAIL, subject, text_body, html_body)
         return http.HttpResponseRedirect(reverse('mail_schedule'))
     raise Exception()
 
