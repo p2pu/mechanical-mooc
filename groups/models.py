@@ -24,7 +24,6 @@ def _group2json(group_db):
     }
     group['members'] = [member.email for member in group_db.members.all()]
     return group
- 
 
 
 def get_group( group_uri ):

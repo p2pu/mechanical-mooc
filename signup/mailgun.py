@@ -51,7 +51,6 @@ def add_list_member(list_address, member_address):
         raise Exception(resp.text)
 
 
-
 def remove_list_member(list_address, member_address):
     resp = call_mailgun(
         'DELETE', 
@@ -60,5 +59,3 @@ def remove_list_member(list_address, member_address):
     )
     if resp.status_code != 200:
         raise Exception(resp.text)
-
-

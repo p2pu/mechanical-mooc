@@ -13,15 +13,16 @@ def create_signup( email, questions ):
     invite_code=''.join([
         random.choice(string.letters+string.digits) for i in range(32)
     ])
+    now = datetime.utcnow()
     signup = db.UserSignup(
         email=email,
         invite_code=invite_code,
         questions=simplejson.dumps(questions),
-        date_added=datetime.utcnow(),
-        date_updated=datetime.utcnow()
+        date_added=now,
+        date_updated=now
     )
     signup.save()
-    send_welcome_email(email)
+    #send_welcome_email(email)
 
     return get_signup(email)
 
