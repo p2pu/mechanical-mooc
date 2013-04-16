@@ -1,4 +1,5 @@
 import db
+import datetime
 
 def id2uri(id):
     return '/uri/mail/{0}'.format(id)
@@ -27,6 +28,12 @@ def update_email(uri, subject, text_body, html_body, tags):
     email_db.tags = tags
     email_db.save()
     return get_email(uri)
+
+
+def mark_sent(uri):
+    email_db = db.Email.objects.get(id=uri2id(uri))
+    email_db.date_sent = datetime.datetime.utcnow()
+    email_db.save()
 
 
 def delete_email(uri):

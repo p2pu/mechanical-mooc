@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from mail import models as mail_api
 from mailgun import api as mailgun_api
 
+from groups import models as group_api
+
 import bleach
 import datetime
 
@@ -68,6 +70,25 @@ def send_preview( request ):
         mailgun_api.send_email(to_email, settings.DEFAULT_FROM_EMAIL, subject, text_body, html_body)
         return http.HttpResponseRedirect(reverse('mail_schedule'))
     raise Exception()
+
+
+@login_required
+def send( request, id ):
+    email_uri = mail_api.id2uri(id)
+
+    email = mail_api.get_email(email_uri)
+    group_addresses = ','.join([g['address'] for g in group_api.get_groups()])
+
+    mailgun_api.send_email(
+        group_addresses,
+        settings.DEFAULT_FROM_EMAIL,
+        email['subject'],
+        email['text_body'],
+        email['html_body']
+    )
+    mail_api.mark_sent(email_uri)
+
+    return http.HttpResponseRedirect(reverse('mail_schedule'))
 
 
 @login_required

@@ -8,15 +8,24 @@ def call_mailgun(method, api_sub_url, data):
     return requests.request(method, api_url, auth=auth, data=data)
 
 
-def send_email(to_email, from_email, subject, text_body, html_body=None):
+def send_email(to_email, from_email, subject, text_body, html_body=None, cc_email=None, bcc_email=None):
     post_data = {
         'from': from_email,
         'to': to_email,
         'subject': subject,
-        'text': text_body
+        'text': text_body,
+        'o:tracking': 'yes',
+        'o:tracking-clicks': 'yes',
+        'o:tracking-opens': 'yes',
     }
+
     if html_body:
         post_data['html'] = html_body
+    if cc_email:
+        post_data['cc'] = cc_email
+    if bcc_email:
+        post_data['bcc'] = bcc_email
+
     sub_url = '/'.join([settings.MAILGUN_API_DOMAIN, 'messages'])
     resp = call_mailgun('POST', sub_url, post_data)
     if resp.status_code != 200:
