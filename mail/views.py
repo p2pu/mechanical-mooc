@@ -84,7 +84,8 @@ def send( request, id ):
         settings.DEFAULT_FROM_EMAIL,
         email['subject'],
         email['text_body'],
-        email['html_body']
+        email['html_body'],
+        email['tags'].split(',')
     )
     mail_api.mark_sent(email_uri)
 
