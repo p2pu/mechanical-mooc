@@ -59,3 +59,27 @@ def remove_list_member(list_address, member_address):
     )
     if resp.status_code != 200:
         raise Exception(resp.text)
+
+
+def get_list(list_address):
+    resp = call_mailgun(
+        'GET',
+        'lists/{address}'.format(address=list_address),
+        {}
+    )
+    if resp.status_code == 404:
+        return None
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+    return resp.json()
+
+
+def get_list_members(list_address):
+    resp = call_mailgun(
+        'GET',
+        'lists/{address}/members'.format(address=list_address),
+        {}
+    )
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+    return resp.json()['items']
