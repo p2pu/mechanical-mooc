@@ -2,59 +2,35 @@ from groups import models as group_model
 from signup import models as signup_model
 
 import random
+import math
 
 def prepare_groups(max_group_size=20):
     """ Calculate grouping """
 
     # get all signups
     signups = signup_model.get_signups()
-    groups = []
 
-    # add to timezone buckets
-    timezone_buckets = {}
     for user_signup in signups:
         #NOTE: this is an implicit requirement on the data needed in questions - not good!
         timezone = user_signup['questions']['timezone']
-        if timezone in timezone_buckets:
-            timezone_buckets[timezone] += [user_signup]
-        else:
-            timezone_buckets[timezone] = [user_signup]
+        tz_offset = int(timezone[:timezone.index(' ')].replace(':',''))
+        if tz_offset == -1200:
+            tz_offset = 1200
+        user_signup['tz_offset'] = tz_offset
 
-    # randomly group within timezone
-    for timezone, signups in timezone_buckets.items():
-
-        # create groups of max_group_size while there are enough signups
-        timezone_groups = []
-        while len(signups) >= max_group_size:
-            sample = random.sample(range(len(signups)), max_group_size)
-            members = [signups[i] for i in sample]
-            timezone_groups.append({
-                'timezone': timezone,
-                'members': members
-            })
-            signups = [s for s in signups if s not in members]
-
-        # distribute the remaining users between the timezone groups
-        while len(timezone_groups) > 0 and len(signups) > 0:
-            sample_groups = random.sample(timezone_groups, min(len(signups), len(timezone_groups)))
-            for i, group in enumerate(sample_groups):
-                group['members'].append(signups[i])
-
-            del signups[:len(sample_groups)]
-
-        groups += timezone_groups
-
-    # group remaining signups with different timezones
-    #TODO
-
+    tz_sorted_signups = sorted(signups, key=lambda x: x['tz_offset'])
+    groups = [ tz_sorted_signups[i:min(i+max_group_size, len(tz_sorted_signups))] for i in range(0,len(tz_sorted_signups), max_group_size)]
     return groups
 
 
 def create_groups(groups, name_prefix="Group"):
-    """ Create the groups in the backed """
+    """ Create the groups in the backend """
     for i, group_data in enumerate(groups):
-        group = group_model.create_group("{0} {1}".format(name_prefix, i))
+        group_address = "{0}-{1}@data.p2pu.org".format(name_prefix.lower().replace(' ','-'), i+1)
+        group_name = "{0} {1}: {2} to {3}".format(name_prefix, i+1, group_data[0]['tz_offset'], group_data[-1]['tz_offset'])
+        print(group_name)
+        group = group_model.create_group(group_address, group_name)
 
-        for member in group_data['members']:
+        for member in group_data:
             group_model.add_group_member(group['uri'], member['email'])
 
