@@ -100,6 +100,6 @@ def schedule_email( request, id ):
     time_text = request.POST.get('scheduled_time')
     if len(date_text):
         date_text += time_text
-        dt = datetime.datetime.strptime(date_text, '%Y-%m-%d%H%M')
+        dt = datetime.datetime.strptime(date_text, '%Y-%m-%d%H:%M')
         mail_api.schedule_email(email_uri, dt)
     return http.HttpResponse('')
