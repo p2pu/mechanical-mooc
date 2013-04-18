@@ -44,6 +44,7 @@ def delete_email(uri):
 def _2json(email_db):
     email_dict = {
         'id': email_db.id,
+        'uri': id2uri(email_db.id),
         'subject': email_db.subject,
         'text_body': email_db.text_body,
         'html_body': email_db.html_body,
