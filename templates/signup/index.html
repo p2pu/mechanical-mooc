@@ -56,7 +56,7 @@
     </div>
     <div class="row">
       <div class="span8 offset2">
-        <form id="infoForm" class="form-horizontal">
+        <form id="infoForm" class="form-horizontal" action="{% url signup %}" method="POST">
           {% csrf_token %}
           <input id="hiddenEmailField" type="hidden" name="email"></hidden>
           <fieldset>
@@ -197,22 +197,6 @@
     </div>
   </div>
 
-  <div id="step3" class="container hide">
-    <div class="row">
-      <div class="span8 offset2">
-        <iframe width="420" height="315" src="http://www.youtube-nocookie.com/embed/BZ-CSwjuQ1s?rel=0" frameborder="0" allowfullscreen></iframe>
-        <br />
-        <h1>You filled that form out <em>nice, nice, baby</em>.</h1>
-        <h2>We'll shoot you an email, real soon. Like now-ish.</h2>
-        <br />
-        <p>Don't keep it to yourself, invite your friends to join <strong>A Gentle Introduction to Python</strong> with you.</p>
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://mechanicalmooc.org" data-text="Join me in &quot;A Gentle Introduction to Python.&quot;" data-via="p2pu">Tweet</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-        <br />
-iv class="fb-like" data-href="http://mechanicalmooc.org" data-send="false" data-layout="button_count" data-width="107" data-show-faces="true"></div>
-      </div>
-    </div>
-  </div>
 {% endblock %}
 
 {% block js %}
@@ -268,21 +252,7 @@ iv class="fb-like" data-href="http://mechanicalmooc.org" data-send="false" data-
         },
         errorPlacement: function() {},
         submitHandler: function(form) {
-          $("#finish").addClass("disabled").attr("disabled", "disabled");
-          $.ajax({  
-            type: "POST",  
-            url: "/signup",  
-            data: $("#infoForm").serialize(),  
-            success: function() {  
-              $("#step2").hide("slide", { direction: "left" } , 500, function() {
-                $("#step3").show("slide", { direction: "right" }, 500);
-              });
-            },
-            error: function() {
-              alert('Some error occured, please try again');
-              $("#finish").removeClass("disabled").removeAttr("disabled");
-            },
-          });  
+          form.submit();
         }
       });
 

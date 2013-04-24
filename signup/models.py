@@ -22,7 +22,7 @@ def create_signup( email, questions ):
         date_updated=now
     )
     signup.save()
-    #send_welcome_email(email)
+    send_welcome_email(email)
 
     return get_signup(email)
 
