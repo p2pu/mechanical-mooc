@@ -10,19 +10,11 @@ from signup import models as signup_models
 from mock import patch
 
 class SimpleTest(TestCase):
-    def setUp(self):
-        self.send_welcome_email_patcher = patch('signup.models.send_welcome_email')
-        self.send_welcome_email_mock = self.send_welcome_email_patcher.start()
-
-    def tearDown(self):
-        self.send_welcome_email_patcher.stop()
-
     def test_create_signup(self):
         """
         Test creation of a signup
         """
         signup_models.create_signup('dirk@mail.com', {'q1':'a1', 'q2':'a2', 'q3':'a3'})
-        self.assertTrue(self.send_welcome_email_mock.called)
         signup = signup_models.get_signup('dirk@mail.com')
         self.assertEqual(signup['email'], 'dirk@mail.com')
         self.assertEqual(signup['questions']['q1'], 'a1')
@@ -53,3 +45,12 @@ class SimpleTest(TestCase):
 
         self.assertEqual(len(signup_models.get_signups()), 4)
 
+    def test_welcome_email(self):
+        signup_models.create_or_update_signup('user1@mail.com', {'q1':'a1', 'q2':'a2', 'q3':'a3'})
+        self.assertEqual(len(signup_models.get_new_signups()), 1)
+
+        with patch('signup.models.emails.send_welcome_email') as send_email:
+            signup_models.send_welcome_email('user1@mail.com')
+            self.assertTrue(send_email.called)
+
+        self.assertEqual(len(signup_models.get_new_signups()), 0)

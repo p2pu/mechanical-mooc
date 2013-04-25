@@ -5,7 +5,7 @@ from datetime import datetime
 from django.utils import simplejson
 
 from signup import db
-from signup.emails import send_welcome_email
+from signup import emails
 
 def create_signup( email, questions ):
     if db.UserSignup.objects.filter(email=email).exists():
@@ -22,7 +22,6 @@ def create_signup( email, questions ):
         date_updated=now
     )
     signup.save()
-    #send_welcome_email(email)
 
     return get_signup(email)
 
@@ -35,7 +34,7 @@ def update_signup( email, questions ):
         old_questions[key] = value
 
     signup_db.questions = simplejson.dumps(old_questions)
-    signup_db.date_updated=datetime.utcnow()
+    signup_db.date_updated = datetime.utcnow()
     signup_db.save()
 
 
@@ -68,3 +67,20 @@ def get_signup( email ):
 
 def get_signups( ):
     return [_signup2json(signup) for signup in db.UserSignup.objects.all()]
+
+
+def get_new_signups( ):
+    """ get signups where the welcome email hasn't been sent yet """
+    signups = db.UserSignup.objects.filter(date_welcome_email_sent__isnull=True)
+    return [_signup2json(signup) for signup in signups]
+
+
+def send_welcome_email( email ):
+    """ send welcome email to user and update db """
+    signup_db = db.UserSignup.objects.get(email=email)
+    if signup_db.date_welcome_email_sent:
+        raise Exception('Welcome email already sent!')
+    emails.send_welcome_email(signup_db.email)
+    signup_db.date_welcome_email_sent = datetime.utcnow()
+    signup_db.save()
+
