@@ -75,12 +75,22 @@ def get_new_signups( ):
     return [_signup2json(signup) for signup in signups]
 
 
+def send_welcome_emails( ):
+    """ send welcome email to new users and update db """
+    signups = db.UserSignup.objects.filter(date_welcome_email_sent__isnull=True)[:500]
+    while len(signups):
+        emails.send_welcome_emails([signup.email for signup in signups])
+        db.UserSignup.objects.filter(id__in=signups.values('id')).update(date_welcome_email_sent=datetime.utcnow())
+        
+        signups = db.UserSignup.objects.filter(date_welcome_email_sent__isnull=True)[:500]
+
+
 def send_welcome_email( email ):
     """ send welcome email to user and update db """
     signup_db = db.UserSignup.objects.get(email=email)
     if signup_db.date_welcome_email_sent:
         raise Exception('Welcome email already sent!')
-    emails.send_welcome_email(signup_db.email)
+    emails.send_welcome_emails([signup_db.email])
     signup_db.date_welcome_email_sent = datetime.utcnow()
     signup_db.save()
 

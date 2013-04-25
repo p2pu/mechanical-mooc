@@ -7,7 +7,9 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 from signup import models as signup_models
+from signup import randata
 from mock import patch
+import math
 
 class SimpleTest(TestCase):
     def test_create_signup(self):
@@ -45,12 +47,27 @@ class SimpleTest(TestCase):
 
         self.assertEqual(len(signup_models.get_signups()), 4)
 
+
     def test_welcome_email(self):
         signup_models.create_or_update_signup('user1@mail.com', {'q1':'a1', 'q2':'a2', 'q3':'a3'})
         self.assertEqual(len(signup_models.get_new_signups()), 1)
 
-        with patch('signup.models.emails.send_welcome_email') as send_email:
+        with patch('signup.models.emails.send_welcome_emails') as send_email:
             signup_models.send_welcome_email('user1@mail.com')
             self.assertTrue(send_email.called)
+
+        self.assertEqual(len(signup_models.get_new_signups()), 0)
+
+
+    def test_scale_welcome_email(self):
+        for signup in randata.random_data(2000):
+            signup_models.create_or_update_signup(**signup)
+
+        signups = len(signup_models.get_new_signups())
+
+        with patch('signup.models.emails.send_welcome_emails') as send_email:
+            signup_models.send_welcome_emails()
+            self.assertTrue(send_email.called)
+            self.assertEqual(send_email.call_count, math.ceil(signups/500.0))
 
         self.assertEqual(len(signup_models.get_new_signups()), 0)

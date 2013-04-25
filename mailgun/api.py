@@ -1,6 +1,7 @@
 import requests
 from requests.auth import HTTPBasicAuth
 from django.conf import settings
+import django.utils.simplejson as json
 
 def call_mailgun(method, api_sub_url, data):
     api_url = '/'.join([settings.MAILGUN_API_URL.strip('/'), api_sub_url.strip('/')])
@@ -9,21 +10,34 @@ def call_mailgun(method, api_sub_url, data):
 
 
 def send_email(to_email, from_email, subject, text_body, html_body=None, tags=None):
-    post_data = {
-        'from': from_email,
-        'to': to_email,
-        'subject': subject,
-        'text': text_body,
-        'o:tracking': 'yes',
-        'o:tracking-clicks': 'yes',
-        'o:tracking-opens': 'yes',
-    }
+    return send_mass_email(
+        [to_email],
+        from_email,
+        subject,
+        text_body,
+        html_body=None,
+        tags=None
+    )
+
+
+def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, tags=None):
+    """ send email to multiple users, but each being to only one in the to field """
+    post_data = [
+        ('from', from_email),
+        ('subject', subject),
+        ('text', text_body),
+        ('o:tracking', 'yes'),
+        ('o:tracking-clicks', 'yes'),
+        ('o:tracking-opens', 'yes'),
+    ]
+
+    post_data += [ ('to', to_email) for to_email in to_emails ]
+    post_data += [ ('recipient-variables', [json.dumps({to_email:{}}) for to_email in to_emails] ) ]
 
     if html_body:
-        post_data['html'] = html_body
+        post_data += [('html', html_body),]
  
     if tags:
-        post_data = post_data.items()
         post_data += [ ("o:tag", tag) for tag in tags]
 
     sub_url = '/'.join([settings.MAILGUN_API_DOMAIN, 'messages'])
