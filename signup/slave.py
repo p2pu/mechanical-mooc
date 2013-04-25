@@ -7,12 +7,12 @@ import re
 
 def signup(email, questions):
 
-    csrf_url = 'http://localhost:8000'
+    csrf_url = 'http://mooc-signup-test.herokuapp.com'
     resp = requests.get(csrf_url)
     match = re.search(u".*csrfmiddlewaretoken'\ value='(?P<token>[a-z,A-Z,0-9]+)'", resp.text)
     csrf_token = match.groups('token')[0]
 
-    signup_url = 'http://localhost:8000/signup'
+    signup_url = 'http://mooc-signup-test.herokuapp.com/signup'
     signup_data = {
         'csrfmiddlewaretoken': csrf_token,
         'email': email,
@@ -23,16 +23,17 @@ def signup(email, questions):
     if resp.status_code != 200:
         print(resp.text)
 
+master_address = sys.argv[1]
 
 context = zmq.Context()
 
 # Socket to receive messages on
 receiver = context.socket(zmq.PULL)
-receiver.connect("tcp://localhost:5557")
+receiver.connect("tcp://{}:5557".format(master_address))
 
-
+# Socket to sync with master
 sync = context.socket(zmq.PUSH)
-sync.connect("tcp://localhost:5558")
+sync.connect("tcp://{}:5558".format(master_address))
 sync.send('Reporting for duty')
 
 # Process tasks forever
