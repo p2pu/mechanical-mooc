@@ -74,6 +74,20 @@ timezones = {
     "Pacific/Kiritimati": "+14:00"
 }
 
+group_choices = [ 0.8 < random.random() for i in range(1000) ]
+
+expertise_choices = [
+    "none",
+    "helloworld",
+    "worlddominatingai"
+]
+
+style_choices = [
+    "try",
+    "think",
+    "discuss"
+]
+
 
 names = ['Adam', 'Andrew', 'Angus', 'Brylie', 'Bob', 'Bryan', 'Bruce', 'Charles', 'Chris', 'Colin', 'Dirk', 'David', 'Drew', 'Emille', 'Evan', 'Ethan', 'Frank', 'Francois', 'Fred', 'Graig', 'Greg', 'Graham', 'Harry', 'Henry', 'Howard', 'Ignus', 'Ivan', 'Issiah', 'John', 'James', 'Jeff', 'Kevin', 'Kyle', 'Kim', 'Lennard', 'Leon', 'Lee', 'Mark', 'Mike', 'Manfred', 'Nathan', 'Nevin', 'Neil', 'Oscar', 'Oliver', 'Omar', 'Philip', 'Patrick', 'Peter', 'Quintin', 'Quepid', 'Qwaga', 'Richard', 'Randalph', 'Ricardo', 'Steven', 'Shane', 'Shaun', 'Travis', 'Trevor', 'Tony', 'Uhail', 'Ushaad', 'Umar', 'Vince', 'Viper', 'Van', 'William', 'Winston', 'Warren', 'Xavier', 'Xinadu', 'Xally', 'Yoris', 'Yoda', 'Yull', 'Zane', 'Zett', 'Zorba' ]
 
@@ -92,5 +106,18 @@ def random_email():
     last = random.choice(last_names).lower().replace(' ','')
     return random.choice(formats).format(name=name, surname=last, provider='mail.com')
 
-def random_signup(limit):
-    return ({'email': random_email(), 'questions': {'timezone': random.choice(timezones.values())}} for i in range(limit))
+def random_signup():
+    signup = {
+        'email': random_email(),
+        'questions': {
+            'timezone': random.choice(timezones.keys()),
+            'expertiseRadios': random.choice(expertise_choices),
+            'styleRadios': random.choice(style_choices),
+            'groupRadios': random.choice(group_choices)
+        }
+    }
+    return signup
+
+
+def random_data(size):
+    return (random_signup() for i in range(size))
