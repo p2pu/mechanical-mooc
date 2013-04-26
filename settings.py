@@ -174,4 +174,4 @@ MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY', '')
 import dj_database_url
 DATABASES['default'] =  dj_database_url.config(default='sqlite:///{0}'.format(path('db.sqlite')))
 
-DEFAULT_FROM_EMAIL = 'missioncontrol@data.p2pu.org'
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'missioncontrol@data.p2pu.org')
