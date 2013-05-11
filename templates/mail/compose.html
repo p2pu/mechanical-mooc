@@ -4,7 +4,6 @@
   <!-- Le styles -->
   <link href="{{STATIC_URL}}css/customizations.css" rel="stylesheet">
   <link href="{{STATIC_URL}}css/jquery.tagit.css" rel="stylesheet">
-  <link href="{{STATIC_URL}}css/bootstrap-wysihtml5-0.0.2.css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -35,10 +34,6 @@
           <textarea id="body_text" name="body_text" class="full-width"
             type="text" rows="20" placeholder="Hello MooCers...">{% if email.html_body %}{{ email.html_body }}{% endif %}</textarea>
          
-          <label class="checkbox">
-            <input type="checkbox" name="include_footer" checked="checked"> Include the sequence footer?
-          </label>
-
           <div class="form-actions">
           <!-- This works better in the newer bootstrap but it breaks too much other stuff -->
             <div class="input-prepend input-append">
@@ -60,20 +55,19 @@
   {% block js %}
 
   <script src="{{STATIC_URL}}js/tag-it.js"></script>
-  <script src="{{STATIC_URL}}js/wysihtml5.min.js"></script>
-  <script src="{{STATIC_URL}}js/bootstrap-wysihtml5-0.0.2.min.js"></script>
+  <script src="{{STATIC_URL}}ckeditor/ckeditor.js"></script>
+  <script src="{{STATIC_URL}}ckeditor/styles.js"></script>
+  <script src="{{STATIC_URL}}ckeditor/config.js"></script>
+
   
   <script>
     $(document).ready(function () {
 
+      CKEDITOR.replace("body_text");
+
       $("#tags").tagit({
         showAutocompleteOnFocus: true,
         availableTags: ["intro", "course", "sequence_1", "week_*", "sequence_2", "sequence_3", "assignment", "encourage"]
-      });
-
-      $("#body_text").wysihtml5({
-        "html": true,
-        "color": true
       });
 
     });
