@@ -98,8 +98,16 @@ def schedule_email( request, id ):
     email_uri = mail_api.id2uri(id)
     date_text = request.POST.get('scheduled_date')
     time_text = request.POST.get('scheduled_time')
-    if len(date_text):
-        date_text += time_text
-        dt = datetime.datetime.strptime(date_text, '%Y-%m-%d%H:%M')
-        mail_api.schedule_email(email_uri, dt)
+
+    if len(date_text) == 0:
+        return http.HttpResponse(_('Please choose a date.'), status=400)
+
+    if len(time_text) == 0:
+        return http.HttpResponse(_('Please choose a time.'), status=400)
+
+    date_text += time_text
+    dt = datetime.datetime.strptime(date_text, '%Y-%m-%d%H:%M')
+    if dt < datetime.datetime.utcnow():
+        return http.HttpResponse(_('Scheduled time is in the past'), status=400)
+    mail_api.schedule_email(email_uri, dt)
     return http.HttpResponse('')
