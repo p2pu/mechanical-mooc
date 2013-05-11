@@ -15,8 +15,8 @@ def send_email(to_email, from_email, subject, text_body, html_body=None, tags=No
         from_email,
         subject,
         text_body,
-        html_body=None,
-        tags=None
+        html_body,
+        tags
     )
 
 
