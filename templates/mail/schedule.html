@@ -15,6 +15,7 @@
           <th></th>
           <th>Subject</th>
           <th>Text</th>
+          <th>Tags</th>
           <th>Send at (UTC)</th>
           <th></th>
         </tr>
@@ -28,6 +29,9 @@
             </td>
             <td>
               {{ mail.text_body|truncatewords:10 }}
+            </td>
+            <td>
+              {{ mail.tags }}
             </td>
             <td>
               {% if mail.date_sent %}
@@ -61,7 +65,6 @@
 {% block js %}
 
   <script type="text/javascript" src="{{STATIC_URL}}/timepicker/jquery.timepicker.js"></script>
-  <!--script type="text/javascript" src="{{STATIC_URL}}/timepicker/lib/base.js"></script-->
 
   <script type="text/javascript">
 
