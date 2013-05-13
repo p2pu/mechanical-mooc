@@ -3,9 +3,12 @@ import string
 from datetime import datetime
 
 from django.utils import simplejson
+from django.conf import settings
 
 from signup import db
 from signup import emails
+
+from mailgun import api as mailgun_api
 
 def create_signup( email, questions ):
     if db.UserSignup.objects.filter(email=email).exists():
@@ -75,13 +78,16 @@ def get_new_signups( ):
     return [_signup2json(signup) for signup in signups]
 
 
-def send_welcome_emails( ):
-    """ send welcome email to new users and update db """
+def handle_new_signups( ):
+    """ Send welcome email to new users.
+        Add them to a general mailing list. 
+        Update db when done. """
     signups = db.UserSignup.objects.filter(date_welcome_email_sent__isnull=True)[:500]
     while len(signups):
         emails.send_welcome_emails([signup.email for signup in signups])
+        for signup in signups:
+            add_user_to_global_list(signup.email)
         db.UserSignup.objects.filter(id__in=signups.values('id')).update(date_welcome_email_sent=datetime.utcnow())
-        
         signups = db.UserSignup.objects.filter(date_welcome_email_sent__isnull=True)[:500]
 
 
@@ -94,3 +100,7 @@ def send_welcome_email( email ):
     signup_db.date_welcome_email_sent = datetime.utcnow()
     signup_db.save()
 
+
+def add_user_to_global_list( email ):
+    """ add user to email list that gets all emails """
+    mailgun_api.add_list_member('sequence-{0}-all@{1}'.format(4, settings.EMAIL_DOMAIN), email)
