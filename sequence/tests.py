@@ -26,7 +26,7 @@ class SimpleTest(TestCase):
         start_date = now + datetime.timedelta(weeks=8)
         signup_close_date = now + datetime.timedelta(weeks=7)
 
-        sequence = sequence_model.create_new_sequence(
+        sequence = sequence_model.create_sequence(
             start_date, signup_close_date
         )
 
@@ -34,12 +34,70 @@ class SimpleTest(TestCase):
         self.assertEquals(sequence['signup_close_date'], signup_close_date)
         self.assertTrue(self.create_list_patch.called)
 
+
+    def test_get_current_sequence(self):
+        current_sequence = sequence_model.get_current_sequence()
+
+        self.assertEquals(current_sequence, None)
+
+        now = datetime.datetime.utcnow().date()
+        start_date = now + datetime.timedelta(weeks=8)
+        signup_close_date = now + datetime.timedelta(weeks=7)
+
+        sequence = sequence_model.create_sequence(
+            start_date, signup_close_date
+        )
+        current_sequence = sequence_model.get_current_sequence()
+
+        self.assertEqual(sequence, current_sequence)
+
+
+    def test_multiple_sequences(self):
+        now = datetime.datetime.utcnow().date()
+
+        start_date = now - datetime.timedelta(weeks=16)
+        signup_close_date = now - datetime.timedelta(weeks=17)
+        sequence_model.create_sequence(
+            start_date, signup_close_date
+        )
+
+        start_date = now + datetime.timedelta(weeks=8)
+        signup_close_date = now + datetime.timedelta(weeks=7)
+        sequence = sequence_model.create_sequence(
+            start_date, signup_close_date
+        )
+
         start_date = now + datetime.timedelta(weeks=16)
         signup_close_date = now + datetime.timedelta(weeks=15)
-
-        sequence_model.create_new_sequence(
+        sequence_model.create_sequence(
             start_date, signup_close_date
         )
 
         current_sequence = sequence_model.get_current_sequence()
         self.assertEqual(sequence, current_sequence)
+
+
+    def test_get_all_sequences(self):
+        now = datetime.datetime.utcnow().date()
+
+        start_date = now - datetime.timedelta(weeks=16)
+        signup_close_date = now - datetime.timedelta(weeks=17)
+        sequence_model.create_sequence(
+            start_date, signup_close_date
+        )
+
+        start_date = now + datetime.timedelta(weeks=8)
+        signup_close_date = now + datetime.timedelta(weeks=7)
+        sequence = sequence_model.create_sequence(
+            start_date, signup_close_date
+        )
+
+        start_date = now + datetime.timedelta(weeks=16)
+        signup_close_date = now + datetime.timedelta(weeks=15)
+        sequence_model.create_sequence(
+            start_date, signup_close_date
+        )
+
+        all_sequences = sequence_model.get_all_sequences()
+        self.assertEqual(len(all_sequences), 3)
+        self.assertEqual(sequence, all_sequences[1])

@@ -13,7 +13,7 @@ def sequence2dict( sequence_db ):
     }
 
 
-def create_new_sequence( start_date, signup_close_date ):
+def create_sequence( start_date, signup_close_date ):
     sequence_db = db.Sequence(
         start_date = start_date,
         signup_close_date = signup_close_date
@@ -30,7 +30,15 @@ def create_new_sequence( start_date, signup_close_date ):
     return sequence2dict(sequence_db)
 
 
+def get_all_sequences( ):
+    return [ sequence2dict(seq) for seq in db.Sequence.objects.all() ]
+
+
 def get_current_sequence( ):
+    """ return the first sequence where signup_close_date is in the future """
     sequence_db = db.Sequence.objects.filter(signup_close_date__gt=datetime.datetime.utcnow()).order_by('start_date')
+
+    if sequence_db.count() == 0:
+        return None
 
     return sequence2dict(sequence_db[0])
