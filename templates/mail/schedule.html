@@ -74,12 +74,12 @@
             url: form.attr('action'),
             data: form.serialize(),
             success: function() {
-                info_span = form.find("#id_schedule_info")
+                info_span = form.find("#id_schedule_info");
                 info_span.html("Email scheduled");
                 info_span.removeClass("hidden alert-error").addClass("alert-success");
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                info_span = form.find("#id_schedule_info")
+                info_span = form.find("#id_schedule_info");
                 info_span.text(jqXHR.responseText);
                 info_span.removeClass("hidden").addClass("alert-error");
             }

@@ -16,6 +16,8 @@ import datetime
 
 
 def _clean_html(html):
+    #TODO rewrite links
+    #TODO remove all HTML markup!
     return bleach.clean(html, strip=True)
 
 
@@ -61,13 +63,14 @@ def edit( request, id ):
 
 @login_required
 def send_preview( request ):
+    """ ajax view to send preview email """
     if request.method == 'POST':
         subject = request.POST.get('subject')
         html_body = request.POST.get('body_text')
         text_body = _clean_html(html_body)
         to_email = request.POST.get('test_email')
         mailgun_api.send_email(to_email, settings.DEFAULT_FROM_EMAIL, subject, text_body, html_body)
-        return http.HttpResponseRedirect(reverse('mail_schedule'))
+        return http.HttpResponse('')
     raise Exception()
 
 

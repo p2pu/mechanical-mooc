@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
+
+
 {% block css %}
   <!-- Le styles -->
   <link href="{{STATIC_URL}}css/customizations.css" rel="stylesheet">
@@ -40,6 +43,12 @@
                 <span class="add-on">Send a test email to</span>
                 <input id="test_email" class="span3" name="test_email" type="email"/>
                 <button id="send_preview" class="btn btn-success"><i class="icon-ok"></i> Send Preview</button>
+                <span id="id_test_email_success" class="alert alert-success hidden">
+                  {% trans 'Test email sent.' %}
+                </span>
+                <span id="id_test_email_failure" class="alert alert-error hidden">
+                  {% trans 'Could not send test email.' %}
+                </span>
             </div>
             <br/>
             <button id="finish" type="submit" class="btn btn-large">Save email</button>
@@ -73,7 +82,19 @@
     });
 
     $('#send_preview').live('click', function(){
-      $.post("{% url mail_send_preview %}", $("#emailForm").serialize());
+      $.ajax({
+        type: "POST",
+        url: "{% url mail_send_preview %}", 
+        data: $("#emailForm").serialize(),
+        success: function() {
+            $('#id_test_email_failure').addClass('hidden')
+            $('#id_test_email_success').removeClass('hidden')
+        },
+        error: function() {
+            $('#id_test_email_success').addClass('hidden')
+            $('#id_test_email_failure').removeClass('hidden')
+        }
+      });
       return false;
     });
 
