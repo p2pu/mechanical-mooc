@@ -82,6 +82,7 @@
     });
 
     $('#send_preview').live('click', function(){
+      $("#send_preview").addClass("disabled").attr("disabled", "disabled");
       $.ajax({
         type: "POST",
         url: "{% url mail_send_preview %}", 
@@ -93,6 +94,9 @@
         error: function() {
             $('#id_test_email_success').addClass('hidden')
             $('#id_test_email_failure').removeClass('hidden')
+        },
+        complete: function() {
+            $("#send_preview").removeClass("disabled").removeAttr("disabled");
         }
       });
       return false;
