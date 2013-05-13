@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'groups',
     'grouping',
     'mail',
+    'sequence',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -175,3 +176,5 @@ import dj_database_url
 DATABASES['default'] =  dj_database_url.config(default='sqlite:///{0}'.format(path('db.sqlite')))
 
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'missioncontrol@data.p2pu.org')
+
+EMAIL_DOMAIN = os.environ.get('EMAIL_DOMAIN', '')

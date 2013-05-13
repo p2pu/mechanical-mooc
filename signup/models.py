@@ -10,6 +10,8 @@ from signup import emails
 
 from mailgun import api as mailgun_api
 
+from sequence import models as sequence_model
+
 def create_signup( email, questions ):
     if db.UserSignup.objects.filter(email=email).exists():
         raise Exception('Signup already exists')
@@ -103,4 +105,5 @@ def send_welcome_email( email ):
 
 def add_user_to_global_list( email ):
     """ add user to email list that gets all emails """
-    mailgun_api.add_list_member('sequence-{0}-all@{1}'.format(4, settings.EMAIL_DOMAIN), email)
+    current_sequence = sequence_model.get_current_sequence()
+    mailgun_api.add_list_member('sequence-{0}-all@{1}'.format(current_sequence['id'], settings.EMAIL_DOMAIN), email)
