@@ -106,4 +106,5 @@ def send_welcome_email( email ):
 def add_user_to_global_list( email ):
     """ add user to email list that gets all emails """
     current_sequence = sequence_model.get_current_sequence()
-    mailgun_api.add_list_member('sequence-{0}-all@{1}'.format(current_sequence['id'], settings.EMAIL_DOMAIN), email)
+    if not current_sequence is None:
+        mailgun_api.add_list_member('sequence-{0}-all@{1}'.format(current_sequence['id'], settings.EMAIL_DOMAIN), email)
