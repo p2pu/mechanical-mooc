@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from mail import models as mail_api
 from mailgun import api as mailgun_api
 from mail.email import send_email_to_groups
+from sequence import models as sequence_model
 
 import bleach
 import datetime
@@ -28,15 +29,24 @@ def compose( request ):
         html_body = request.POST.get('body_text')
         text_body = _clean_html(html_body)
         tags = request.POST.get('tags')
+        sequence = '1'
+        audience = 'individuals'
+        if request.POST.get('to', None):
+            sequence = request.POST.get('to').split('-')[1]
+            audience = request.POST.get('to').split('-')[0]
+
         mail_api.save_email(subject, text_body, html_body, tags)
 
         return http.HttpResponseRedirect(
             reverse('mail_schedule')
         )
 
+    context = {
+        'sequences': sequence_model.get_all_sequences()
+    }
     return render_to_response(
         'mail/compose.html',
-        {},
+        context,
         context_instance=RequestContext(request)
     )
 
