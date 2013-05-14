@@ -13,8 +13,12 @@ def group_id2uri( group_id ):
     return '/uri/group/{0}/'.format(group_id)
 
 
-def create_group( address, description ):
-    group_db = db.Group(address=address, description=description)
+def create_group( address, description, sequence ):
+    group_db = db.Group(
+        address=address, 
+        description=description,
+        sequence=sequence
+    )
     group_db.save()
     return get_group(group_id2uri(group_db.id))
 
@@ -23,7 +27,8 @@ def _group2json(group_db):
     group = {
         'uri': group_id2uri(group_db.id),
         'address': group_db.address,
-        'description': group_db.description
+        'description': group_db.description,
+        'sequence': group_db.sequence
     }
     group['members'] = [member.email for member in group_db.members.all()]
     return group
@@ -35,8 +40,11 @@ def get_group( group_uri ):
     return _group2json(group_db)
 
 
-def get_groups():
-    return [_group2json(group_db) for group_db in db.Group.objects.all()]
+def get_groups( sequence=None ):
+    groups = db.Group.objects.all()
+    if sequence:
+        groups = groups.filter(sequence=sequence)
+    return [_group2json(group_db) for group_db in groups]
 
 
 def add_group_member( group_uri, member_email ):
