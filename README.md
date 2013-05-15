@@ -26,13 +26,13 @@ After all this you will need to create the database on heroku `heroku run python
 
 You will also need to create a sequence for your MOOC. A sequence is like a single run of your course, hopefully your course is a resounding success and you want to run many more!
 
-    `heroku run python mangage.py shell`
-    `> from sequence import models`
-    `> from datetime import datetime`
-    `> start_date = datetime(2013, 12, 1)`
-    `> signup_close_date = datetime(2013, 11, 23)`
-    `> models.create_sequence(start_date, signup_close_date)`
-    `> exit()`
+    heroku run python mangage.py shell
+    > from sequence import models
+    > from datetime import datetime
+    > start_date = datetime(2013, 12, 1)
+    > signup_close_date = datetime(2013, 11, 23)
+    > models.create_sequence(start_date, signup_close_date)
+    > exit()
 
 And then you will need to add the tasks that will send out the emails to new signups and scheduled emails. You can enable the scheduler by running `heroku addons:add scheduler:standard`
 
