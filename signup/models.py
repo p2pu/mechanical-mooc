@@ -18,11 +18,13 @@ def create_signup( email, questions ):
     invite_code=''.join([
         random.choice(string.letters+string.digits) for i in range(32)
     ])
+    current_sequence = sequence_model.get_current_sequence()
     now = datetime.utcnow()
     signup = db.UserSignup(
         email=email,
         invite_code=invite_code,
         questions=simplejson.dumps(questions),
+        sequence=current_sequence['id'],
         date_added=now,
         date_updated=now
     )
@@ -32,6 +34,7 @@ def create_signup( email, questions ):
 
 
 def update_signup( email, questions ):
+    """ will also add a signup to the latest sequence """
     signup_db = db.UserSignup.objects.get(email=email)
     
     old_questions = simplejson.loads(signup_db.questions)
@@ -40,6 +43,8 @@ def update_signup( email, questions ):
 
     signup_db.questions = simplejson.dumps(old_questions)
     signup_db.date_updated = datetime.utcnow()
+    current_sequence = sequence_model.get_current_sequence()
+    signup_db.sequence = current_sequence['id']
     signup_db.save()
 
 
@@ -55,6 +60,7 @@ def _signup2json( signup_db ):
     signup = {
         'email': signup_db.email,
         'questions': simplejson.loads(signup_db.questions),
+        'sequence': signup_db.sequence,
         'date_created': signup_db.date_added,
         'date_updated': signup_db.date_updated
     }
@@ -70,8 +76,11 @@ def get_signup( email ):
     return _signup2json(signup_db)
 
 
-def get_signups( ):
-    return [_signup2json(signup) for signup in db.UserSignup.objects.all()]
+def get_signups( sequence=None ):
+    signups = db.UserSignup.objects.all()
+    if sequence:
+        signups = signups.filter(sequence=sequence)
+    return [_signup2json(signup) for signup in signups]
 
 
 def get_new_signups( ):

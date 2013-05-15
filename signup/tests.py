@@ -11,7 +11,9 @@ from signup import randata
 from mock import patch
 import math
 
+@patch('signup.models.sequence_model.get_current_sequence', lambda: {'id': 1})
 class SimpleTest(TestCase):
+
     def test_create_signup(self):
         """
         Test creation of a signup
@@ -48,6 +50,34 @@ class SimpleTest(TestCase):
         self.assertEqual(len(signup_models.get_signups()), 4)
 
 
+    def test_signup_added_to_current_sequence(self):
+        signup_models.create_or_update_signup('dirk@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        signup = signup_models.get_signup('dirk@mail.com')
+        self.assertEquals(signup['sequence'], 1)
+
+        with patch('signup.models.sequence_model.get_current_sequence', lambda: {'id': 2}):
+            signup_models.create_or_update_signup('dirk@mail.com', {'q1':'ar1', 'q2':'ar2'})
+
+        signup = signup_models.get_signup('dirk@mail.com')
+        self.assertEquals(signup['sequence'], 2)
+
+
+    def test_get_signups_for_sequence(self):
+        signup_models.create_or_update_signup('user1@mail.com', {'q1':'a1', 'q2':'a2', 'q3':'a3'})
+        signup_models.create_or_update_signup('user1@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        signup_models.create_or_update_signup('user2@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        signup_models.create_or_update_signup('user3@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        with patch('signup.models.sequence_model.get_current_sequence', lambda: {'id': 2}):
+            signup_models.create_or_update_signup('user3@mail.com', {'q1':'ar1'})
+            signup_models.create_or_update_signup('user4@mail.com', {'q1':'ar1'})
+            signup_models.create_or_update_signup('user5@mail.com', {'q1':'ar1'})
+            signup_models.create_or_update_signup('user6@mail.com', {'q1':'ar1'})
+
+        self.assertEqual(len(signup_models.get_signups(1)), 2)
+        self.assertEqual(len(signup_models.get_signups(2)), 4)
+
+
+
     def test_welcome_email(self):
         signup_models.create_or_update_signup('user1@mail.com', {'q1':'a1', 'q2':'a2', 'q3':'a3'})
         self.assertEqual(len(signup_models.get_new_signups()), 1)
@@ -59,15 +89,18 @@ class SimpleTest(TestCase):
         self.assertEqual(len(signup_models.get_new_signups()), 0)
 
 
-    def test_scale_welcome_email(self):
+    def test_scale_signups(self):
         for signup in randata.random_data(2000):
             signup_models.create_or_update_signup(**signup)
 
         signups = len(signup_models.get_new_signups())
 
         with patch('signup.models.emails.send_welcome_emails') as send_email:
-            signup_models.send_welcome_emails()
-            self.assertTrue(send_email.called)
-            self.assertEqual(send_email.call_count, math.ceil(signups/500.0))
+            with patch('signup.models.mailgun_api.add_list_member') as add_list_member:
+                signup_models.handle_new_signups()
+                self.assertTrue(send_email.called)
+                self.assertEqual(send_email.call_count, math.ceil(signups/500.0))
+                self.assertTrue(add_list_member.called)
+                self.assertEqual(add_list_member.call_count, signups)
 
         self.assertEqual(len(signup_models.get_new_signups()), 0)
