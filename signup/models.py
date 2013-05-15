@@ -3,7 +3,6 @@ import string
 from datetime import datetime
 
 from django.utils import simplejson
-from django.conf import settings
 
 from signup import db
 from signup import emails
@@ -116,4 +115,4 @@ def add_user_to_global_list( email ):
     """ add user to email list that gets all emails """
     current_sequence = sequence_model.get_current_sequence()
     if not current_sequence is None:
-        mailgun_api.add_list_member('sequence-{0}-all@{1}'.format(current_sequence['id'], settings.EMAIL_DOMAIN), email)
+        mailgun_api.add_list_member(current_sequence['global_list'], email)

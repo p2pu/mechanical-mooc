@@ -34,6 +34,8 @@ class SimpleTest(TestCase):
             start_date, signup_close_date
         )
 
+        self.assertIn('global_list', sequence)
+        self.assertIn('campaign_id', sequence)
         self.assertEquals(sequence['start_date'], start_date)
         self.assertEquals(sequence['signup_close_date'], signup_close_date)
         self.assertTrue(self.create_list_patch.called)

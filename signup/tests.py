@@ -11,7 +11,7 @@ from signup import randata
 from mock import patch
 import math
 
-@patch('signup.models.sequence_model.get_current_sequence', lambda: {'id': 1})
+@patch('signup.models.sequence_model.get_current_sequence', lambda: {'id': 1, 'global_list': 'all@blah.com'})
 class SimpleTest(TestCase):
 
     def test_create_signup(self):

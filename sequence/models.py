@@ -9,7 +9,9 @@ def sequence2dict( sequence_db ):
     return {
         'id': sequence_db.id,
         'start_date': sequence_db.start_date,
-        'signup_close_date': sequence_db.signup_close_date
+        'signup_close_date': sequence_db.signup_close_date,
+        'global_list': 'sequence-{0}-all@{1}'.format(sequence_db.id, settings.EMAIL_DOMAIN),
+        'campaign_id': 'sequence-{0}-campaign'.format(sequence_db.id)
     }
 
 
