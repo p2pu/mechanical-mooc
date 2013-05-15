@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 from mail import models as mail_api
 from mailgun import api as mailgun_api
-from mail.email import send_email_to_groups
+from mail.email import send_email
 from sequence import models as sequence_model
 
 import bleach
@@ -35,7 +35,7 @@ def compose( request ):
             sequence = request.POST.get('to').split('-')[1]
             audience = request.POST.get('to').split('-')[0]
 
-        mail_api.save_email(subject, text_body, html_body, tags)
+        mail_api.save_email(subject, text_body, html_body, sequence, audience, tags)
 
         return http.HttpResponseRedirect(
             reverse('mail_schedule')
@@ -61,12 +61,20 @@ def edit( request, id ):
         html_body = request.POST.get('body_text')
         text_body = _clean_html(html_body)
         tags = request.POST.get('tags')
-        mail_api.update_email(email_uri, subject, text_body, html_body, tags)
+        sequence = request.POST.get('to').split('-')[1]
+        audience = request.POST.get('to').split('-')[0]
+
+        mail_api.update_email(email_uri, subject, text_body, html_body, 
+            sequence, audience, tags)
         return http.HttpResponseRedirect(reverse('mail_schedule'))
 
+    context = {
+        'sequences': sequence_model.get_all_sequences(),
+        'email': email,
+    }
     return render_to_response(
         'mail/compose.html',
-        {'email': email},
+        context,
         context_instance=RequestContext(request)
     )
 
@@ -87,7 +95,7 @@ def send_preview( request ):
 @login_required
 def send( request, id ):
     email_uri = mail_api.id2uri(id)
-    send_email_to_groups(email_uri)
+    send_email(email_uri)
     return http.HttpResponseRedirect(reverse('mail_schedule'))
 
 

@@ -26,6 +26,17 @@
             <small>Available tags include: sequence_*, course, intro, week_*, encourage, assignment</small>
           </label>
           <input id="tags" name="tags" type="text" {% if email.tags %}value="{{ email.tags }}"{% endif %}/>
+          <label>{% trans 'To' %}</label>
+          <select id="id_to" name="to">
+            {% for sequence in sequences %}
+              <option value="groups-{{sequence.id}}">
+                Sequence {{sequence.id}} groups
+              </option>
+              <option value="individuals-{{sequence.id}}">
+                Sequence {{sequence.id}} individuals
+              </option>
+            {% endfor %}
+          </select>
           <label>
             Subject
           </label>
@@ -71,6 +82,8 @@
   
   <script>
     $(document).ready(function () {
+
+      $('#id_to').val("{{email.audience}}-{{email.sequence}}");
 
       CKEDITOR.replace("body_text");
 
