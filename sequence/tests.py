@@ -16,9 +16,13 @@ class SimpleTest(TestCase):
         self.create_list_patcher = patch('sequence.models.mailgun_api.create_list')
         self.create_list_patch = self.create_list_patcher.start()
 
+        self.create_campaign_patcher = patch('sequence.models.mailgun_api.create_campaign')
+        self.create_campaign_patch = self.create_campaign_patcher.start()
+
 
     def tearDown(self):
         self.create_list_patcher.stop()
+        self.create_campaign_patcher.stop()
 
 
     def test_create_sequence(self):
@@ -33,6 +37,7 @@ class SimpleTest(TestCase):
         self.assertEquals(sequence['start_date'], start_date)
         self.assertEquals(sequence['signup_close_date'], signup_close_date)
         self.assertTrue(self.create_list_patch.called)
+        self.assertTrue(self.create_campaign_patch.called)
 
 
     def test_get_current_sequence(self):

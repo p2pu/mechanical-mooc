@@ -19,6 +19,7 @@ def send_email( email_uri ):
         email['subject'],
         email['text_body'],
         email['html_body'],
-        email['tags'].split(',')
+        email['tags'].split(','),
+        'sequence-{0}-campaign'
     )
     mail_api.mark_sent(email_uri)

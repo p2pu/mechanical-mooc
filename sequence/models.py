@@ -7,9 +7,9 @@ import datetime
 
 def sequence2dict( sequence_db ):
     return {
-        "id": sequence_db.id,
-        "start_date": sequence_db.start_date,
-        "signup_close_date": sequence_db.signup_close_date,
+        'id': sequence_db.id,
+        'start_date': sequence_db.start_date,
+        'signup_close_date': sequence_db.signup_close_date
     }
 
 
@@ -25,6 +25,11 @@ def create_sequence( start_date, signup_close_date ):
         'Sequence {0} global list'.format(sequence_db.id),
         'List for all members of sequence {0}'.format(sequence_db.id),
         'readonly'
+    )
+
+    mailgun_api.create_campaign(
+        'sequence-{0}-campaign'.format(sequence_db.id),
+        'Sequence {0} campaign'.format(sequence_db.id)
     )
 
     return sequence2dict(sequence_db)

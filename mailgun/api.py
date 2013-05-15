@@ -20,7 +20,7 @@ def send_email(to_email, from_email, subject, text_body, html_body=None, tags=No
     )
 
 
-def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, tags=None):
+def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, tags=None, campaign_id=None):
     """ send email to multiple users, but each being to only one in the to field """
     post_data = [
         ('from', from_email),
@@ -40,11 +40,26 @@ def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, t
     if tags:
         post_data += [ ("o:tag", tag) for tag in tags]
 
+    if campaign_id:
+        post_data += [('o:campaign', campaign_id),]
+
     sub_url = '/'.join([settings.MAILGUN_API_DOMAIN, 'messages'])
     resp = call_mailgun('POST', sub_url, post_data)
     if resp.status_code != 200:
         raise Exception(resp.text)
 
+
+def create_campaign(campaign_id, campaign_name):
+    post_data = {
+        'name': campaign_name,
+        'id': campaign_id,
+    }
+
+    sub_url = '/'.join([settings.MAILGUN_API_DOMAIN, 'campaigns'])
+    resp = call_mailgun('POST', sub_url, post_data)
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+ 
 
 def create_list(address, name=None, description=None, access_level=None):
     data = {
