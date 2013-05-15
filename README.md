@@ -25,7 +25,8 @@ You can set these variables by running `heroku config:set MAILGUN_API_DOMAIN=you
 After all this you will need to create the database on heroku `heroku run python manage.py syncdb`
 
 You will also need to create a sequence for your MOOC. A sequence is like a single run of your course, hopefully your course is a resounding success and you want to run many more!
->    `heroku run python mangage.py shell`
+
+    `heroku run python mangage.py shell`
     `> from sequence import models`
     `> from datetime import datetime`
     `> start_date = datetime(2013, 12, 1)`
