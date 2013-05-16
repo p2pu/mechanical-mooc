@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Email.sequence'
         db.add_column('mail_email', 'sequence',
-                      self.gf('django.db.models.fields.CharField')(default='2', max_length=255),
+                      self.gf('django.db.models.fields.CharField')(default='1', max_length=255),
                       keep_default=False)
 
         # Adding field 'Email.audience'

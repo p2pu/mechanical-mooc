@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'UserSignup.sequence'
         db.add_column('signup_usersignup', 'sequence',
-                      self.gf('django.db.models.fields.IntegerField')(default=2),
+                      self.gf('django.db.models.fields.IntegerField')(default=1),
                       keep_default=False)
 
 

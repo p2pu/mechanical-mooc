@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Group.sequence'
         db.add_column('groups_group', 'sequence',
-                      self.gf('django.db.models.fields.CharField')(default='2', max_length=255),
+                      self.gf('django.db.models.fields.CharField')(default='1', max_length=255),
                       keep_default=False)
 
 
