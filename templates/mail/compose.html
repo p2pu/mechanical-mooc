@@ -95,6 +95,9 @@
     });
 
     $('#send_preview').live('click', function(){
+      for ( instance in CKEDITOR.instances ){
+        CKEDITOR.instances[instance].updateElement();
+      }
       $("#send_preview").addClass("disabled").attr("disabled", "disabled");
       $.ajax({
         type: "POST",
