@@ -7,17 +7,23 @@ from django.utils import simplejson
 from signup import db
 from signup import emails
 
+from mailgun import api as mailgun_api
+
+from sequence import models as sequence_model
+
 def create_signup( email, questions ):
     if db.UserSignup.objects.filter(email=email).exists():
         raise Exception('Signup already exists')
     invite_code=''.join([
         random.choice(string.letters+string.digits) for i in range(32)
     ])
+    current_sequence = sequence_model.get_current_sequence()
     now = datetime.utcnow()
     signup = db.UserSignup(
         email=email,
         invite_code=invite_code,
         questions=simplejson.dumps(questions),
+        sequence=current_sequence['id'],
         date_added=now,
         date_updated=now
     )
@@ -27,6 +33,7 @@ def create_signup( email, questions ):
 
 
 def update_signup( email, questions ):
+    """ will also add a signup to the latest sequence """
     signup_db = db.UserSignup.objects.get(email=email)
     
     old_questions = simplejson.loads(signup_db.questions)
@@ -35,6 +42,8 @@ def update_signup( email, questions ):
 
     signup_db.questions = simplejson.dumps(old_questions)
     signup_db.date_updated = datetime.utcnow()
+    current_sequence = sequence_model.get_current_sequence()
+    signup_db.sequence = current_sequence['id']
     signup_db.save()
 
 
@@ -50,6 +59,7 @@ def _signup2json( signup_db ):
     signup = {
         'email': signup_db.email,
         'questions': simplejson.loads(signup_db.questions),
+        'sequence': signup_db.sequence,
         'date_created': signup_db.date_added,
         'date_updated': signup_db.date_updated
     }
@@ -65,8 +75,11 @@ def get_signup( email ):
     return _signup2json(signup_db)
 
 
-def get_signups( ):
-    return [_signup2json(signup) for signup in db.UserSignup.objects.all()]
+def get_signups( sequence=None ):
+    signups = db.UserSignup.objects.all()
+    if sequence:
+        signups = signups.filter(sequence=sequence)
+    return [_signup2json(signup) for signup in signups]
 
 
 def get_new_signups( ):
@@ -75,13 +88,16 @@ def get_new_signups( ):
     return [_signup2json(signup) for signup in signups]
 
 
-def send_welcome_emails( ):
-    """ send welcome email to new users and update db """
+def handle_new_signups( ):
+    """ Send welcome email to new users.
+        Add them to a general mailing list. 
+        Update db when done. """
     signups = db.UserSignup.objects.filter(date_welcome_email_sent__isnull=True)[:500]
     while len(signups):
         emails.send_welcome_emails([signup.email for signup in signups])
+        for signup in signups:
+            add_user_to_global_list(signup.email)
         db.UserSignup.objects.filter(id__in=signups.values('id')).update(date_welcome_email_sent=datetime.utcnow())
-        
         signups = db.UserSignup.objects.filter(date_welcome_email_sent__isnull=True)[:500]
 
 
@@ -94,3 +110,9 @@ def send_welcome_email( email ):
     signup_db.date_welcome_email_sent = datetime.utcnow()
     signup_db.save()
 
+
+def add_user_to_global_list( email ):
+    """ add user to email list that gets all emails """
+    current_sequence = sequence_model.get_current_sequence()
+    if not current_sequence is None:
+        mailgun_api.add_list_member(current_sequence['global_list'], email)

@@ -15,6 +15,7 @@
           <th></th>
           <th>Subject</th>
           <th>Text</th>
+          <th>Tags</th>
           <th>Send at (UTC)</th>
           <th></th>
         </tr>
@@ -30,6 +31,9 @@
               {{ mail.text_body|truncatewords:10 }}
             </td>
             <td>
+              {{ mail.tags }}
+            </td>
+            <td>
               {% if mail.date_sent %}
                 sent at {{mail.date_sent}}
               {% else %}
@@ -37,6 +41,7 @@
                 {% csrf_token %}
                 <input id="id_date_{{ mail.id }}" name="scheduled_date" type="datetime" {% if mail.date_scheduled %}value="{{mail.date_scheduled.date.isoformat}}"{% endif %}>
                 <input class="timepicker" id="id_time_{{mail.id}}" name="scheduled_time" type="text" {% if mail.date_scheduled %}value="{{mail.date_scheduled.time.isoformat}}"{% endif %}>
+                <span id="id_schedule_info" class="alert hidden"><span>
               </form>
               {% endif %}
             </td>
@@ -44,7 +49,7 @@
               {% if not mail.date_sent %}
                 <a class="btn" href="{% url mail_edit mail.id %}"><i class="icon-edit"></i> edit email</a>
                 <a class="btn" href="{% url mail_delete mail.id %}"><i class="icon-trash"></i> delete email</a>
-                <a class="btn" href="{% url mail_send mail.id %}"><i class="icon-envelope"></i> send email to all groups</a>
+                <a class="btn" href="{% url mail_send mail.id %}"><i class="icon-envelope"></i> send email to all {{mail.audience}}</a>
               {% endif %}
             </td>
           </tr>
@@ -60,22 +65,43 @@
 {% block js %}
 
   <script type="text/javascript" src="{{STATIC_URL}}/timepicker/jquery.timepicker.js"></script>
-  <!--script type="text/javascript" src="{{STATIC_URL}}/timepicker/lib/base.js"></script-->
 
   <script type="text/javascript">
+
+    function scheduleMail( form ) {
+        $.ajax({
+            type: "POST",
+            url: form.attr('action'),
+            data: form.serialize(),
+            success: function() {
+                info_span = form.find("#id_schedule_info");
+                info_span.html("Email scheduled");
+                info_span.removeClass("hidden alert-error").addClass("alert-success");
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                info_span = form.find("#id_schedule_info");
+                info_span.text(jqXHR.responseText);
+                info_span.removeClass("hidden").addClass("alert-error");
+            }
+        });
+        return true;
+    }
+
     $(document).ready(function () {
+      var now = new Date();
       $('input[type=datetime]').datepicker({
           onSelect: function(date, obj) {
-              $.post($(this).closest('form').attr('action'), $(this).closest('form').serialize());
+              scheduleMail($(this).closest('form'));
           },
           dateFormat: "yy-mm-dd",
+          minDate: now
       });
       $('.timepicker').timepicker({
             'step': 60,
             'timeFormat': 'H:i'
       });
       $('.timepicker').on('changeTime', function() {
-            $.post($(this).closest('form').attr('action'), $(this).closest('form').serialize());
+          scheduleMail($(this).closest('form'));
       });
     });
   </script>
