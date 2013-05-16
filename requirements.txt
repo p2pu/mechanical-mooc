@@ -1,4 +1,5 @@
 Django==1.4.3
+South==0.7.6
 argparse==1.2.1
 bleach==1.2.1
 dj-database-url==0.2.1
