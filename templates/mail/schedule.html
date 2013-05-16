@@ -49,7 +49,7 @@
               {% if not mail.date_sent %}
                 <a class="btn" href="{% url mail_edit mail.id %}"><i class="icon-edit"></i> edit email</a>
                 <a class="btn" href="{% url mail_delete mail.id %}"><i class="icon-trash"></i> delete email</a>
-                <a class="btn" href="{% url mail_send mail.id %}"><i class="icon-envelope"></i> send email to all groups</a>
+                <a class="btn" href="{% url mail_send mail.id %}"><i class="icon-envelope"></i> send email to all {{mail.audience}}</a>
               {% endif %}
             </td>
           </tr>
