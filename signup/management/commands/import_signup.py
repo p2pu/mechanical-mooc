@@ -4,6 +4,8 @@ from signup.models import create_or_update_signup
 from signup.models import add_user_to_global_list
 from signup import db
 
+import datetime
+
 class Command(BaseCommand):
     args = '<data url>'
     help = 'Imports the specified signup data'
