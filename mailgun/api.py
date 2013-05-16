@@ -9,14 +9,15 @@ def call_mailgun(method, api_sub_url, data):
     return requests.request(method, api_url, auth=auth, data=data)
 
 
-def send_email(to_email, from_email, subject, text_body, html_body=None, tags=None):
+def send_email(to_email, from_email, subject, text_body, html_body=None, tags=None, campaign_id=None):
     return send_mass_email(
         [to_email],
         from_email,
         subject,
         text_body,
         html_body,
-        tags
+        tags,
+        campaign_id
     )
 
 
