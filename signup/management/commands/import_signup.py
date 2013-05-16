@@ -16,5 +16,5 @@ class Command(BaseCommand):
             email = signup['email']
             del signup['email']
             create_or_update_signup(email, signup)
-            db.Signup.objects.get(email=email).update(date_welcome_email_sent=datetime.datetime.utcnow())
+            db.UserSignup.objects.get(email=email).update(date_welcome_email_sent=datetime.datetime.utcnow())
             add_user_to_global_list(email)
