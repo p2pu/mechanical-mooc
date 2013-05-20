@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.template.loader import render_to_string
 
 from mail import models as mail_api
 from groups import models as group_api
@@ -13,12 +14,15 @@ def send_email( email_uri ):
     elif email['audience'] == 'individuals':
         to_address = 'sequence-{0}-all@{1}'.format(email['sequence'], settings.EMAIL_DOMAIN)
 
+    text_body = render_to_string('mail/email.txt', {'email': email})
+    html_body = render_to_string('mail/email.html', {'email': email})
+
     mailgun_api.send_email(
         to_address,
         settings.DEFAULT_FROM_EMAIL,
         email['subject'],
-        email['text_body'],
-        email['html_body'],
+        text_body,
+        html_body,
         email['tags'].split(','),
         'sequence-{0}-campaign'.format(email['sequence'])
     )
