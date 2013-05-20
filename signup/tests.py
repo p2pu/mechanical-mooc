@@ -14,6 +14,12 @@ import math
 @patch('signup.models.sequence_model.get_current_sequence', lambda: {'id': 1, 'global_list': 'all@blah.com'})
 class SimpleTest(TestCase):
 
+    def setUp(self):
+        self.signup_data = [
+            'dirk@mail.com',
+            {'q1':'a1', 'q2':'a2', 'q3':'a3'}
+        ]
+
     def test_create_signup(self):
         """
         Test creation of a signup
@@ -48,6 +54,13 @@ class SimpleTest(TestCase):
         signup_models.create_or_update_signup('user4@mail.com', {'q1':'ar1', 'q2':'ar2'})
 
         self.assertEqual(len(signup_models.get_signups()), 4)
+
+
+    def test_signup_added_without_sequence(self):
+        with patch('signup.models.sequence_model.get_current_sequence', lambda: None):
+            signup_models.create_or_update_signup(*self.signup_data)
+        signup = signup_models.get_signup(self.signup_data[0])
+        self.assertNotEqual(signup, None)
 
 
     def test_signup_added_to_current_sequence(self):

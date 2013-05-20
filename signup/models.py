@@ -18,12 +18,16 @@ def create_signup( email, questions ):
         random.choice(string.letters+string.digits) for i in range(32)
     ])
     current_sequence = sequence_model.get_current_sequence()
+    sequence_id = 1
+    if current_sequence and 'id' in current_sequence:
+        sequence_id = current_sequence['id']
+
     now = datetime.utcnow()
     signup = db.UserSignup(
         email=email,
         invite_code=invite_code,
         questions=simplejson.dumps(questions),
-        sequence=current_sequence['id'],
+        sequence=sequence_id,
         date_added=now,
         date_updated=now
     )
