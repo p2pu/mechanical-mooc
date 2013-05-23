@@ -9,7 +9,11 @@ def unsubscribe_from_sequence( address ):
 
     # remove from sequence group
     sequence_list = sequence_model.sequence_list_name(user_signup['sequence'])
-    mailgun_api.remove_list_member(sequence_list, address)
+    try:
+        mailgun_api.remove_list_member(sequence_list, address)
+    except:
+        # TODO: log error
+        pass
     
     # remove from small groups
     # TODO: Can a user be subscribed to more than one group or more than one
@@ -30,7 +34,11 @@ def unsubscribe_user( address ):
 
     # remove from sequence group
     sequence_list = sequence_model.sequence_list_name(user_signup['sequence'])
-    mailgun_api.remove_list_member(sequence_list, address)
+    try:
+        mailgun_api.remove_list_member(sequence_list, address)
+    except:
+        # TODO: log error
+        pass
 
     # remove from small groups
     groups = groups_model.get_member_groups(address)
