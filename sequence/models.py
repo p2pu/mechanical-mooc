@@ -7,7 +7,15 @@ import datetime
 
 
 def sequence_list_name( sequence_number ):
-    return 'sequence-{0}-all@{1}'.format(sequence_number, settings.EMAIL_DOMAIN),
+    if settings.DEBUG:
+        return 'sequence-{0}-all-test@{1}'.format(sequence_number, settings.EMAIL_DOMAIN)
+    return 'sequence-{0}-all@{1}'.format(sequence_number, settings.EMAIL_DOMAIN)
+
+
+def sequence_campaign( sequence_number ):
+    if settings.DEBUG:
+        return 'sequence-{0}-campaign-test'.format(sequence_number)
+    return 'sequence-{0}-campaign'.format(sequence_number)
 
 
 def sequence2dict( sequence_db ):
@@ -16,7 +24,7 @@ def sequence2dict( sequence_db ):
         'start_date': sequence_db.start_date,
         'signup_close_date': sequence_db.signup_close_date,
         'global_list': sequence_list_name(sequence_db.id),
-        'campaign_id': 'sequence-{0}-campaign'.format(sequence_db.id)
+        'campaign_id': sequence_campaign(sequence_db.id)
     }
 
 
