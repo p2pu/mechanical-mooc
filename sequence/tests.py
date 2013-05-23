@@ -108,3 +108,34 @@ class SimpleTest(TestCase):
         all_sequences = sequence_model.get_all_sequences()
         self.assertEqual(len(all_sequences), 3)
         self.assertEqual(sequence, all_sequences[1])
+
+
+    def test_get_current_sequence_number(self):
+        cs = sequence_model.get_current_sequence()
+        csn = sequence_model.get_current_sequence_number()
+        self.assertIsNone(cs)
+        self.assertIsNone(csn)
+
+        # test sequence in the past
+        now = datetime.datetime.utcnow().date()
+        start_date = now - datetime.timedelta(weeks=16)
+        signup_close_date = now - datetime.timedelta(weeks=17)
+        sequence_model.create_sequence(
+            start_date, signup_close_date
+        )
+
+        cs = sequence_model.get_current_sequence()
+        csn = sequence_model.get_current_sequence_number()
+        self.assertIsNone(cs)
+        self.assertIsNone(csn)
+
+        start_date = now + datetime.timedelta(weeks=16)
+        signup_close_date = now + datetime.timedelta(weeks=17)
+        sequence_model.create_sequence(
+            start_date, signup_close_date
+        )
+
+        cs = sequence_model.get_current_sequence()
+        csn = sequence_model.get_current_sequence_number()
+        self.assertEqual(cs['id'], csn)
+

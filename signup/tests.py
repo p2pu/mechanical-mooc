@@ -11,7 +11,7 @@ from signup import randata
 from mock import patch
 import math
 
-@patch('signup.models.sequence_model.get_current_sequence', lambda: {'id': 1, 'global_list': 'all@blah.com'})
+@patch('signup.models.sequence_model.get_current_sequence_number', lambda: 1)
 class SimpleTest(TestCase):
 
     def setUp(self):
@@ -57,7 +57,7 @@ class SimpleTest(TestCase):
 
 
     def test_signup_added_without_sequence(self):
-        with patch('signup.models.sequence_model.get_current_sequence', lambda: None):
+        with patch('signup.models.sequence_model.get_current_sequence_number', lambda: None):
             signup_models.create_or_update_signup(*self.signup_data)
         signup = signup_models.get_signup(self.signup_data[0])
         self.assertNotEqual(signup, None)
@@ -68,7 +68,7 @@ class SimpleTest(TestCase):
         signup = signup_models.get_signup('dirk@mail.com')
         self.assertEquals(signup['sequence'], 1)
 
-        with patch('signup.models.sequence_model.get_current_sequence', lambda: {'id': 2}):
+        with patch('signup.models.sequence_model.get_current_sequence_number', lambda: 2):
             signup_models.create_or_update_signup('dirk@mail.com', {'q1':'ar1', 'q2':'ar2'})
 
         signup = signup_models.get_signup('dirk@mail.com')
@@ -80,7 +80,7 @@ class SimpleTest(TestCase):
         signup_models.create_or_update_signup('user1@mail.com', {'q1':'ar1', 'q2':'ar2'})
         signup_models.create_or_update_signup('user2@mail.com', {'q1':'ar1', 'q2':'ar2'})
         signup_models.create_or_update_signup('user3@mail.com', {'q1':'ar1', 'q2':'ar2'})
-        with patch('signup.models.sequence_model.get_current_sequence', lambda: {'id': 2}):
+        with patch('signup.models.sequence_model.get_current_sequence_number', lambda: 2):
             signup_models.create_or_update_signup('user3@mail.com', {'q1':'ar1'})
             signup_models.create_or_update_signup('user4@mail.com', {'q1':'ar1'})
             signup_models.create_or_update_signup('user5@mail.com', {'q1':'ar1'})
@@ -88,7 +88,6 @@ class SimpleTest(TestCase):
 
         self.assertEqual(len(signup_models.get_signups(1)), 2)
         self.assertEqual(len(signup_models.get_signups(2)), 4)
-
 
 
     def test_welcome_email(self):
@@ -110,10 +109,59 @@ class SimpleTest(TestCase):
 
         with patch('signup.models.emails.send_welcome_emails') as send_email:
             with patch('signup.models.mailgun_api.add_list_member') as add_list_member:
-                signup_models.handle_new_signups()
-                self.assertTrue(send_email.called)
-                self.assertEqual(send_email.call_count, math.ceil(signups/500.0))
-                self.assertTrue(add_list_member.called)
-                self.assertEqual(add_list_member.call_count, signups)
+                with patch('signup.models.sequence_model.sequence_list_name', lambda x: 'sequence-2-all@test-domain.org'):
+                    signup_models.handle_new_signups()
+                    self.assertTrue(send_email.called)
+                    self.assertEqual(send_email.call_count, math.ceil(signups/500.0))
+                    self.assertTrue(add_list_member.called)
+                    self.assertEqual(add_list_member.call_count, signups)
 
         self.assertEqual(len(signup_models.get_new_signups()), 0)
+
+
+    def test_delete_signup(self):
+        signup_models.create_or_update_signup('user1@mail.com', {'q1':'a1', 'q2':'a2', 'q3':'a3'})
+        signup_models.create_or_update_signup('user1@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        signup_models.create_or_update_signup('user2@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        signup_models.create_or_update_signup('user3@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        signup_models.create_or_update_signup('user4@mail.com', {'q1':'ar1', 'q2':'ar2'})
+
+        self.assertEqual(len(signup_models.get_signups()), 4)
+        new_signups = signup_models.get_new_signups()
+        self.assertIn('user3@mail.com', [s['email'] for s in new_signups])
+
+        signup_models.delete_signup('user3@mail.com')
+
+        signups = signup_models.get_signups()
+        self.assertEqual(len(signups), 3)
+        self.assertNotIn('user3@mail.com', [s['email'] for s in signups])
+        new_signups = signup_models.get_new_signups()
+        self.assertNotIn('user3@mail.com', [s['email'] for s in new_signups])
+
+        signup_models.create_or_update_signup('user3@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        self.assertEqual(len(signup_models.get_signups()), 4)
+        new_signups = signup_models.get_new_signups()
+        self.assertIn('user3@mail.com', [s['email'] for s in new_signups])
+
+
+    def test_remove_signup_from_sequence(self):
+        signup_models.create_or_update_signup('dirk@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        signup = signup_models.get_signup('dirk@mail.com')
+        self.assertEquals(signup['sequence'], 1)
+
+        with patch('signup.models.sequence_model.get_current_sequence_number', lambda: 2):
+            signup_models.remove_signup_from_sequence('dirk@mail.com')
+
+        signup = signup_models.get_signup('dirk@mail.com')
+        self.assertEquals(signup['sequence'], 2)
+
+        signup_models.create_or_update_signup('user@mail.com', {'q1':'ar1', 'q2':'ar2'})
+        signup = signup_models.get_signup('user@mail.com')
+        self.assertEquals(signup['sequence'], 1)
+
+        with patch('signup.models.sequence_model.get_current_sequence_number', lambda: None):
+            signup_models.remove_signup_from_sequence('dirk@mail.com')
+
+        signup = signup_models.get_signup('dirk@mail.com')
+        self.assertEquals(signup['sequence'], None)
+

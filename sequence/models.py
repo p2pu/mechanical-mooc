@@ -5,12 +5,17 @@ from mailgun import api as mailgun_api
 
 import datetime
 
+
+def sequence_list_name( sequence_number ):
+    return 'sequence-{0}-all@{1}'.format(sequence_number, settings.EMAIL_DOMAIN),
+
+
 def sequence2dict( sequence_db ):
     return {
         'id': sequence_db.id,
         'start_date': sequence_db.start_date,
         'signup_close_date': sequence_db.signup_close_date,
-        'global_list': 'sequence-{0}-all@{1}'.format(sequence_db.id, settings.EMAIL_DOMAIN),
+        'global_list': sequence_list_name(sequence_db.id),
         'campaign_id': 'sequence-{0}-campaign'.format(sequence_db.id)
     }
 
@@ -49,3 +54,12 @@ def get_current_sequence( ):
         return None
 
     return sequence2dict(sequence_db[0])
+
+
+def get_current_sequence_number( ):
+    sequence_db = db.Sequence.objects.filter(signup_close_date__gt=datetime.datetime.utcnow()).order_by('start_date')
+
+    if sequence_db.count() == 0:
+        return None
+
+    return sequence_db[0].id
