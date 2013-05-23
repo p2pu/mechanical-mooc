@@ -122,3 +122,17 @@ def get_list_members(list_address):
     if resp.status_code != 200:
         raise Exception(resp.text)
     return resp.json()['items']
+
+
+def get_unsubscribes(address):
+    sub_url = '/'.join([settings.MAILGUN_API_DOMAIN, 'unsubscribes', address])
+    resp = call_mailgun('GET', sub_url, {})
+    return resp.json()
+
+
+def delete_all_unsubscribes(address):
+    sub_url = '/'.join([settings.MAILGUN_API_DOMAIN, 'unsubscribes', address])
+    resp = call_mailgun('DELETE', sub_url, {})
+    return resp.json()
+
+

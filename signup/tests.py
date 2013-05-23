@@ -6,10 +6,12 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from signup import models as signup_models
-from signup import randata
+
 from mock import patch
 import math
+
+from signup import models as signup_models
+from signup import randata
 
 @patch('signup.models.sequence_model.get_current_sequence_number', lambda: 1)
 class SimpleTest(TestCase):

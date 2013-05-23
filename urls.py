@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^faq/$', TemplateView.as_view(template_name="faq.html")),
     url(r'', include('signup.urls')),
     url(r'^mail/', include('mail.urls')),
+    url(r'^unsubscribe/', include('unsubscribe.urls')),
     url(r'accounts/login/', 'django.contrib.auth.views.login'),
 )
 

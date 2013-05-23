@@ -1,7 +1,6 @@
 from django.conf import settings
 
 from groups import db
-
 from mailgun import api as mailgun_api
 
 
@@ -45,6 +44,11 @@ def get_groups( sequence=None ):
     if sequence:
         groups = groups.filter(sequence=sequence)
     return [_group2json(group_db) for group_db in groups]
+
+
+def get_member_groups( member_email ):
+    membership = db.GroupMember.objects.filter(email=member_email)
+    return [_group2json(member.group) for member in membership]
 
 
 def add_group_member( group_uri, member_email ):

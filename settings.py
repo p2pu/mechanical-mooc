@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'grouping',
     'mail',
     'sequence',
+    'unsubscribe'
 )
 
 # A sample logging configuration. The only tangible logging
