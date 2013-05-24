@@ -103,7 +103,8 @@ class SimpleTest(TestCase):
         self.assertEqual(len(signup_models.get_new_signups()), 0)
 
 
-    def test_scale_signups(self):
+    @patch('signup.models.mailgun_api.delete_all_unsubscribes')
+    def test_scale_signups(self, *args):
         for signup in randata.random_data(2000):
             signup_models.create_or_update_signup(**signup)
 

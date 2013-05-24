@@ -102,10 +102,12 @@ def remove_signup_from_sequence( email ):
     sequence_number = sequence_model.get_current_sequence_number()
     if signup_db.sequence != sequence_number:
         signup_db.sequence = sequence_number
+        signup_db.date_updated = datetime.utcnow()
         signup_db.date_welcome_email_sent = None
         signup_db.save()
     else:
         signup_db.sequence = None
+        signup_db.date_updated = datetime.utcnow()
         signup_db.save()
 
 
