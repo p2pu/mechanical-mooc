@@ -49,5 +49,3 @@ def unsubscribe_user( address ):
     # mark as unsubscribed in the signups
     signup_model.delete_signup(address)
     
-    # remove from mailgun unsubscribes so that user can subscribe again
-    mailgun_api.delete_all_unsubscribes(address)
