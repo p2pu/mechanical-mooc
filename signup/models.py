@@ -118,7 +118,8 @@ def handle_new_signups( ):
         emails.send_welcome_emails([signup.email for signup in signups])
         for signup in signups:
             add_user_to_global_list(signup.email)
-            #TODO make sure new signups aren't in the mailgun blocked list
+            #make sure new signups aren't in the mailgun blocked list
+            mailgun_api.delete_all_unsubscribes(signup.email)
 
         db.UserSignup.objects.filter(id__in=signups.values('id')).update(date_welcome_email_sent=datetime.utcnow())
         signups = db.UserSignup.objects.filter(date_welcome_email_sent__isnull=True, date_deleted__isnull=True)[:500]
