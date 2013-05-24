@@ -92,12 +92,16 @@ class SimpleTest(TestCase):
         self.assertEqual(len(signup_models.get_signups(2)), 4)
 
 
-    def test_welcome_email(self):
+    @patch('signup.models.emails.send_welcome_emails')
+    @patch('signup.models.mailgun_api.add_list_member')
+    @patch('signup.models.sequence_model.sequence_list_name', lambda x: 'sequence-2-all@test-domain.org')
+    @patch('signup.models.mailgun_api.delete_all_unsubscribes')
+    def test_handle_new_signups(self, *args):
         signup_models.create_or_update_signup('user1@mail.com', {'q1':'a1', 'q2':'a2', 'q3':'a3'})
         self.assertEqual(len(signup_models.get_new_signups()), 1)
 
         with patch('signup.models.emails.send_welcome_emails') as send_email:
-            signup_models.send_welcome_email('user1@mail.com')
+            signup_models.handle_new_signups()
             self.assertTrue(send_email.called)
 
         self.assertEqual(len(signup_models.get_new_signups()), 0)

@@ -89,7 +89,7 @@ def get_signups( sequence=None ):
 
 def get_new_signups( ):
     """ get signups where the welcome email hasn't been sent yet """
-    signups = db.UserSignup.objects.filter(date_welcome_email_sent__isnull=True, date_deleted__isnull=True)
+    signups = db.UserSignup.objects.filter(date_tasks_handled__isnull=True, date_deleted__isnull=True)
     return [_signup2json(signup) for signup in signups]
 
 
@@ -103,7 +103,7 @@ def remove_signup_from_sequence( email ):
     if signup_db.sequence != sequence_number:
         signup_db.sequence = sequence_number
         signup_db.date_updated = datetime.utcnow()
-        signup_db.date_welcome_email_sent = None
+        signup_db.date_tasks_handled = None
         signup_db.save()
     else:
         signup_db.sequence = None
@@ -115,7 +115,7 @@ def handle_new_signups( ):
     """ Send welcome email to new users.
         Add them to a general mailing list. 
         Update db when done. """
-    signups = db.UserSignup.objects.filter(date_welcome_email_sent__isnull=True, date_deleted__isnull=True)[:500]
+    signups = db.UserSignup.objects.filter(date_tasks_handled__isnull=True, date_deleted__isnull=True)[:500]
     while len(signups):
         emails.send_welcome_emails([signup.email for signup in signups])
         for signup in signups:
@@ -123,18 +123,8 @@ def handle_new_signups( ):
             #make sure new signups aren't in the mailgun blocked list
             mailgun_api.delete_all_unsubscribes(signup.email)
 
-        db.UserSignup.objects.filter(id__in=signups.values('id')).update(date_welcome_email_sent=datetime.utcnow())
-        signups = db.UserSignup.objects.filter(date_welcome_email_sent__isnull=True, date_deleted__isnull=True)[:500]
-
-
-def send_welcome_email( email ):
-    """ send welcome email to user and update db """
-    signup_db = db.UserSignup.objects.get(email=email, date_deleted__isnull=True)
-    if signup_db.date_welcome_email_sent:
-        raise Exception('Welcome email already sent!')
-    emails.send_welcome_emails([signup_db.email])
-    signup_db.date_welcome_email_sent = datetime.utcnow()
-    signup_db.save()
+        db.UserSignup.objects.filter(id__in=signups.values('id')).update(date_tasks_handled=datetime.utcnow())
+        signups = db.UserSignup.objects.filter(date_tasks_handled__isnull=True, date_deleted__isnull=True)[:500]
 
 
 def add_user_to_global_list( email ):
