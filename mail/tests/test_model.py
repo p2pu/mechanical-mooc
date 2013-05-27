@@ -10,7 +10,7 @@ from mail import models as mail_model
 
 import datetime
 
-class SimpleTest(TestCase):
+class ModelTest(TestCase):
     EMAIL_PARAMS = [
         'The subject',
         'The text body',
