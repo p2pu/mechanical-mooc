@@ -29,10 +29,10 @@ def compose( request ):
         html_body = request.POST.get('body_text')
         text_body = _clean_html(html_body)
         tags = request.POST.get('tags')
-        sequence = '1'
+        sequence = 1
         audience = 'individuals'
         if request.POST.get('to', None):
-            sequence = request.POST.get('to').split('-')[1]
+            sequence = int(request.POST.get('to').split('-')[1])
             audience = request.POST.get('to').split('-')[0]
 
         mail_api.save_email(subject, text_body, html_body, sequence, audience, tags)
@@ -61,7 +61,7 @@ def edit( request, id ):
         html_body = request.POST.get('body_text')
         text_body = _clean_html(html_body)
         tags = request.POST.get('tags')
-        sequence = request.POST.get('to').split('-')[1]
+        sequence = int(request.POST.get('to').split('-')[1])
         audience = request.POST.get('to').split('-')[0]
 
         mail_api.update_email(email_uri, subject, text_body, html_body, 
@@ -94,6 +94,7 @@ def send_preview( request ):
 
 @login_required
 def send( request, id ):
+    #TODO should require a POST
     email_uri = mail_api.id2uri(id)
     send_email(email_uri)
     return http.HttpResponseRedirect(reverse('mail_schedule'))
@@ -101,6 +102,7 @@ def send( request, id ):
 
 @login_required
 def delete( request, id ):
+    #TODO should require a POST
     email_uri = mail_api.id2uri(id)
     mail_api.delete_email(email_uri)
     return http.HttpResponseRedirect(reverse('mail_schedule'))
