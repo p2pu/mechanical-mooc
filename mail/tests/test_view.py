@@ -64,19 +64,59 @@ class ViewTest(TestCase):
 
 
     def test_compose(self):
-        raise Exception()
+        c = Client()
+        self.assertTrue(c.login(username='admin', password='password'))
 
+        resp = c.get('/mail/compose/')
+        self.assertEquals(resp.status_code, 200)
 
-    def test_edit(self):
-        raise Exception()
+        post_data = {
+            'subject': 'Test subject',
+            'body_text': '<p>This is a test</p>',
+            'tags': 'tag1,tag2,tag3',
+            'to': 'groups-1'
+        }
+        resp = c.post('/mail/compose/', post_data)
+        self.assertRedirects(resp, '/mail/schedule/')
+
+        post_data['tags'] = 'tag2'
+        resp = c.post('/mail/edit/1/', post_data)
+        self.assertRedirects(resp, '/mail/schedule/')
 
 
     def test_delete(self):
-        raise Exception()
+        c = Client()
+        self.assertTrue(c.login(username='admin', password='password'))
+
+        post_data = {
+            'subject': 'Test subject',
+            'body_text': '<p>This is a test</p>',
+            'tags': 'tag1,tag2,tag3',
+            'to': 'groups-1'
+        }
+        resp = c.post('/mail/compose/', post_data)
+        self.assertRedirects(resp, '/mail/schedule/')
+
+        resp = c.get('/mail/delete/1/')
+        self.assertRedirects(resp, '/mail/schedule/')
 
 
-    def test_send(self):
-        raise Exception()
+    @patch('mail.views.send_email')
+    def test_send(self, *args):
+        c = Client()
+        self.assertTrue(c.login(username='admin', password='password'))
+
+        post_data = {
+            'subject': 'Test subject',
+            'body_text': '<p>This is a test</p>',
+            'tags': 'tag1,tag2,tag3',
+            'to': 'groups-1'
+        }
+        resp = c.post('/mail/compose/', post_data)
+        self.assertRedirects(resp, '/mail/schedule/')
+
+        resp = c.get('/mail/send/1/')
+        self.assertRedirects(resp, '/mail/schedule/')
 
 
     @patch('mail.views.mailgun_api.send_email')
