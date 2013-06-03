@@ -16,6 +16,8 @@ You will need to create the database using `heroku run python manage.py syncdb -
 
 Then run `heroku run python manage.py syncdb`
 
+## Email
+
 For sending email and managing mailing lists we use [mailgun](http://mailgun.com/). Unfortunately mailgun doesn't have a free account option, so sending out emails will cost some money :( You will need to set up a mailgun account and get the API keys.
 
 Running mailgun requires that you have a domain name set up (the @whatever.com where your emails will come from). See the mailgun documentation for instructions on how to configure this.
@@ -27,6 +29,10 @@ You will need to set a few configuration variables on heroku:
 - EMAIL_DOMAIN - the same as the MAILGUN_API_DOMAIN (we probably need to remove this)
 
 You can set these variables by running `heroku config:set MAILGUN_API_DOMAIN=yourdomain.org`
+
+Don't forget to update the confirmation emails that are sent out to people who sign up. The templates are in the `templates/signup/emails` folder. 
+
+## Database 
 
 After all this you will need to create the database on heroku `heroku run python manage.py syncdb`
 
@@ -41,6 +47,8 @@ You will also need to create a sequence for your MOOC. A sequence is like a sing
     > exit()
 
 And then you will need to add the tasks that will send out the emails to new signups and scheduled emails. You can enable the scheduler by running `heroku addons:add scheduler:standard`
+
+## Heroku Scheduler
 
 To add the actual tasks, you need to log into your application dashboard. `heroku addons:open scheduler` will open the dashboard in your webbrowser. Through the web form, add the following scripts:
 
