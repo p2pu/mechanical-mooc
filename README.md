@@ -28,7 +28,7 @@ After all this you will need to create the database on heroku `heroku run python
 
 You will also need to create a sequence for your MOOC. A sequence is like a single run of your course, obviously your course will be a resounding success and you will want to run many more!
 
-    heroku run python mangage.py shell
+    heroku run python manage.py shell
     > from sequence import models
     > from datetime import datetime
     > start_date = datetime(2013, 12, 1)
@@ -40,11 +40,11 @@ And then you will need to add the tasks that will send out the emails to new sig
 
 To add the actual tasks, you need to log into your application dashboard. `heroku addons:open scheduler` will get you there quickly. The two scripts that you need to add are
 
-    python manage.py handle_new_signups
+    heroku run python manage.py handle_new_signups
 
 and
 
-    python manage.py send_scheduled_mail
+    heroku run python manage.py send_scheduled_mail
 
 The first task should run every 10 minutes and the second task is should run every hour.
 
