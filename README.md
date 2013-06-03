@@ -42,14 +42,14 @@ You will also need to create a sequence for your MOOC. A sequence is like a sing
 
 And then you will need to add the tasks that will send out the emails to new signups and scheduled emails. You can enable the scheduler by running `heroku addons:add scheduler:standard`
 
-To add the actual tasks, you need to log into your application dashboard. `heroku addons:open scheduler` will get you there quickly. The two scripts that you need to add are
+To add the actual tasks, you need to log into your application dashboard. `heroku addons:open scheduler` will open the dashboard in your webbrowser. Through the web form, add the following scripts:
 
-    heroku run python manage.py handle_new_signups
+    python manage.py handle_new_signups
 
 and
 
-    heroku run python manage.py send_scheduled_mail
+    python manage.py send_scheduled_mail
 
-The first task should run every 10 minutes and the second task is should run every hour.
+The first task should run every 10 minutes and the second task should run every hour.
 
 That's it, you are all set up to run your very own Mechanical Mooc and enlighten the world with peer learning!
