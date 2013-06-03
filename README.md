@@ -10,7 +10,11 @@ Get the code from github `git clone https://github.com/p2pu/mechanical-mooc`
 
 After [setting up a heroku account](https://devcenter.heroku.com/articles/quickstart#step-4-deploy-an-application) if you havent already, run `heroku create` and `git push heroku master`
 
-You will need to create the database using `heroku run python manage.py syncdb --migrate`. If the migration fails, comment out south in the settings.py file and run `heroku run python manage.py syncdb`
+You will need to create the database using `heroku run python manage.py syncdb --migrate`. If the migration fails, comment out the following line in the settings.py file. You only need it if you are migrating an existing DB (e.g. you already have signed-up users for example). 
+
+    'south',
+
+Then run `heroku run python manage.py syncdb`
 
 For sending email and managing mailing lists we use [mailgun](http://mailgun.com/). Unfortunately mailgun doesn't have a free account option, so sending out emails will cost some money :( You will need to set up a mailgun account and get the API keys.
 
@@ -28,7 +32,7 @@ After all this you will need to create the database on heroku `heroku run python
 
 You will also need to create a sequence for your MOOC. A sequence is like a single run of your course, obviously your course will be a resounding success and you will want to run many more!
 
-    heroku run python mangage.py shell
+    heroku run python manage.py shell
     > from sequence import models
     > from datetime import datetime
     > start_date = datetime(2013, 12, 1)
@@ -40,11 +44,11 @@ And then you will need to add the tasks that will send out the emails to new sig
 
 To add the actual tasks, you need to log into your application dashboard. `heroku addons:open scheduler` will get you there quickly. The two scripts that you need to add are
 
-    python manage.py handle_new_signups
+    heroku run python manage.py handle_new_signups
 
 and
 
-    python manage.py send_scheduled_mail
+    heroku run python manage.py send_scheduled_mail
 
 The first task should run every 10 minutes and the second task is should run every hour.
 
