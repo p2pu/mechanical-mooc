@@ -10,7 +10,9 @@ Get the code from github `git clone https://github.com/p2pu/mechanical-mooc`
 
 After [setting up a heroku account](https://devcenter.heroku.com/articles/quickstart#step-4-deploy-an-application) if you havent already, run `heroku create` and `git push heroku master`
 
-You will need to create the database using `heroku run python manage.py syncdb --migrate`. If the migration fails, comment out south in the settings.py file and run `heroku run python manage.py syncdb`
+You will need to create the database. Comment out south in the settings.py file and run `heroku run python manage.py syncdb`. If you know what you are doing, you can use south, but be warned that currently the migrations break and you have to do some custom SQL and fake migrations.
+
+During the database creation, you need to create a superuser. This is the user that you will use to log in and create and send emails.
 
 For sending email and managing mailing lists we use [mailgun](http://mailgun.com/). Unfortunately mailgun doesn't have a free account option, so sending out emails will cost some money :( You will need to set up a mailgun account and get the API keys.
 
