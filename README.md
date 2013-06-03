@@ -14,9 +14,7 @@ You will need to create the database using `heroku run python manage.py syncdb -
 
     'south',
 
-Then run 
-
-    `heroku run python manage.py syncdb`
+Then run `heroku run python manage.py syncdb`
 
 For sending email and managing mailing lists we use [mailgun](http://mailgun.com/). Unfortunately mailgun doesn't have a free account option, so sending out emails will cost some money :( You will need to set up a mailgun account and get the API keys.
 
