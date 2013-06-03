@@ -10,7 +10,7 @@ Get the code from github `git clone https://github.com/p2pu/mechanical-mooc`
 
 After [setting up a heroku account](https://devcenter.heroku.com/articles/quickstart#step-4-deploy-an-application) if you havent already, run `heroku create` and `git push heroku master`
 
-You will need to create the database. Comment out south in the settings.py file and run `heroku run python manage.py syncdb`. If you know what you are doing, you can use south, but be warned that currently the migrations break and you have to do some custom SQL and fake migrations.
+Next you need to create the database. Comment out south in the settings.py file and run `heroku run python manage.py syncdb`. If you know what you are doing, you can use south, but be warned that currently the migrations break and you have to do some custom SQL and fake migrations.
 
 During the database creation, you need to create a superuser. This is the user that you will use to log in and create and send emails.
 
@@ -30,7 +30,7 @@ After all this you will need to create the database on heroku `heroku run python
 
 You will also need to create a sequence for your MOOC. A sequence is like a single run of your course, obviously your course will be a resounding success and you will want to run many more!
 
-    heroku run python mangage.py shell
+    heroku run python manage.py shell
     > from sequence import models
     > from datetime import datetime
     > start_date = datetime(2013, 12, 1)
@@ -40,7 +40,7 @@ You will also need to create a sequence for your MOOC. A sequence is like a sing
 
 And then you will need to add the tasks that will send out the emails to new signups and scheduled emails. You can enable the scheduler by running `heroku addons:add scheduler:standard`
 
-To add the actual tasks, you need to log into your application dashboard. `heroku addons:open scheduler` will get you there quickly. The two scripts that you need to add are
+To add the actual tasks, you need to log into your application dashboard. `heroku addons:open scheduler` will open the dashboard in your webbrowser. Through the web form, add the following scripts:
 
     python manage.py handle_new_signups
 
@@ -48,6 +48,6 @@ and
 
     python manage.py send_scheduled_mail
 
-The first task should run every 10 minutes and the second task is should run every hour.
+The first task should run every 10 minutes and the second task should run every hour.
 
 That's it, you are all set up to run your very own Mechanical Mooc and enlighten the world with peer learning!
