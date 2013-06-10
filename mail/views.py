@@ -14,12 +14,15 @@ from sequence import models as sequence_model
 
 import bleach
 import datetime
+import re
 
 
 def _clean_html(html):
-    #TODO rewrite links
-    #TODO remove all HTML markup!
-    return bleach.clean(html, strip=True)
+    expression = re.compile(r'<a.*?href="(?P<url>.*?)".*?>(?P<text>.*?)</a>')
+    # rewrite links
+    html = expression.sub(r'\2 ( \1 ) ', html)
+    # remove all HTML markup
+    return bleach.clean(html, tags=[], strip=True)
 
 
 @login_required
