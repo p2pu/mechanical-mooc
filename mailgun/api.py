@@ -28,7 +28,7 @@ def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, t
         ('subject', subject),
         ('text', text_body),
         ('o:tracking', 'yes'),
-        ('o:tracking-clicks', 'yes'),
+        ('o:tracking-clicks', 'htmlonly'),
         ('o:tracking-opens', 'yes'),
     ]
 
