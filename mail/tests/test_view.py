@@ -79,8 +79,12 @@ class ViewTest(TestCase):
         resp = c.post('/mail/compose/', post_data)
         self.assertRedirects(resp, '/mail/schedule/')
 
+        resp = c.get('/mail/schedule/')
+        self.assertEquals(len(resp.context['schedule']), 1)
+
+        email_id = resp.context['schedule'][0]['id']
         post_data['tags'] = 'tag2'
-        resp = c.post('/mail/edit/1/', post_data)
+        resp = c.post('/mail/edit/{0}/'.format(email_id), post_data)
         self.assertRedirects(resp, '/mail/schedule/')
 
 
@@ -97,7 +101,11 @@ class ViewTest(TestCase):
         resp = c.post('/mail/compose/', post_data)
         self.assertRedirects(resp, '/mail/schedule/')
 
-        resp = c.get('/mail/delete/1/')
+        resp = c.get('/mail/schedule/')
+        self.assertEquals(len(resp.context['schedule']), 1)
+
+        email_id = resp.context['schedule'][0]['id']
+        resp = c.get('/mail/delete/{0}/'.format(email_id))
         self.assertRedirects(resp, '/mail/schedule/')
 
 
