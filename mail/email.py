@@ -14,6 +14,8 @@ def send_email( email_uri ):
         to_address = ','.join([g['address'] for g in group_api.get_groups(email['sequence'])])
     elif email['audience'] == 'individuals':
         to_address = sequence_api.sequence_list_name(email['sequence'])
+    elif email['audience'] == 'experimentalgroups':
+        to_address = ','.join(settings.EXPERIMENTAL_GROUP_EMAILS)
 
     text_body = render_to_string('mail/email.txt', {'email': email})
     html_body = render_to_string('mail/email.html', {'email': email})
