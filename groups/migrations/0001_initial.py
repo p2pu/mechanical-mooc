@@ -13,6 +13,7 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('address', self.gf('django.db.models.fields.EmailField')(unique=True, max_length=75)),
             ('description', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('sequence', self.gf('django.db.models.fields.IntegerField')()),
         ))
         db.send_create_signal('groups', ['Group'])
 
@@ -38,7 +39,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Group'},
             'address': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '75'}),
             'description': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'sequence': ('django.db.models.fields.IntegerField', [], {})
         },
         'groups.groupmember': {
             'Meta': {'object_name': 'GroupMember'},

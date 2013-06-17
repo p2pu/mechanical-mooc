@@ -14,6 +14,8 @@ class Migration(SchemaMigration):
             ('subject', self.gf('django.db.models.fields.CharField')(max_length=78)),
             ('text_body', self.gf('django.db.models.fields.TextField')()),
             ('html_body', self.gf('django.db.models.fields.TextField')()),
+            ('sequence', self.gf('django.db.models.fields.IntegerField')()),
+            ('audience', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('tags', self.gf('django.db.models.fields.CharField')(max_length=1000)),
             ('date_scheduled', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
             ('date_sent', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
@@ -29,10 +31,12 @@ class Migration(SchemaMigration):
     models = {
         'mail.email': {
             'Meta': {'object_name': 'Email'},
+            'audience': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'date_scheduled': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'date_sent': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'html_body': ('django.db.models.fields.TextField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'sequence': ('django.db.models.fields.IntegerField', [], {}),
             'subject': ('django.db.models.fields.CharField', [], {'max_length': '78'}),
             'tags': ('django.db.models.fields.CharField', [], {'max_length': '1000'}),
             'text_body': ('django.db.models.fields.TextField', [], {})

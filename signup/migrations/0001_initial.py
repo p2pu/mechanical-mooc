@@ -11,12 +11,14 @@ class Migration(SchemaMigration):
         # Adding model 'UserSignup'
         db.create_table('signup_usersignup', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('email', self.gf('django.db.models.fields.EmailField')(unique=True, max_length=75)),
+            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
             ('invite_code', self.gf('django.db.models.fields.CharField')(max_length=64)),
             ('questions', self.gf('django.db.models.fields.TextField')()),
-            ('date_welcome_email_sent', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('sequence', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
             ('date_added', self.gf('django.db.models.fields.DateTimeField')()),
             ('date_updated', self.gf('django.db.models.fields.DateTimeField')()),
+            ('date_deleted', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('date_tasks_handled', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
         ))
         db.send_create_signal('signup', ['UserSignup'])
 
@@ -30,12 +32,14 @@ class Migration(SchemaMigration):
         'signup.usersignup': {
             'Meta': {'object_name': 'UserSignup'},
             'date_added': ('django.db.models.fields.DateTimeField', [], {}),
+            'date_deleted': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'date_tasks_handled': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'date_updated': ('django.db.models.fields.DateTimeField', [], {}),
-            'date_welcome_email_sent': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '75'}),
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'invite_code': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
-            'questions': ('django.db.models.fields.TextField', [], {})
+            'questions': ('django.db.models.fields.TextField', [], {}),
+            'sequence': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
         }
     }
 

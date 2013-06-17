@@ -62,20 +62,20 @@ class SimpleTest(TestCase):
     def test_multiple_sequences(self):
         now = datetime.datetime.utcnow().date()
 
-        start_date = now - datetime.timedelta(weeks=16)
-        signup_close_date = now - datetime.timedelta(weeks=17)
+        start_date = now - datetime.timedelta(days=1)
+        signup_close_date = now - datetime.timedelta(days=1)
         sequence_model.create_sequence(
             start_date, signup_close_date
         )
 
-        start_date = now + datetime.timedelta(weeks=8)
-        signup_close_date = now + datetime.timedelta(weeks=7)
+        start_date = now
+        signup_close_date = now
         sequence = sequence_model.create_sequence(
             start_date, signup_close_date
         )
 
-        start_date = now + datetime.timedelta(weeks=16)
-        signup_close_date = now + datetime.timedelta(weeks=15)
+        start_date = now + datetime.timedelta(days=1)
+        signup_close_date = now + datetime.timedelta(days=1)
         sequence_model.create_sequence(
             start_date, signup_close_date
         )

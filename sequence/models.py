@@ -56,7 +56,7 @@ def get_all_sequences( ):
 
 def get_current_sequence( ):
     """ return the first sequence where signup_close_date is in the future """
-    sequence_db = db.Sequence.objects.filter(signup_close_date__gt=datetime.datetime.utcnow()).order_by('start_date')
+    sequence_db = db.Sequence.objects.filter(signup_close_date__gte=datetime.datetime.utcnow().date()).order_by('start_date')
 
     if sequence_db.count() == 0:
         return None
@@ -65,7 +65,7 @@ def get_current_sequence( ):
 
 
 def get_current_sequence_number( ):
-    sequence_db = db.Sequence.objects.filter(signup_close_date__gt=datetime.datetime.utcnow()).order_by('start_date')
+    sequence_db = db.Sequence.objects.filter(signup_close_date__gte=datetime.datetime.utcnow().date()).order_by('start_date')
 
     if sequence_db.count() == 0:
         return None
