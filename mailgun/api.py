@@ -93,7 +93,7 @@ def update_list(address, name=None, description=None, access_level=None):
             raise Exception('Invalid access level')
         data['access_level'] = access_level
 
-    resp = call_mailgun('PUT', 'lists/{address}'.format(address=address, data)
+    resp = call_mailgun('PUT', 'lists/{address}'.format(address=address), data)
     if resp.status_code != 200:
         raise Exception(resp.text)
 
