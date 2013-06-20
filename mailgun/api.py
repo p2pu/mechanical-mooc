@@ -80,6 +80,24 @@ def create_list(address, name=None, description=None, access_level=None):
         raise Exception(resp.text)
 
 
+def update_list(address, name=None, description=None, access_level=None):
+    data = {
+        'address': address,
+    }
+    if name:
+        data['name'] = name
+    if description:
+        data['description'] = description
+    if access_level:
+        if access_level not in ['readonly', 'members', 'everyone']:
+            raise Exception('Invalid access level')
+        data['access_level'] = access_level
+
+    resp = call_mailgun('PUT', 'lists/{address}'.format(address=address), data)
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+
+
 def add_list_member(list_address, member_address):
     data = {
         'address': member_address,
