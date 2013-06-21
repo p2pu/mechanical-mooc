@@ -169,6 +169,11 @@ LOGGING = {
     }
 }
 
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_SUBJECT_PREFIX = '[MechMOOC] '
+
 MAILGUN_API_URL = os.environ.get('MAILGUN_API_URL', 'https://api.mailgun.net/v2')
 MAILGUN_API_DOMAIN = os.environ.get('MAILGUN_API_DOMAIN', 'mechanicalmooc.org')
 MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY', '')
@@ -179,4 +184,5 @@ DATABASES['default'] =  dj_database_url.config(default='sqlite:///{0}'.format(pa
 
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'missioncontrol@data.p2pu.org')
 
+#TODO this may cause confusion with DJANOG EMAIL_ settings!
 EMAIL_DOMAIN = os.environ.get('EMAIL_DOMAIN', '')
