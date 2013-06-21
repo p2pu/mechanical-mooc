@@ -77,6 +77,7 @@ def do_grouping(sequence):
 
     # sync groups with mailgun
     for group in group_model.get_groups(sequence):
+        group_model.add_group_member(group['uri'], settings.DEFAULT_FROM_EMAIL)
         group_model.sync_group_with_mailgun(group['uri'])
 
     # update access to group for ungrouped users
