@@ -81,4 +81,4 @@ def do_grouping(sequence):
         group_model.sync_group_with_mailgun(group['uri'])
 
     # update access to group for ungrouped users
-    mailgun_api.update_list(ungroup, access_level='readonly')
+    mailgun_api.update_list(ungroup['address'], access_level='readonly')
