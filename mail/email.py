@@ -15,7 +15,7 @@ def send_email( email_uri ):
     elif email['audience'] == 'individuals':
         to_address = sequence_api.sequence_list_name(email['sequence'])
     elif email['audience'] == 'experimentalgroups':
-        to_address = ','.join(settings.EXPERIMENTAL_GROUP_EMAILS)
+        to_address = ','.join(settings.EXPERIMENTAL_GROUPS)
 
     text_body = render_to_string('mail/email.txt', {'email': email})
     html_body = render_to_string('mail/email.html', {'email': email})

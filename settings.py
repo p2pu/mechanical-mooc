@@ -8,7 +8,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Dirk', 'dirk@p2pu.org'),
 )
 
 MANAGERS = ADMINS
@@ -186,3 +186,5 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'missioncontrol@data.p
 
 #TODO this may cause confusion with DJANOG EMAIL_ settings!
 EMAIL_DOMAIN = os.environ.get('EMAIL_DOMAIN', '')
+
+EXPERIMENTAL_GROUPS = [u'group-4-30@mechanicalmooc.org', u'group-4-24@mechanicalmooc.org', u'group-4-35@mechanicalmooc.org', u'group-4-2@mechanicalmooc.org', u'group-4-5@mechanicalmooc.org', u'group-4-37@mechanicalmooc.org', u'group-4-15@mechanicalmooc.org', u'group-4-22@mechanicalmooc.org', u'group-4-18@mechanicalmooc.org', u'group-4-20@mechanicalmooc.org', u'group-4-17@mechanicalmooc.org', u'group-4-9@mechanicalmooc.org', u'group-4-43@mechanicalmooc.org', u'group-4-34@mechanicalmooc.org', u'group-4-6@mechanicalmooc.org', u'group-4-1@mechanicalmooc.org', u'group-4-13@mechanicalmooc.org', u'ungrouped-s-4@mechanicalmooc.org', u'group-4-31@mechanicalmooc.org', u'group-4-33@mechanicalmooc.org', u'group-4-7@mechanicalmooc.org', u'group-4-32@mechanicalmooc.org']
