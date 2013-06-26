@@ -3,17 +3,18 @@ from signup import models as signup_model
 from sequence import models as sequence_model
 from groups import models as groups_model
 
+import logging
+log = logging.getLogger(__name__)
+
 def unsubscribe_from_sequence( address ):
 
-    user_signup = signup_model.get_signup(address)
-
     # remove from sequence group
-    sequence_list = sequence_model.sequence_list_name(user_signup['sequence'])
     try:
+        user_signup = signup_model.get_signup(address)
+        sequence_list = sequence_model.sequence_list_name(user_signup['sequence'])
         mailgun_api.remove_list_member(sequence_list, address)
     except:
-        # TODO: log error
-        pass
+        log.error(u"couldn't remove {0} from sequence list".format(address))
     
     # remove from small groups
     # TODO: Can a user be subscribed to more than one group or more than one
@@ -30,15 +31,14 @@ def unsubscribe_from_sequence( address ):
 def unsubscribe_user( address ):
     """ Unsubscribe user completely from the Mechanical Mooc 
     """
-    user_signup = signup_model.get_signup(address)
 
     # remove from sequence group
-    sequence_list = sequence_model.sequence_list_name(user_signup['sequence'])
     try:
+        user_signup = signup_model.get_signup(address)
+        sequence_list = sequence_model.sequence_list_name(user_signup['sequence'])
         mailgun_api.remove_list_member(sequence_list, address)
     except:
-        # TODO: log error
-        pass
+        log.error(u"couldn't remove {0} from sequence list".format(address))
 
     # remove from small groups
     groups = groups_model.get_member_groups(address)

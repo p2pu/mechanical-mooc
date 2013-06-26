@@ -3,10 +3,10 @@ from requests.auth import HTTPBasicAuth
 from django.conf import settings
 import django.utils.simplejson as json
 
-def call_mailgun(method, api_sub_url, data):
+def call_mailgun(method, api_sub_url, data, params=None):
     api_url = '/'.join([settings.MAILGUN_API_URL.strip('/'), api_sub_url.strip('/')])
     auth = HTTPBasicAuth('api', settings.MAILGUN_API_KEY)
-    return requests.request(method, api_url, auth=auth, data=data)
+    return requests.request(method, api_url, auth=auth, data=data, params=params)
 
 
 def send_email(to_email, from_email, subject, text_body, html_body=None, tags=None, campaign_id=None):
@@ -153,4 +153,14 @@ def delete_all_unsubscribes(address):
     resp = call_mailgun('DELETE', sub_url, {})
     return resp.json()
 
+
+def get_list_stats(list_address):
+    resp = call_mailgun(
+        'GET',
+        'lists/{address}/stats'.format(address=list_address),
+        {}
+    )
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+    return resp.json()
 
