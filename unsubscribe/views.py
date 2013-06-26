@@ -4,6 +4,9 @@ from django.views.decorators.csrf import csrf_exempt
 from mailgun import utils
 import models as unsubscribe_model
 
+import logging
+log = logging.getLogger(__name__)
+
 @csrf_exempt
 def unsubscribe_webhook(request):
     verified = utils.verify_webhook(
@@ -23,7 +26,7 @@ def unsubscribe_webhook(request):
         else:
             unsubscribe_model.unsubscribe_user(address)
     except:
-        raise
+        log.error(u'Could not unsubscribe {0}')
 
     return http.HttpResponse('')
 
