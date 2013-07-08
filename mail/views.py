@@ -43,7 +43,7 @@ def _rewrite_links(html):
                 raise Exception('Mailgun URL did not redirect. Status code: {}. URL: {}. Headers: {}'.format(resp.status_code, resp.url, resp.headers))
             new_url = resp.headers['location']
             print("New url: {}".format(new_url))
-            html = html[:match.start()] + new_url + html[match.end():]
+            html = html[:match.start('url')] + new_url + html[match.end('url'):]
         except Exception as e:
             print(e)
             break;
