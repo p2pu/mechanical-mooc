@@ -1,0 +1,23 @@
+Greetings Moocster Team {{ group_number }},
+
+We have two pieces of news to report.
+
+Item #1: Your Friday Weekly Snapshot.
+
+Your team sent {{ group_stats.messages }} message{{ group_stats.messages|pluralize }} this week.
+
+Here's a sense of activity in the learning community as a whole:
+
+{{ all_stats_url }}
+
+Item #2:  Connect with your Team.
+
+Each Friday we'll remind you to use your Team as a layer of support as you move through the Mechanical MOOC. A few ideas to get your group going:
+ - Where are you at in the course material? Share your progress.</li>
+ - Ask a question that you've been puzzling over.</li>
+ - Share a success you've recently had in your learning experience.</li>
+ - On a scale of 1-10, how are you feeling this week.</li>
+
+Carry forth, MOOCsters,
+
+-MMOOC

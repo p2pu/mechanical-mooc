@@ -2,6 +2,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 
 from mailgun import api as mailgun_api
+from sequence import models as sequence_api
 
 import pygal
 
@@ -38,20 +39,28 @@ def test_stats():
 
 def get_stats():
     logs = mailgun_api.get_logs(limit=0)
-    stats = {}
+    week_ago = datetime.datetime.utcnow() - datetime.timedelta(days=7)
+    date = lambda x: datetime.datetime.strptime(x, '%a, %d %b %Y %H:%M:%S GMT')
+    date_filter = lambda x: date(x['created_at']) > week_ago
+    logs['items'] = filter(date_filter, logs['items'])
 
-    for group in settings.EXPERIMENTAL_GROUPS:
-        stats[group] = mailgun_api.get_list_stats(group)
-        f = lambda x: x['hap'] == 'listexpand' and group in x['message']
-        stats[group]['messages'] = len(filter(f, logs['items']))
+    stats = {}
+    for group_number in range(1,44):
+        group = 'group-4-{0}@mechanicalmooc.org'.format(group_number)
+        #if group in settings.EXPERIMENTAL_GROUPS:
+        #    stats[group] = mailgun_api.get_list_stats(group)
+        #else:
+        stats[group] = {}
+        event_filter = lambda x: x['hap'] == 'listexpand' and group in x['message']
+        stats[group]['messages'] = len(filter(event_filter, logs['items']))
     return stats
 
 
 def make_group_graph(group_stats):
     line_chart = pygal.HorizontalBar()
     line_chart.title = 'List activity'
-    line_chart.add('Clicks', group_stats['unique']['clicked']['link'])
-    line_chart.add('Opens', group_stats['unique']['opened']['recipient'])
+    #line_chart.add('Clicks', group_stats['unique']['clicked']['link'])
+    #line_chart.add('Opens', group_stats['unique']['opened']['recipient'])
     line_chart.add('Messages', group_stats['messages'])
     return line_chart
 
@@ -59,9 +68,10 @@ def make_group_graph(group_stats):
 def make_global_graph(stats):
     line_chart = pygal.Bar()
     line_chart.title = 'Overall activity'
-    line_chart.x_labels = [group[8:group.find('@')] for group in stats.keys()]
+    line_chart.x_labels = map(str, range(1,44))
     line_chart.x_tite = 'Group'
-    line_chart.add('Messages', [s['messages'] for s in stats.values()])
+    group_name = lambda group_number: 'group-4-{0}@mechanicalmooc.org'.format(group_number)
+    line_chart.add('Messages', [stats[group_name(i)]['messages'] for i in range(1,44)])
     return line_chart
 
 
@@ -80,6 +90,7 @@ def send_group_updates():
 
     # get stats for all groups from mailgun
     stats = get_stats()
+    print(stats)
 
     global_graph = make_global_graph(stats)
     postfix = datetime.datetime.utcnow().strftime("%Y-%m-%d")
@@ -96,16 +107,24 @@ def send_group_updates():
         cmd = 'inkscape -e {0}-{1}.png {0}-{1}.svg'.format(group, postfix)
         subprocess.call(cmd.split(' '))
         group_stats_url = upload_to_s3('{0}-{1}.png'.format(group, postfix))
+        context = {
+            'stats': stats, 
+            'group': group,
+            'group_stats': stats[group],
+            'group_number': group[8:group.find('@')],
+            'group_stats_url': group_stats_url,
+            'all_stats_url': global_graph_url,
+        } 
 
-        html_body = render_to_string(
-            'stats/mail.html', 
-            {
-                'stats': stats, 
-                'group': group,
-                'group_number': group[8:group.find('@')],
-                'group_stats_url': group_stats_url,
-                'all_stats_url': global_graph_url,
-            }
-        )
+        html_body = render_to_string('stats/mail.html', context)
+        text_body = render_to_string('stats/mail.txt', context)
         print(html_body)
-        mailgun_api.send_email('dirk@p2pu.org', 'themachine@mechanicalmooc.org', 'Update', html_body, html_body)
+        mailgun_api.send_email(
+            group,
+            'the-machine@mechanicalmooc.org',
+            'Weekly Snapshot: What\'s the Mechanical MOOC Community Up To',
+            text_body,
+            html_body,
+            ['sequence_4', 'week_3', 'group_encourage'],
+            sequence_api.sequence_campaign(4)
+        )

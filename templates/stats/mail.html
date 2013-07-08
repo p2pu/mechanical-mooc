@@ -3,17 +3,21 @@
 
 <body>
 
-<p>Greetings Moocster Team {{ group_number }},</p>
+<h1>Greetings Moocster Team {{ group_number }},</h1>
 
-<p>An update from the flight deck. Here's a snapshot of your team's activity.</p>
+<p>We have two pieces of news to report.</p>
 
-<img src="{{ group_stats_url }}"/>
+<h2>Item #1: Your Friday Weekly Snapshot.</h2>
 
-<p>And here's a sense of engagement in the wider MOOC Community:</p>
+<p>Your team sent {{ group_stats.messages }} message{{ groups_stats.messages|pluralize }} this week.</p>
+
+<p>Here's a sense of activity in the learning community as a whole:</p>
 
 <img src="{{ all_stats_url }}"/>
 
-<p>We suggest that each Friday, you take some time to reach out to your group. A few ideas:</p>
+<h2>Item #2:  Connect with your Team.</h2>
+
+<p>Each Friday we'll remind you to use your Team as a layer of support as you move through the Mechanical MOOC. A few ideas to get your group going:</p>
 <ul>
   <li>Where are you at in the course material? Share your progress.</li>
   <li>Ask a question that you've been puzzling over.</li>
