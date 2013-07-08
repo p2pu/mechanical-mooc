@@ -16,8 +16,10 @@ import bleach
 import datetime
 import re
 
+import requests
 
-def _clean_html(html):
+
+def _text_from_html(html):
     expression = re.compile(r'<a.*?href="(?P<url>.*?)".*?>(?P<text>.*?)</a>')
     # rewrite links
     html = expression.sub(r'\2 ( \1 ) ', html)
@@ -25,12 +27,31 @@ def _clean_html(html):
     return bleach.clean(html, tags=[], strip=True)
 
 
+def _rewrite_links(html):
+    expression = re.compile(r'(?P<url>http://email.{}/c/.*?)[\"\' ]'.format(settings.MAILGUN_API_DOMAIN))
+
+    # for every link
+    while expression.search(html):
+        match = expression.search(html)
+        url = match.group('url')
+        try:
+            resp = requests.get(url, allow_redirects=False)
+            if resp.status_code != 302:
+                return resp
+                raise Exception('Mailgun URL did not redirect. Status code: {}. URL: {}. Headers: {}'.format(resp.status_code, resp.url, resp.headers))
+            new_url = resp.headers['location']
+            html = html[:match.start('url')] + new_url + html[match.end('url'):]
+        except Exception as e:
+            break;
+    return html
+
+
 @login_required
 def compose( request ):
     if request.method == 'POST':
         subject = request.POST.get('subject')
-        html_body = request.POST.get('body_text')
-        text_body = _clean_html(html_body)
+        html_body = _rewrite_links(request.POST.get('body_text'))
+        text_body = _text_from_html(html_body)
         tags = request.POST.get('tags')
         sequence = 1
         audience = 'individuals'
@@ -61,8 +82,8 @@ def edit( request, id ):
 
     if request.method == 'POST':
         subject = request.POST.get('subject')
-        html_body = request.POST.get('body_text')
-        text_body = _clean_html(html_body)
+        html_body = _rewrite_links(request.POST.get('body_text'))
+        text_body = _text_from_html(html_body)
         tags = request.POST.get('tags')
         sequence = int(request.POST.get('to').split('-')[1])
         audience = request.POST.get('to').split('-')[0]
@@ -87,8 +108,8 @@ def send_preview( request ):
     """ ajax view to send preview email """
     if request.method == 'POST':
         subject = request.POST.get('subject')
-        html_body = request.POST.get('body_text')
-        text_body = _clean_html(html_body)
+        html_body = _rewrite_links(request.POST.get('body_text'))
+        text_body = _text_from_html(html_body)
         to_email = request.POST.get('test_email')
         mailgun_api.send_email(to_email, settings.DEFAULT_FROM_EMAIL, subject, text_body, html_body)
         return http.HttpResponse('')
