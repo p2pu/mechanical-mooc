@@ -165,11 +165,11 @@ def get_list_stats(list_address):
     return resp.json()
 
 
-def get_logs(limit=100, offset=0):
+def get_logs(limit=100, skip=0):
     resp  = call_mailgun(
         'GET', '/'.join([settings.MAILGUN_API_DOMAIN, 'log']),
         {},
-        {'limit': limit, 'offset': offset}
+        {'limit': limit, 'skip': skip}
     )
     if resp.status_code != 200:
         raise Exception(resp.text)
