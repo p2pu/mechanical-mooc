@@ -3,6 +3,7 @@ from requests.auth import HTTPBasicAuth
 from django.conf import settings
 import django.utils.simplejson as json
 
+
 def call_mailgun(method, api_sub_url, data, params=None):
     api_url = '/'.join([settings.MAILGUN_API_URL.strip('/'), api_sub_url.strip('/')])
     auth = HTTPBasicAuth('api', settings.MAILGUN_API_KEY)
@@ -170,6 +171,18 @@ def get_logs(limit=100, offset=0):
         'GET', '/'.join([settings.MAILGUN_API_DOMAIN, 'log']),
         {},
         {'limit': limit, 'offset': offset}
+    )
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+    return resp.json()
+
+
+def get_campaign_events(campaign_id, event):
+    resp = call_mailgun(
+        'GET',
+        '/'.join([settings.MAILGUN_API_DOMAIN, 'campaigns', campaign_id, 'events']),
+        {},
+        {'event': event}
     )
     if resp.status_code != 200:
         raise Exception(resp.text)
