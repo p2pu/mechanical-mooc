@@ -29,23 +29,19 @@ def _text_from_html(html):
 
 def _rewrite_links(html):
     expression = re.compile(r'(?P<url>http://email.{}/c/.*?)[\"\' ]'.format(settings.MAILGUN_API_DOMAIN))
-    print (expression.pattern)
 
     # for every link
     while expression.search(html):
         match = expression.search(html)
         url = match.group('url')
-        print("Old url: {}".format(url))
         try:
             resp = requests.get(url, allow_redirects=False)
             if resp.status_code != 302:
                 return resp
                 raise Exception('Mailgun URL did not redirect. Status code: {}. URL: {}. Headers: {}'.format(resp.status_code, resp.url, resp.headers))
             new_url = resp.headers['location']
-            print("New url: {}".format(new_url))
             html = html[:match.start('url')] + new_url + html[match.end('url'):]
         except Exception as e:
-            print(e)
             break;
     return html
 
