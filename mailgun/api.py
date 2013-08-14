@@ -177,13 +177,48 @@ def get_logs(limit=100, skip=0):
     return resp.json()
 
 
-def get_campaign_events(campaign_id, event):
-    resp = call_mailgun(
-        'GET',
-        '/'.join([settings.MAILGUN_API_DOMAIN, 'campaigns', campaign_id, 'events']),
-        {},
-        {'event': event}
+def get_campaign_events(campaign_id, event, recipient=None, limit=None, page=None, count=None):
+    sub_url = '/'.join(
+        [settings.MAILGUN_API_DOMAIN, 'campaigns', campaign_id, 'events']
     )
+    params = {}
+    if event:
+        params['event'] = event
+    if recipient:
+        params['recipient'] = recipient
+    if limit:
+        params['limit'] = limit
+    if page:
+        params['page'] = page
+    if count:
+        params['count'] = count
+
+    resp = call_mailgun('GET', sub_url, {}, params)
     if resp.status_code != 200:
         raise Exception(resp.text)
     return resp.json()
+
+
+def _get_campaign_action(campaign_id, action, group_by, limit=None, page=None, count=None):
+    sub_url = '/'.join(
+        [settings.MAILGUN_API_DOMAIN, 'campaigns', campaign_id, action]
+    )
+    params = { 'groupby': group_by }
+    if limit:
+        params['limit'] = limit
+    if page:
+        params['page'] = page
+    if count:
+        params['count'] = count
+    resp = call_mailgun('GET', sub_url, {}, params)
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+    return resp.json()
+
+
+def get_campaign_opens(campaign_id, group_by, limit=None, page=None, count=None):
+    return _get_campaign_action(campaign_id, 'opens', group_by, limit, page, count)
+
+
+def get_campaign_clicks(campaign_id, group_by, limit=None, page=None, count=None):
+    return _get_campaign_action(campaign_id, 'clicks', group_by, limit, page, count)
