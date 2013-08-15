@@ -61,133 +61,305 @@
           <input id="hiddenEmailField" type="hidden" name="email"></hidden>
           <fieldset>
             <div class="control-group">
-              <label class="control-label"><i class="icon-group"></i> Group Work</label>
+              <label class="control-label"><i class="icon-group"></i> What is your name?</label>
               <div class="controls">
-                <p class="help-block">We'll match you up with a band of likeminded folks. You'll get extra support, help others when they get stuck, and make smart friends.</p>
+                <p class="help-block">You can give us your real name or a nickname if you would like to stay anonymous.</p>
+                <input type="text" name="username" id="groupRadios1">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label"><i class="icon-book"></i> What's your primary role in education?</label>
+                  
+              <div class="controls">
+                <p class="help-block"></p>
+
                 <label class="radio">
-                  <input type="radio" name="groupRadios" id="groupRadios1" value="true" checked>
-                  Match me up <em>with other folks</em>.
+                  <input type="radio" name="educationrole" id="styleRadios1" value="teacher">
+                  Teacher.
                 </label>
                 <label class="radio">
-                  <input type="radio" name="groupRadios" id="groupRadios2" value="false">
-                  I'm going to do this course <em>on my own</em>. Thanks though!
+                  <input type="radio" name="educationrole" id="styleRadios2" value="administrator">
+                  Administrator
+                </label>
+                <label class="radio">
+                  <input type="radio" name="educationrole" id="styleRadios3" value="university_student">
+                  University student
+                </label>
+                <label class="radio">
+                  <input type="radio" name="educationrole" id="styleRadios3" value="high_school_student">
+                  High school student
+                </label>
+                <label class="radio">
+                  <input type="radio" name="educationrole" id="styleRadios3" value="parent">
+                  Parent 
+                </label>
+                <label class="radio">
+                  <input type="radio" name="educationrole" id="styleRadios3" value="other">
+                  Other interested participant
                 </label>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label"><i class="icon-book"></i> Learning Style</label>
+              <label class="control-label"><i class="icon-cogs"></i> Where are you from</label>
               <div class="controls">
-                <p class="help-block">When learning something new, what's your first instinct?</p>
-                <label class="radio">
-                  <input type="radio" name="styleRadios" id="styleRadios1" value="try">
-                  I try it out.
-                </label>
-                <label class="radio">
-                  <input type="radio" name="styleRadios" id="styleRadios2" value="think">
-                  I think it through.
-                </label>
-                <label class="radio">
-                  <input type="radio" name="styleRadios" id="styleRadios3" value="discuss">
-                  I discuss it with someone else.
-                </label>
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label"><i class="icon-cogs"></i> Your Experience</label>
-              <div class="controls">
-                <label class="radio">
-                  <input type="radio" name="expertiseRadios" id="expertiseRadios1" value="try">
-                  I've never written a program before.
-                </label>
-                <label class="radio">
-                  <input type="radio" name="expertiseRadios" id="expertiseRadios2" value="think">
-                  I've written "Hello World" or a simple app.
-                </label>
-                <label class="radio">
-                  <input type="radio" name="expertiseRadios" id="expertiseRadios3" value="discuss">
-                  I've built a sophisticated app. It was pretty sweet.
-                </label>
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="timezone"><i class="icon-time"></i> Timezone</label>
-              <div class="controls">
-                <select name="timezone" id="timezone">
-                  <option value="Etc/GMT+12">-12:00 Etc/GMT+12</option>
-                  <option value="Pacific/Pago_Pago">-11:00 Pacific/Pago_Pago</option>
-                  <option value="America/Adak">-10:00 America/Adak</option>
-                  <option value="Pacific/Honolulu">-10:00 Pacific/Honolulu</option>
-                  <option value="Pacific/Marquesas">-10:30 Pacific/Marquesas</option>
-                  <option value="Pacific/Gambier">-09:00 Pacific/Gambier</option>
-                  <option value="America/Anchorage">-09:00 America/Anchorage</option>
-                  <option value="America/Los_Angeles">-08:00 America/Los_Angeles</option>
-                  <option value="Pacific/Pitcairn">-08:00 Pacific/Pitcairn</option>
-                  <option value="America/Phoenix">-07:00 America/Phoenix</option>
-                  <option value="America/Denver">-07:00 America/Denver</option>
-                  <option value="America/Guatemala">-06:00 America/Guatemala</option>
-                  <option value="America/Chicago">-06:00 America/Chicago</option>
-                  <option value="Pacific/Easter">-06:00 Pacific/Easter</option>
-                  <option value="America/Bogota">-05:00 America/Bogota</option>
-                  <option value="America/New_York">-05:00 America/New_York</option>
-                  <option value="America/Caracas">-05:30 America/Caracas</option>
-                  <option value="America/Halifax">-04:00 America/Halifax</option>
-                  <option value="America/Santo_Domingo">-04:00 America/Santo_Domingo</option>
-                  <option value="America/Asuncion">-04:00 America/Asuncion</option>
-                  <option value="America/St_Johns">-04:30 America/St_Johns</option>
-                  <option value="America/Godthab">-03:00 America/Godthab</option>
-                  <option value="America/Argentina/Buenos_Aires">-03:00 America/Argentina/Buenos_Aires</option>
-                  <option value="America/Montevideo">-03:00 America/Montevideo</option>
-                  <option value="America/Noronha">-02:00 America/Noronha</option>
-                  <option value="Etc/GMT+2">-02:00 Etc/GMT+2</option>
-                  <option value="Atlantic/Azores">-01:00 Atlantic/Azores</option>
-                  <option value="Atlantic/Cape_Verde">-01:00 Atlantic/Cape_Verde</option>
-                  <option value="Etc/UTC">00:00 Etc/UTC</option>
-                  <option value="Europe/London">00:00 Europe/London</option>
-                  <option value="Europe/Berlin">+01:00 Europe/Berlin</option>
-                  <option value="Africa/Lagos">+01:00 Africa/Lagos</option>
-                  <option value="Africa/Windhoek">+01:00 Africa/Windhoek</option>
-                  <option value="Asia/Beirut">+02:00 Asia/Beirut</option>
-                  <option value="Africa/Johannesburg">+02:00 Africa/Johannesburg</option>
-                  <option value="Europe/Moscow">+03:00 Europe/Moscow</option>
-                  <option value="Asia/Baghdad">+03:00 Asia/Baghdad</option>
-                  <option value="Asia/Tehran">+03:30 Asia/Tehran</option>
-                  <option value="Asia/Dubai">+04:00 Asia/Dubai</option>
-                  <option value="Asia/Yerevan">+04:00 Asia/Yerevan</option>
-                  <option value="Asia/Kabul">+04:30 Asia/Kabul</option>
-                  <option value="Asia/Yekaterinburg">+05:00 Asia/Yekaterinburg</option>
-                  <option value="Asia/Karachi">+05:00 Asia/Karachi</option>
-                  <option value="Asia/Kolkata">+05:30 Asia/Kolkata</option>
-                  <option value="Asia/Kathmandu">+05:45 Asia/Kathmandu</option>
-                  <option value="Asia/Dhaka">+06:00 Asia/Dhaka</option>
-                  <option value="Asia/Omsk">+06:00 Asia/Omsk</option>
-                  <option value="Asia/Rangoon">+06:30 Asia/Rangoon</option>
-                  <option value="Asia/Krasnoyarsk">+07:00 Asia/Krasnoyarsk</option>
-                  <option value="Asia/Jakarta">+07:00 Asia/Jakarta</option>
-                  <option value="Asia/Shanghai">+08:00 Asia/Shanghai</option>
-                  <option value="Asia/Irkutsk">+08:00 Asia/Irkutsk</option>
-                  <option value="Australia/Eucla">+08:45 Australia/Eucla</option>
-                  <option value="Australia/Eucla">+08:45 Australia/Eucla</option>
-                  <option value="Asia/Yakutsk">+09:00 Asia/Yakutsk</option>
-                  <option value="Asia/Tokyo">+09:00 Asia/Tokyo</option>
-                  <option value="Australia/Darwin">+09:30 Australia/Darwin</option>
-                  <option value="Australia/Adelaide">+09:30 Australia/Adelaide</option>
-                  <option value="Australia/Brisbane">+10:00 Australia/Brisbane</option>
-                  <option value="Asia/Vladivostok">+10:00 Asia/Vladivostok</option>
-                  <option value="Australia/Sydney">+10:00 Australia/Sydney</option>
-                  <option value="Australia/Lord_Howe">+10:30 Australia/Lord_Howe</option>
-                  <option value="Asia/Kamchatka">+11:00 Asia/Kamchatka</option>
-                  <option value="Pacific/Noumea">+11:00 Pacific/Noumea</option>
-                  <option value="Pacific/Norfolk">+11:30 Pacific/Norfolk</option>
-                  <option value="Pacific/Auckland">+12:00 Pacific/Auckland</option>
-                  <option value="Pacific/Tarawa">+12:00 Pacific/Tarawa</option>
-                  <option value="Pacific/Chatham">+12:45 Pacific/Chatham</option>
-                  <option value="Pacific/Tongatapu">+13:00 Pacific/Tongatapu</option>
-                  <option value="Pacific/Apia">+13:00 Pacific/Apia</option>
-                  <option value="Pacific/Kiritimati">+14:00 Pacific/Kiritimati</option>
+                <p class="help-block">We would like to put you in groups close by so that you could meet up if you wished to do so.</p>
+                <select name="country" id="id_country_select">
+                  <option value="Afghanistan">Afghanistan</option>
+                  <option value="Albania">Albania</option>
+                  <option value="Algeria">Algeria</option>
+                  <option value="Andorra">Andorra</option>
+                  <option value="Angola">Angola</option>
+                  <option value="Antarctica">Antarctica</option>
+                  <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Armenia">Armenia</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Austria">Austria</option>
+                  <option value="Azerbaijan">Azerbaijan</option>
+                  <option value="Bahamas">Bahamas</option>
+                  <option value="Bahrain">Bahrain</option>
+                  <option value="Bangladesh">Bangladesh</option>
+                  <option value="Barbados">Barbados</option>
+                  <option value="Belarus">Belarus</option>
+                  <option value="Belgium">Belgium</option>
+                  <option value="Belize">Belize</option>
+                  <option value="Benin">Benin</option>
+                  <option value="Bermuda">Bermuda</option>
+                  <option value="Bhutan">Bhutan</option>
+                  <option value="Bolivia">Bolivia</option>
+                  <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                  <option value="Botswana">Botswana</option>
+                  <option value="Brazil">Brazil</option>
+                  <option value="Brunei">Brunei</option>
+                  <option value="Bulgaria">Bulgaria</option>
+                  <option value="Burkina Faso">Burkina Faso</option>
+                  <option value="Burma">Burma</option>
+                  <option value="Burundi">Burundi</option>
+                  <option value="Cambodia">Cambodia</option>
+                  <option value="Cameroon">Cameroon</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Cape Verde">Cape Verde</option>
+                  <option value="Central African Republic">Central African Republic</option>
+                  <option value="Chad">Chad</option>
+                  <option value="Chile">Chile</option>
+                  <option value="China">China</option>
+                  <option value="Colombia">Colombia</option>
+                  <option value="Comoros">Comoros</option>
+                  <option value="Congo, Democratic Republic">Congo, Democratic Republic</option>
+                  <option value="Congo, Republic of the">Congo, Republic of the</option>
+                  <option value="Costa Rica">Costa Rica</option>
+                  <option value="Cote d'Ivoire">Cote d'Ivoire</option>
+                  <option value="Croatia">Croatia</option>
+                  <option value="Cuba">Cuba</option>
+                  <option value="Cyprus">Cyprus</option>
+                  <option value="Czech Republic">Czech Republic</option>
+                  <option value="Denmark">Denmark</option>
+                  <option value="Djibouti">Djibouti</option>
+                  <option value="Dominica">Dominica</option>
+                  <option value="Dominican Republic">Dominican Republic</option>
+                  <option value="East Timor">East Timor</option>
+                  <option value="Ecuador">Ecuador</option>
+                  <option value="Egypt">Egypt</option>
+                  <option value="El Salvador">El Salvador</option>
+                  <option value="Equatorial Guinea">Equatorial Guinea</option>
+                  <option value="Eritrea">Eritrea</option>
+                  <option value="Estonia">Estonia</option>
+                  <option value="Ethiopia">Ethiopia</option>
+                  <option value="Fiji">Fiji</option>
+                  <option value="Finland">Finland</option>
+                  <option value="France">France</option>
+                  <option value="Gabon">Gabon</option>
+                  <option value="Gambia">Gambia</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Germany">Germany</option>
+                  <option value="Ghana">Ghana</option>
+                  <option value="Greece">Greece</option>
+                  <option value="Greenland">Greenland</option>
+                  <option value="Grenada">Grenada</option>
+                  <option value="Guatemala">Guatemala</option>
+                  <option value="Guinea">Guinea</option>
+                  <option value="Guinea-Bissau">Guinea-Bissau</option>
+                  <option value="Guyana">Guyana</option>
+                  <option value="Haiti">Haiti</option>
+                  <option value="Honduras">Honduras</option>
+                  <option value="Hong Kong">Hong Kong</option>
+                  <option value="Hungary">Hungary</option>
+                  <option value="Iceland">Iceland</option>
+                  <option value="India">India</option>
+                  <option value="Indonesia">Indonesia</option>
+                  <option value="Iran">Iran</option>
+                  <option value="Iraq">Iraq</option>
+                  <option value="Ireland">Ireland</option>
+                  <option value="Israel">Israel</option>
+                  <option value="Italy">Italy</option>
+                  <option value="Jamaica">Jamaica</option>
+                  <option value="Japan">Japan</option>
+                  <option value="Jordan">Jordan</option>
+                  <option value="Kazakhstan">Kazakhstan</option>
+                  <option value="Kenya">Kenya</option>
+                  <option value="Kiribati">Kiribati</option>
+                  <option value="Korea, North">Korea, North</option>
+                  <option value="Korea, South">Korea, South</option>
+                  <option value="Kuwait">Kuwait</option>
+                  <option value="Kyrgyzstan">Kyrgyzstan</option>
+                  <option value="Laos">Laos</option>
+                  <option value="Latvia">Latvia</option>
+                  <option value="Lebanon">Lebanon</option>
+                  <option value="Lesotho">Lesotho</option>
+                  <option value="Liberia">Liberia</option>
+                  <option value="Libya">Libya</option>
+                  <option value="Liechtenstein">Liechtenstein</option>
+                  <option value="Lithuania">Lithuania</option>
+                  <option value="Luxembourg">Luxembourg</option>
+                  <option value="Macedonia">Macedonia</option>
+                  <option value="Madagascar">Madagascar</option>
+                  <option value="Malawi">Malawi</option>
+                  <option value="Malaysia">Malaysia</option>
+                  <option value="Maldives">Maldives</option>
+                  <option value="Mali">Mali</option>
+                  <option value="Malta">Malta</option>
+                  <option value="Marshall Islands">Marshall Islands</option>
+                  <option value="Mauritania">Mauritania</option>
+                  <option value="Mauritius">Mauritius</option>
+                  <option value="Mexico">Mexico</option>
+                  <option value="Micronesia">Micronesia</option>
+                  <option value="Moldova">Moldova</option>
+                  <option value="Mongolia">Mongolia</option>
+                  <option value="Morocco">Morocco</option>
+                  <option value="Monaco">Monaco</option>
+                  <option value="Mozambique">Mozambique</option>
+                  <option value="Namibia">Namibia</option>
+                  <option value="Nauru">Nauru</option>
+                  <option value="Nepal">Nepal</option>
+                  <option value="Netherlands">Netherlands</option>
+                  <option value="New Zealand">New Zealand</option>
+                  <option value="Nicaragua">Nicaragua</option>
+                  <option value="Niger">Niger</option>
+                  <option value="Nigeria">Nigeria</option>
+                  <option value="Norway">Norway</option>
+                  <option value="Oman">Oman</option>
+                  <option value="Pakistan">Pakistan</option>
+                  <option value="Panama">Panama</option>
+                  <option value="Papua New Guinea">Papua New Guinea</option>
+                  <option value="Paraguay">Paraguay</option>
+                  <option value="Peru">Peru</option>
+                  <option value="Philippines">Philippines</option>
+                  <option value="Poland">Poland</option>
+                  <option value="Portugal">Portugal</option>
+                  <option value="Qatar">Qatar</option>
+                  <option value="Romania">Romania</option>
+                  <option value="Russia">Russia</option>
+                  <option value="Rwanda">Rwanda</option>
+                  <option value="Samoa">Samoa</option>
+                  <option value="San Marino">San Marino</option>
+                  <option value=" Sao Tome"> Sao Tome</option>
+                  <option value="Saudi Arabia">Saudi Arabia</option>
+                  <option value="Senegal">Senegal</option>
+                  <option value="Serbia and Montenegro">Serbia and Montenegro</option>
+                  <option value="Seychelles">Seychelles</option>
+                  <option value="Sierra Leone">Sierra Leone</option>
+                  <option value="Singapore">Singapore</option>
+                  <option value="Slovakia">Slovakia</option>
+                  <option value="Slovenia">Slovenia</option>
+                  <option value="Solomon Islands">Solomon Islands</option>
+                  <option value="Somalia">Somalia</option>
+                  <option value="South Africa">South Africa</option>
+                  <option value="Spain">Spain</option>
+                  <option value="Sri Lanka">Sri Lanka</option>
+                  <option value="Sudan">Sudan</option>
+                  <option value="Suriname">Suriname</option>
+                  <option value="Swaziland">Swaziland</option>
+                  <option value="Sweden">Sweden</option>
+                  <option value="Switzerland">Switzerland</option>
+                  <option value="Syria">Syria</option>
+                  <option value="Taiwan">Taiwan</option>
+                  <option value="Tajikistan">Tajikistan</option>
+                  <option value="Tanzania">Tanzania</option>
+                  <option value="Thailand">Thailand</option>
+                  <option value="Togo">Togo</option>
+                  <option value="Tonga">Tonga</option>
+                  <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                  <option value="Tunisia">Tunisia</option>
+                  <option value="Turkey">Turkey</option>
+                  <option value="Turkmenistan">Turkmenistan</option>
+                  <option value="Uganda">Uganda</option>
+                  <option value="Ukraine">Ukraine</option>
+                  <option value="United Arab Emirates">United Arab Emirates</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="United States">United States</option>
+                  <option value="Uruguay">Uruguay</option>
+                  <option value="Uzbekistan">Uzbekistan</option>
+                  <option value="Vanuatu">Vanuatu</option>
+                  <option value="Venezuela">Venezuela</option>
+                  <option value="Vietnam">Vietnam</option>
+                  <option value="Yemen">Yemen</option>
+                  <option value="Zambia">Zambia</option>
+                  <option value="Zimbabwe">Zimbabwe</option>
                 </select>
-                <p id="timezoneHelp" class="help-block"></p>
               </div>
             </div>
+            
+            <div class="control-group" id="id_state_input" style="display:none">
+              <label class="control-label"><i class="icon-cogs"></i> In what state are you</label>
+              <div class="controls">
+                <select name="us_state" id="id_state_select">
+                  <option value="Alabama">Alabama</option>
+                  <option value="Alaska">Alaska</option>
+                  <option value="Arizona">Arizona</option>
+                  <option value="Arkansas">Arkansas</option>
+                  <option value="California">California</option>
+                  <option value="Colorado">Colorado</option>
+                  <option value="Connecticut">Connecticut</option>
+                  <option value="Delaware">Delaware</option>
+                  <option value="District of Columbia">District of Columbia</option>
+                  <option value="Florida">Florida</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Hawaii">Hawaii</option>
+                  <option value="Idaho">Idaho</option>
+                  <option value="Illinois">Illinois</option>
+                  <option value="Indiana">Indiana</option>
+                  <option value="Iowa">Iowa</option>
+                  <option value="Kansas">Kansas</option>
+                  <option value="Kentucky">Kentucky</option>
+                  <option value="Louisiana">Louisiana</option>
+                  <option value="Maine">Maine</option>
+                  <option value="Maryland">Maryland</option>
+                  <option value="Massachusetts">Massachusetts</option>
+                  <option value="Michigan">Michigan</option>
+                  <option value="Minnesota">Minnesota</option>
+                  <option value="Mississippi">Mississippi</option>
+                  <option value="Missouri">Missouri</option>
+                  <option value="Montana">Montana</option>
+                  <option value="Nebraska">Nebraska</option>
+                  <option value="Nevada">Nevada</option>
+                  <option value="New Hampshire">New Hampshire</option>
+                  <option value="New Jersey">New Jersey</option>
+                  <option value="New Mexico">New Mexico</option>
+                  <option value="New York">New York</option>
+                  <option value="North Carolina">North Carolina</option>
+                  <option value="North Dakota">North Dakota</option>
+                  <option value="Ohio">Ohio</option>
+                  <option value="Oklahoma">Oklahoma</option>
+                  <option value="Oregon">Oregon</option>
+                  <option value="Pennsylvania">Pennsylvania</option>
+                  <option value="Rhode Island">Rhode Island</option>
+                  <option value="South Carolina">South Carolina</option>
+                  <option value="South Dakota">South Dakota</option>
+                  <option value="Tennessee">Tennessee</option>
+                  <option value="Texas">Texas</option>
+                  <option value="Utah">Utah</option>
+                  <option value="Vermont">Vermont</option>
+                  <option value="Virginia">Virginia</option>
+                  <option value="Washington">Washington</option>
+                  <option value="West Virginia">West Virginia</option>
+                  <option value="Wisconsin">Wisconsin</option>
+                  <option value="Wyoming">Wyoming</option>
+                </select>
+
+              <!-- Script by hscripts.com -->
+              </div>
+            </div>
+            <input name="timezone" id="timezone" type="hidden">
             <div class="form-actions">
               <button id="finish" type="submit" class="btn btn-success"><i class="icon-ok"></i> Finish</button>
             </div>
@@ -206,7 +378,16 @@
     $(function () {
       var timezone = jstz.determine();
       $("#timezone").val(timezone.name());
-      $("#timezoneHelp").append("We've pre-selected <span class=\"label label-info\">"+timezone.name()+"</span> using your clock.")
+
+      $("#id_country_select").prop("selectedIndex", -1);
+      $("#id_country_select").change(function () {
+        if( $('#id_country_select').val() == 'United States' ) {
+          $('#id_state_input').show();
+        } else {
+          $('#id_state_input').hide();
+        }
+        $("#id_state_select").prop("selectedIndex", -1);
+      });
 
       $("#emailForm").validate({
         debug: true,
@@ -237,11 +418,17 @@
       $("#infoForm").validate({
         debug: true,
         rules: {
-          groupRadios: "required",
-          styleRadios: "required",
-          expertiseRadios: "required",
+          username: "required",
+          educationrole: "required",
+          country: "required",
+          us_state: {
+            required: {
+              depends: function () { 
+                return $('#id_country_select').val() == 'United States';
+              }
+            }
+          },
           timezone: "required",
-          imageRadios: "required"
         },
         errorClass: "error",
         highlight: function(element, errorClass) {
