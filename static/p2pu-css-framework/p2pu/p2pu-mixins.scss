@@ -1,0 +1,77 @@
+@mixin square-corners {
+  @include border-radius(0px);
+}
+
+@mixin no-shadow {
+  @include box-shadow(0px 0px 0px rgba(0, 0, 0, 0));
+  @include box-shadow(inset 0px 0px 0px rgba(0, 0, 0, 0));
+}
+
+@mixin inset-1px-box-shadow-on-one-side($color, $side) {
+  @if $side == top {
+    @include box-shadow(0px 0px 0px $color);
+    @include box-shadow(inset 0px -1px 0px $color);
+  }
+  @if $side == bottom {
+    @include box-shadow(0px 0px 0px $color);
+    @include box-shadow(inset 0px 1px 0px $color);
+  }
+}
+
+@mixin glowing-shadow($color) {
+  $lighter-color: lighten($color, 50%);
+  @include box-shadow(0px 0px 3px $lighter-color);
+}
+
+@mixin custom-box-shadow-1 {
+  border-top: 1px solid darken($cyan, 5%);
+  border-left: 1px solid darken($cyan, 5%);
+  border-bottom: 1px solid darken($dark-pewter, 15%);
+  border-right: 1px solid darken($dark-pewter, 15%);
+  @include box-shadow(darken($dark-pewter, 5%) 2px 2px 4px);
+}
+
+@mixin custom-box-shadow-2 {
+  border-top: 1px solid darken($slate, 2%);
+  border-left: 1px solid darken($slate, 2%);
+  border-bottom: 1px solid $black;
+  border-right: 1px solid $black;
+  @include box-shadow(lighten($black, 15%) 2px 2px 4px);
+}
+
+@mixin custom-box-shadow-3 {
+  border-bottom: 1px solid darken($dark-pewter, 8%);
+  border-right: 1px solid darken($dark-pewter, 8%);
+  @include box-shadow(darken($dark-pewter, 5%) 2px 2px 4px);
+}
+
+@mixin add-custom-text-shadow($text-color, $bkgd-color, $side) {
+  $mixed-color: mix($text-color, $bkgd-color);
+  @if $side == top {
+    @include text-shadow(0px -1px 1px $mixed-color);
+  }
+  @if $side == right {
+    @include text-shadow(1px 0px 1px $mixed-color);
+  }
+  @if $side == bottom {
+    @include text-shadow(0px 1px 1px $mixed-color);
+  }
+  @if $side == left {
+    @include text-shadow(-1px 0px 1px $mixed-color);
+  }
+}
+
+@mixin add-left-right-text-shadow($t-color, $b-color) {
+  @include add-custom-text-shadow($t-color, $b-color, left);
+  @include add-custom-text-shadow($t-color, $b-color, right);
+}
+
+@mixin add-top-bottom-text-shadow($t-color, $b-color) {
+  @include add-custom-text-shadow($t-color, $b-color, top);
+  @include add-custom-text-shadow($t-color, $b-color, bottom);
+}
+
+@mixin add-all-sides-text-shadow($t-color, $b-color) {
+  @include add-left-right-text-shadow($t-color, $b-color);
+  @include add-top-bottom-text-shadow($t-color, $b-color);
+}
