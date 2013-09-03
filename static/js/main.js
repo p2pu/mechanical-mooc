@@ -13,6 +13,11 @@ var MMOOC = window.MMOOC || {};
                 iconUp: 'icon-chevron-sign-down',
                 iconDown: 'icon-chevron-sign-up'
             });
+
+            $('.navbar-btn').sidr({
+              name: 'main-menu-panel',
+              source: '.nav-collapse.collapse'
+            });
         });
     };
 

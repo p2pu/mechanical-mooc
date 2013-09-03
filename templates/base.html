@@ -16,6 +16,7 @@
     <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
 
     <link href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.sidr.dark.css">
 
     {% block css %}{% endblock %}
 
@@ -39,6 +40,9 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
+            <a class="navbar-btn visible-phone visible-tablet" href="#main-menu-panel">
+                <i class="icon-list-ul"></i>
+            </a>
             <a class="brand" href="{% url home %}"></a>
             <ul class="nav">
                 <li><a class="p2pu-tab" href="#">
@@ -46,17 +50,20 @@
                     </a>
                 </li>
             </ul>
-            <ul class="nav">
-                <li><a href="http://www.hightechhigh.org/" target="_blank">High Tech High </a></li>
-                <li><a href="/about/">About DL101</a></li>
-                <li><a href="">FAQ (coming soon)</a></li>
-                <li><a href="">Blog (coming soon)</a></li>
-            </ul>
+            <div class="nav-collapse collapse">
+                <ul class="nav main-menu">
+                    <li><a href="http://www.hightechhigh.org/" target="_blank">High Tech High </a></li>
+                    <li><a href="/about/">About DL101</a></li>
+                    <li><a href="">FAQ (coming soon)</a></li>
+                    <li><a href="">Blog (coming soon)</a></li>
+                </ul>
+            </div>
+
         </div>
     </div>
 </div>
 
-<a href="https://github.com/p2pu/mechanical-mooc"><img
+<a href="https://github.com/p2pu/mechanical-mooc" class="github-fork"><img
         style="position: absolute; top: 0; right: 0; border: 0; z-index: 9999;"
         src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
@@ -72,6 +79,7 @@
 <script type="text/javascript"
         src="http://rawgithub.com/ercchy/p2pu_navigation_widget/master/p2pu_menu_slider.js"></script>
 <script src="{{ STATIC_URL }}/js/bootstrap.min.js"></script>
+<script src="{{ STATIC_URL }}/js/jquery.sidr.min.js"></script>
 <script src="{{ STATIC_URL }}/js/main.js"></script>
 
 {% block js %}
