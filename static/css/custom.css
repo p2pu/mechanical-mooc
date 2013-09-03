@@ -1,3 +1,8 @@
+.navbar-inner a.navbar-btn {
+  float: left;
+  margin: 17px;
+  font-size: 1.3em; }
+
 .jumbotron {
   background-image: url("/static/img/banner.png");
   background-size: cover;
@@ -97,3 +102,11 @@
 
 .faq h2 {
   padding-top: 1em; }
+
+@media (max-width: 996px) {
+  body {
+    padding: 0; }
+
+  .github-fork img {
+    width: 100px;
+    height: 100px; } }
