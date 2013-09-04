@@ -64,3 +64,18 @@ Then add the tasks - log into your application dashboard. `heroku addons:open sc
 The first task should run every 10 minutes and the second task should run every hour.
 
 That's it, you are all set up to run your very own Mechanical Mooc and enlighten the world with peer learning!
+
+## Use Cases
+
+The Mechanical MOOC has been used to create a number of educational experiences on the web. We've included the relevant Trello boards for the MOOCs to show the learning design and content development phases as well.
+
+### Learning Creative Learning: [learn.mit.edu](http://learn.media.mit.edu/)
+A partnership with the MIT Media Lab, the Learning Creative Learning Mechanical MOOC supported over 14,000 learners.
+
+### Data Explorer Mission: [schoolofdata.org/datamooc](http://schoolofdata.org/datamooc/)
+A pilot project with the [Open Knowledge Foundation](http://okfn.org/), the Data Explorer Mission supported 13 learning groups and 151 learners.
+[Trello Board for Data Explorer Mission](https://trello.com/b/cUxgGZOO/data-explorer-mission)
+
+### A Gentle Introduction to Python: [mechanicalmooc.org](http://mechanicalmooc.org/)
+The original "Mechanical MOOC" is a partnership between MIT OCW, OpenStudy, Codecademy and P2PU. Now in its 4th cycle, MOOC has supported over 10,000 learners.
+
