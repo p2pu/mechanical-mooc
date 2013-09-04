@@ -76,7 +76,6 @@ STATICFILES_FINDERS = (
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '4%aegq+pof66!e^-xzqst0tyr-(^r(&amp;90pij@gga90abc@r7&amp;d'
-
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -186,3 +185,6 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'missioncontrol@data.p
 
 #TODO this may cause confusion with DJANOG EMAIL_ settings!
 EMAIL_DOMAIN = os.environ.get('EMAIL_DOMAIN', '')
+
+
+
