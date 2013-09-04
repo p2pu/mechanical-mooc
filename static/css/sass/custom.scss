@@ -10,7 +10,7 @@
 }
 
 .jumbotron{
-    background-image: url('/static/img/banner.png');
+    background-image: url('/static/img/apocalypto2.jpg');
     background-size: cover;
     background-position: 0% 0%;
     height: 334px;
@@ -49,6 +49,9 @@
     }
     .description-text{
       overflow: hidden;
+      h2{
+        min-height: 95px;
+      }
     }
   }
 }
@@ -139,5 +142,11 @@
   .github-fork img{
     width: 100px;
     height: 100px;
+  }
+}
+@media (min-width: 979px) and (max-width: 1200px) {
+  .description li {
+    width: 290px;
+    margin: 30px 0 15px 20px;
   }
 }
