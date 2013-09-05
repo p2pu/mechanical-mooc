@@ -187,7 +187,13 @@ input[type="email"]{
   }
 }
 
-
+footer{
+  text-align: center;
+  img{
+    width: 200px;
+    margin: 20px
+  }
+}
 // Media queries for responsive design
 @media (max-width: 996px){
   body {
