@@ -2,61 +2,87 @@
 
 {% block body %}
 
-  <div id="step1" class="container">
-    <h1><small>The Mechanical MOOC Presents...</small></h1>
-    <h1>A Gentle Introduction to Python</h1>
-    <div class="row">
-      <div class="span12">
-        <img src="/static/img/banner.png" alt="Mechanical MOOC banner">
-      </div>
-    </div>
-    <div class="row">
-      <div class="span12">
-        <form id="emailForm" class="well">
-              <div class="">
-                <h3><i class="icon-calendar"></i> Next Class begins June 2013</h3>
-                <h4><small>but you can sign up now</small></h4>
-    </div>
+    <div id="step1">
+        <div class="jumbotron">
+            <div class="container">
+                <div class="pre-title">The Mechanical MOOC Presents...</div>
+                <h1 class="title">A Gentle Introduction to Python</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="description clearfix">
+                <ul class="unstyled">
+                    <li>
+                        <h2 class="pull-left"><i class="icon-gift"></i> </h2>
+                        <div class="description-text">
+                            <h3>Free &amp; Open.</h3>
+                            <p>
+                                A Gentle Introduction to Python is 100% free, just like all OpenCourseWare.
+                                Anyone can join, and you're welcome to share your work.
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <h2 class="pull-left"><i class="icon-bolt"></i> </h2>
+                        <div class="description-text">
+                            <h3>Learning Powerhouse.</h3>
 
-          <div class="control-group">
-          <div class="input-append">
-           <input id="email" name="email" class="input" type="text" placeholder="you@example.com"><button id="join" type="submit" class="btn btn-primary">Join</button>
-          </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="row">
-      <div class="span4">
-        <h2><i class="icon-gift"></i> Free &amp; Open.</h2>
-        <p>A Gentle Introduction to Python is 100% free, just like all OpenCourseWare. Anyone can join, and you're welcome to share your work.</p>
-      </div>
-      <div class="span4">
-        <h2><i class="icon-bolt"></i> Learning Powerhouse.</h2>
-        <p>Pick up Python from leading innovators in online learning. MIT's chops. Codecademy's exercises. OpenStudy's study groups. P2PU's community. Need we say more?</p>
-      </div>
-      <div class="span4">
-        <h2><i class="icon-calendar"></i> Weekly Lessons.</h2>
-        <p>Make friends with some smarties, and start programming
-          from Week 1. Open for signup now, course starts June 2013.</p>
-      </div>
-    </div>
-  </div>
+                            <p>
+                                Pick up Python from leading innovators in online learning. MIT's chops.
+                                Codecademy's exercises. OpenStudy's study groups. P2PU's community. Need we say more?
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <h2 class="pull-left"><i class="icon-calendar"></i> </h2>
+                        <div class="description-text">
+                            <h3>Weekly Lessons.</h3>
+                            <p>
+                                Make friends with some smarties, and start programming from Week 1.
+                                Open for signup now, course starts Fall 2013.
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-  <div id="step2" class="container hide">
-    <div class="row"><div class="span8 offset2">
-      <h3>You're almost done!</h3>
-      <div class="progress progress-step">
-        <div class="step-full"><i class="icon-off"></i></div>
-        <div class="step-full" style="left:50%"><i class=" icon-info-sign"></i></div>
-        <div class="step-empty" style="left:100%"><i class="icon-ok"></i></div>
-        <div class="bar" style="width: 50%;"></div>
-      </div>
+
+        <div class="container">
+            <form id="emailForm" class="well">
+                <div class="">
+                    <h3><i class="icon-calendar"></i> Next Class begins Fall 2013</h3>
+                    <h4>
+                        <small>but you can sign up now.</small>
+                    </h4>
+                </div>
+
+                <div class="control-group">
+                    <div class="input-append">
+                        <input id="email" name="email" class="input" type="text" placeholder="you@example.com">
+                        <button id="join" type="submit" class="btn btn-primary">Join</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
+<!------------step 2-------------------------------------->
+    <div id="step2" class="container hide">
+    <div class="row">
+        <div class="span8 offset2">
+            <h3>You're almost done!</h3>
+
+            <div class="progress progress-step">
+                <div class="step-full"><i class="icon-off"></i></div>
+                <div class="step-full" style="left:50%"><i class=" icon-info-sign"></i></div>
+                <div class="step-empty" style="left:100%"><i class="icon-ok"></i></div>
+                <div class="bar" style="width: 50%;"></div>
+            </div>
+        </div>
     </div>
     <div class="row">
-      <div class="span8 offset2">
-        <form id="infoForm" class="form-horizontal" action="{% url signup %}" method="POST">
+    <div class="span8 offset2">
+    <form id="infoForm" class="form-horizontal" action="{% url signup %}" method="POST">
           {% csrf_token %}
           <input id="hiddenEmailField" type="hidden" name="email"></hidden>
           <fieldset>
@@ -193,70 +219,17 @@
             </div>
           </fieldset>
         </form>
-      </div>
     </div>
-  </div>
+    </div>
+    </div>
 
 {% endblock %}
 
 {% block js %}
 
-  <script src="/static/js/jstz/jstz.min.js"></script>
-  <script>
-    $(function () {
-      var timezone = jstz.determine();
-      $("#timezone").val(timezone.name());
-      $("#timezoneHelp").append("We've pre-selected <span class=\"label label-info\">"+timezone.name()+"</span> using your clock.")
+    <script src="/static/js/jstz/jstz.min.js"></script>
+    <script>
+        MMOOC.Splash.signup();
+    </script>
 
-      $("#emailForm").validate({
-        debug: true,
-        rules: {
-          email: {
-            required: true,
-            email: true
-          }
-        },
-        errorClass: "error",
-        highlight: function(element, errorClass) {
-          $("#emailForm .control-group").addClass(errorClass);
-        },
-        unhighlight: function(element, errorClass, validClass) {
-          $("#emailForm .control-group").removeClass(errorClass);
-        },
-        errorPlacement: function(error, element){
-          $("#emailForm .control-group").prepend(error);
-        },
-        submitHandler: function(form) {
-          $("#hiddenEmailField").val($("#email").val());
-          $("#step1").hide("slide", { direction: "left" } , 500, function() {
-            $("#step2").show("slide", { direction: "right" }, 500);
-          });
-        }
-      });
-
-      $("#infoForm").validate({
-        debug: true,
-        rules: {
-          groupRadios: "required",
-          styleRadios: "required",
-          expertiseRadios: "required",
-          timezone: "required",
-          imageRadios: "required"
-        },
-        errorClass: "error",
-        highlight: function(element, errorClass) {
-          $(element).parents(".control-group").addClass(errorClass);
-        },
-        unhighlight: function(element, errorClass, validClass) {
-          $(element).parents(".control-group").removeClass(errorClass);
-        },
-        errorPlacement: function() {},
-        submitHandler: function(form) {
-          form.submit();
-        }
-      });
-
-    });
-  </script>
-    
 {% endblock %}
