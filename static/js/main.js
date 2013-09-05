@@ -12,8 +12,6 @@ var MMOOC = window.MMOOC || {};
                 name: 'main-menu-panel',
                 source: '.nav-collapse.collapse'
             });
-            // Development -remove after
-            $('#email').val('test@somethin.com');
         });
     }
 
