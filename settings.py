@@ -91,6 +91,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 
@@ -127,6 +128,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'south',
+    'debug_toolbar',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -185,6 +187,21 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'missioncontrol@data.p
 
 #TODO this may cause confusion with DJANOG EMAIL_ settings!
 EMAIL_DOMAIN = os.environ.get('EMAIL_DOMAIN', '')
+
+###########################################################################
+# Configuration for django debug toolbar
+###########################################################################
+INTERNAL_IPS = ('127.0.0.1', )
+DEBUG_TOOLBAR_CONFIG = { 'INTERCEPT_REDIRECTS': False }
+
+
+#############################################################################
+# Support for settings
+#############################################################################
+try:
+    from settings_local import *
+except ImportError:
+    pass
 
 
 
