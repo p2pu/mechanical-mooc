@@ -149,9 +149,9 @@ input[type="email"] {
   .input-prepend .alert {
     margin-left: 10px; }
 
-footer {
+.conference {
   text-align: center; }
-  footer img {
+  .conference img {
     width: 200px;
     margin: 20px; }
 
