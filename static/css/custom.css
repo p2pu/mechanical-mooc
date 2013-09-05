@@ -149,6 +149,12 @@ input[type="email"] {
   .input-prepend .alert {
     margin-left: 10px; }
 
+footer {
+  text-align: center; }
+  footer img {
+    width: 200px;
+    margin: 20px; }
+
 @media (max-width: 996px) {
   body {
     padding: 0; }
