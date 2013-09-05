@@ -41,7 +41,10 @@
                                        {% if mail.date_scheduled %}value="{{ mail.date_scheduled.date.isoformat }}"{% endif %}>
                                 <input class="timepicker" id="id_time_{{ mail.id }}" name="scheduled_time" type="text"
                                        {% if mail.date_scheduled %}value="{{ mail.date_scheduled.time.isoformat }}"{% endif %}>
-                                <span id="id_schedule_info" class="alert hidden"><span>
+                                <div>
+                                    <span id="id_schedule_info" class="alert hidden"><span>
+                                </div>
+
                             </form>
                         {% endif %}
                     </td>
