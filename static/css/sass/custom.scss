@@ -10,7 +10,7 @@
 }
 
 .jumbotron{
-    background-image: url('/static/img/apocalypto2.jpgm');
+    background-image: url('/static/img/apocalypto2.jpg');
     background-size: cover;
     background-position: 0% 0%;
     height: 334px;
@@ -133,6 +133,26 @@
 .faq h2 {
   padding-top: 1em;
 }
+
+// Compose mail template
+input[type="email"]{
+    margin-bottom: 0;
+  }
+
+.input-append,
+.input-prepend{
+  font-size: 12px;
+  .add-on,
+  .btn,
+  .btn-group{
+    margin-right: -6px;
+  }
+
+  .alert{
+    margin-left: 10px;
+  }
+}
+
 
 // Media queries for responsive design
 @media (max-width: 996px){

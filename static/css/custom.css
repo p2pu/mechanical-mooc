@@ -105,6 +105,23 @@
 .faq h2 {
   padding-top: 1em; }
 
+input[type="email"] {
+  margin-bottom: 0; }
+
+.input-append,
+.input-prepend {
+  font-size: 12px; }
+  .input-append .add-on,
+  .input-append .btn,
+  .input-append .btn-group,
+  .input-prepend .add-on,
+  .input-prepend .btn,
+  .input-prepend .btn-group {
+    margin-right: -6px; }
+  .input-append .alert,
+  .input-prepend .alert {
+    margin-left: 10px; }
+
 @media (max-width: 996px) {
   body {
     padding: 0; }

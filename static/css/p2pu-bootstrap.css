@@ -1,10 +1,4 @@
 @import url(//fonts.googleapis.com/css?family=Arvo:regular,italic,bold,bolditalic);
-@import url(//fonts.googleapis.com/css?family=sense:regular,italic,bold,bolditalic);
-/*
- *
- *
- *
- */
 /*
  * Bootstrap v2.2.2
  *
@@ -5802,7 +5796,15 @@ body {
   background-color: #f3f4f8;
   padding-top: 60px; }
 
-body, input, select, textarea, button, dl, dt, dd, label {
+body,
+input,
+select,
+textarea,
+button,
+dl,
+dt,
+dd,
+label {
   font-family: "sense", Helvetica, sans-serif; }
 
 h1, h2, h3, h4 {
@@ -5842,7 +5844,7 @@ label {
   width: 80px;
   height: 24px;
   padding: 0;
-  margin: 17px 0;
+  margin: 13px 0 17px 0;
   text-indent: -9999px;
   overflow: hidden; }
 .navbar .nav {
@@ -5863,12 +5865,33 @@ label {
   border: 1px solid transparent;
   font-weight: bold;
   text-shadow: none;
+  color: #515665;
+  text-shadow: none;
+  background-color: #f2f2f2;
+  background-image: -moz-linear-gradient(top, #f2f2f2, #f2f2f2);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f2f2f2), to(#f2f2f2));
+  background-image: -webkit-linear-gradient(top, #f2f2f2, #f2f2f2);
+  background-image: -o-linear-gradient(top, #f2f2f2, #f2f2f2);
+  background-image: linear-gradient(to bottom, #f2f2f2, #f2f2f2);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF2F2F2', endColorstr='#FFF2F2F2', GradientType=0);
+  border-color: #f2f2f2 #f2f2f2 #cccccc;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #f2f2f2;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.35);
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.35);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
+  .btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
+    color: #515665;
+    background-color: #f2f2f2;
+    *background-color: #e6e6e6; }
+  .btn:active, .btn.active {
+    background-color: #d9d9d9 \9; }
   .btn:focus {
     text-decoration: none; }
   .btn:hover, .btn:focus {
@@ -5892,7 +5915,7 @@ label {
     box-shadow: none; }
 
 .btn-default {
-  color: white;
+  color: #515665;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #f2f2f2;
   background-image: -moz-linear-gradient(top, #f2f2f2, #f2f2f2);
@@ -5909,7 +5932,7 @@ label {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   color: #515665; }
   .btn-default:hover, .btn-default:active, .btn-default.active, .btn-default.disabled, .btn-default[disabled] {
-    color: white;
+    color: #515665;
     background-color: #f2f2f2;
     *background-color: #e6e6e6; }
   .btn-default:active, .btn-default.active {
@@ -5961,6 +5984,29 @@ label {
   .btn-success:active, .btn-success.active {
     background-color: #8ba200 \9; }
 
+.btn-danger {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #ee5f5b;
+  background-image: -moz-linear-gradient(top, #ee5f5b, #ee5f5b);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#ee5f5b));
+  background-image: -webkit-linear-gradient(top, #ee5f5b, #ee5f5b);
+  background-image: -o-linear-gradient(top, #ee5f5b, #ee5f5b);
+  background-image: linear-gradient(to bottom, #ee5f5b, #ee5f5b);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEE5F5B', endColorstr='#FFEE5F5B', GradientType=0);
+  border-color: #ee5f5b #ee5f5b #e51d18;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #ee5f5b;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); }
+  .btn-danger:hover, .btn-danger:active, .btn-danger.active, .btn-danger.disabled, .btn-danger[disabled] {
+    color: white;
+    background-color: #ee5f5b;
+    *background-color: #ec4844; }
+  .btn-danger:active, .btn-danger.active {
+    background-color: #e9322d \9; }
+
 .btn-link {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -5975,7 +6021,7 @@ label {
 
 .btn-mini {
   padding: 5px 15px !important;
-  font-size: 1em !important;
+  font-size: 1em;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
