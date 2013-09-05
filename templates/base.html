@@ -2,19 +2,21 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>{% block title %}Deeper Learning 101{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="{{STATIC_URL}}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{STATIC_URL}}/css/font-awesome.css" rel="stylesheet">
-    <link href="{{STATIC_URL}}/css/font-awesome-ie7.css" rel="stylesheet">
-    <link href="{{STATIC_URL}}/css/customizations.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/p2pu-bootstrap.css"/>
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
+
     <link href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.sidr.dark.css">
 
     {% block css %}{% endblock %}
 
@@ -25,52 +27,70 @@
 
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="/static/assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/static/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="/static/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="/static/assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="/static/assets/ico/apple-touch-icon-57-precomposed.png">
-  </head>
+</head>
 
-  <body>
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="/"></a>
-          <ul class="nav">
-            <li><a href="http://www.hightechhigh.org/" target="_blank">High Tech High </a></li>
-            <li><a href="/about/">About DL101</a></li>
-            <li><a href="">FAQ (coming soon)</a></li>
-            <li><a href="">Blog (coming soon)</a></li>
-          </ul>
+            <a class="navbar-btn visible-phone visible-tablet" href="#main-menu-panel">
+                <i class="icon-list-ul"></i>
+            </a>
+            <a class="home" href="{% url home %}">
+                <i class="icon-home"></i>
+            </a>
+            <div class="nav-collapse collapse">
+                <ul class="nav main-menu">
+                    <li><a href="/about/">About DL101</a></li>
+                    <li><a href="">FAQ (coming soon)</a></li>
+                    <li><a href="">Blog (coming soon)</a></li>
+                    <li><a href="http://www.hightechhigh.org/" target="_blank">High Tech High </a></li>
+                </ul>
+            </div>
         </div>
-      </div>
+        <a class="brand" href="https://p2pu.org"></a>
     </div>
+</div>
 
-    <a href="https://github.com/p2pu/mechanical-mooc"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 9999;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+{% block body %}
+{% endblock %}
 
-    {% block body %}
-    {% endblock %}
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script src="{{ STATIC_URL }}/js/bootstrap.min.js"></script>
+<script src="{{ STATIC_URL }}/js/jquery.sidr.min.js"></script>
+<script src="{{ STATIC_URL }}/js/main.js"></script>
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-    <script src="{{STATIC_URL}}/js/bootstrap.min.js"></script>
+{% block js %}
+{% endblock %}
+<script>MMOOC.Splash.init();</script>
 
-    {% block js %}
-    {% endblock %}
+<script type="text/javascript">
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    <script type="text/javascript">
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-43228200-1', 'deeper-learning.org');
-      ga('send', 'pageview');
-    </script>
-  </body>
+    ga('create', 'UA-43228200-1', 'deeper-learning.org');
+    ga('send', 'pageview');
+</script>
+</body>
 </html>

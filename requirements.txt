@@ -2,7 +2,9 @@ Django==1.4.3
 South==0.7.6
 argparse==1.2.1
 bleach==1.2.1
+distribute==0.6.34
 dj-database-url==0.2.1
+django-debug-toolbar==0.9.4
 django-extensions==1.0.3
 gunicorn==0.17.2
 html5lib==0.95
