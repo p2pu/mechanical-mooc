@@ -1,6 +1,9 @@
-from signup import db as signup_db
 from mailgun import api as mailgun_api
 from mailgun.utils import parse_timestamp
+from signup import models as signup_api
+from groups import models as groups_api
+
+from django.conf import settings
 
 import sqlite3
 import unicodecsv
@@ -86,7 +89,6 @@ def dump_old_data():
     user_keys = ['email', 'created_at', 'group_id', 'group_size']
     event_keys = ['event', 'timestamp', 'tags', 'link']
     for sequence, campaign_id in sequences:
-
         writer = unicodecsv.writer(open('sequence_{0}_all.csv'.format(sequence), 'w'))
         users = old_sequence_users(sequence)
         for user in users:
@@ -105,5 +107,44 @@ def dump_old_data():
                 row = [ user[key] for key in user_keys ]
                 row += [ event[key] for key in event_keys ]
                 writer.writerow(row)
-    
 
+
+def get_user_mail_activity(logs, email):
+    logs = mailgun_api.get_logs(limit=0)
+    user_emails = filter(event_filter, logs)
+
+
+def dump_data():
+
+    sequences = [(4, 'sequence_4_campaign')]
+    user_keys = ['email', 'date_created', 'group_id', 'group_size']
+    event_keys = ['event', 'timestamp', 'tags', 'link']
+    for sequence, campaign_id in sequences:
+
+        writer = unicodecsv.writer(open('sequence_{0}_all.csv'.format(sequence), 'w'))
+        writer.writerow(user_keys + event_keys + ['control_group'])
+        users = signup_api.get_signups(sequence)
+        for user in users:
+            user['group_size'] = 0
+            user['group_id'] = None
+            user_groups = groups_api.get_member_groups(user['email'])
+            if len(user_groups) == 1:
+                user['group_id'] = user_groups[0]['address']
+                user['group_size'] = len(user_groups[0]['members'])
+                
+            user['control_group'] = user['group_id'] in settings.EXPERIMENTAL_GROUPS
+
+        sequence_data = []
+
+        for i, user in enumerate(users):
+            print('getting data for user {0} of {1}: {2}'.format(i,len(users),user['email']))
+            get_stats = lambda p: mailgun_api.get_campaign_events(campaign_id, ['opened', 'clicked'], recipient=user['email'], page=p)
+            user_stats = _fetch_all(get_stats)
+            for event in user_stats:
+                if 'link' not in event:
+                    event['link'] = ''
+                event['tags'] = str(event['tags'])
+                row = [ user[key] for key in user_keys ]
+                row += [ event[key] for key in event_keys ]
+                row += [ user['control_group'] ]
+                writer.writerow(row)
