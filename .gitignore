@@ -2,3 +2,5 @@
 celerybeat-schedule
 staticfiles
 *.swp
+.idea
+settings_local.py

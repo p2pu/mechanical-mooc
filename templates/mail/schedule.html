@@ -1,108 +1,116 @@
 {% extends 'base.html' %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/timepicker/jquery.timepicker.css" />
-  <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/timepicker/lib/base.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/timepicker/jquery.timepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/timepicker/lib/base.css"/>
 {% endblock %}
 
 
 {% block body %}
+    <div class="container">
+    <div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Text</th>
+                <th>Tags</th>
+                <th>Send at (UTC)</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for mail in schedule %}
+                <tr>
+                    <td>
+                        {{ mail.subject }}
+                    </td>
+                    <td>
+                        {{ mail.text_body|truncatewords:10 }}
+                    </td>
+                    <td>
+                        {{ mail.tags }}
+                    </td>
+                    <td>
+                        {% if mail.date_sent %}
+                            sent at {{ mail.date_sent }}
+                        {% else %}
+                            <form action="{% url mail_schedule_email mail.id %}">
+                                {% csrf_token %}
+                                <input id="id_date_{{ mail.id }}" name="scheduled_date" type="datetime"
+                                       {% if mail.date_scheduled %}value="{{ mail.date_scheduled.date.isoformat }}"{% endif %}>
+                                <input class="timepicker" id="id_time_{{ mail.id }}" name="scheduled_time" type="text"
+                                       {% if mail.date_scheduled %}value="{{ mail.date_scheduled.time.isoformat }}"{% endif %}>
+                                <div>
+                                    <span id="id_schedule_info" class="alert hidden"><span>
+                                </div>
 
-  <div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Subject</th>
-          <th>Text</th>
-          <th>Tags</th>
-          <th>Send at (UTC)</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for mail in schedule %}
-          <tr>          
-            <td></td>
-            <td>
-              {{ mail.subject }}
-            </td>
-            <td>
-              {{ mail.text_body|truncatewords:10 }}
-            </td>
-            <td>
-              {{ mail.tags }}
-            </td>
-            <td>
-              {% if mail.date_sent %}
-                sent at {{mail.date_sent}}
-              {% else %}
-              <form action="{% url mail_schedule_email mail.id %}">
-                {% csrf_token %}
-                <input id="id_date_{{ mail.id }}" name="scheduled_date" type="datetime" {% if mail.date_scheduled %}value="{{mail.date_scheduled.date.isoformat}}"{% endif %}>
-                <input class="timepicker" id="id_time_{{mail.id}}" name="scheduled_time" type="text" {% if mail.date_scheduled %}value="{{mail.date_scheduled.time.isoformat}}"{% endif %}>
-                <span id="id_schedule_info" class="alert hidden"><span>
-              </form>
-              {% endif %}
-            </td>
-            <td>
-              {% if not mail.date_sent %}
-                <a class="btn" href="{% url mail_edit mail.id %}"><i class="icon-edit"></i> edit email</a>
-                <a class="btn" href="{% url mail_delete mail.id %}"><i class="icon-trash"></i> delete email</a>
-                <a class="btn" href="{% url mail_send mail.id %}"><i class="icon-envelope"></i> send email to all {{mail.audience}}</a>
-              {% endif %}
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+                            </form>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not mail.date_sent %}
+                            <div class="btn-group">
+                                <a class="btn btn-mini" href="{% url mail_edit mail.id %}"><i class="icon-edit"></i>
+                                    edit email</a>
+                                <a class="btn btn-mini btn-danger" href="{% url mail_delete mail.id %}"><i
+                                        class="icon-trash"></i> delete email</a>
+                                <a class="btn btn-mini btn-primary" href="{% url mail_send mail.id %}"><i
+                                        class="icon-envelope"></i> send email to all {{ mail.audience }}</a>
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-  <a class="btn" href="{% url mail_compose %}">Create new email</a>
-
+    <a class="btn btn-primary" href="{% url mail_compose %}">Create new email</a>
+    <div>
 {% endblock %}
 
 {% block js %}
 
-  <script type="text/javascript" src="{{STATIC_URL}}/timepicker/jquery.timepicker.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}/timepicker/jquery.timepicker.js"></script>
 
-  <script type="text/javascript">
+    <script type="text/javascript">
 
-    function scheduleMail( form ) {
-        $.ajax({
-            type: "POST",
-            url: form.attr('action'),
-            data: form.serialize(),
-            success: function() {
-                info_span = form.find("#id_schedule_info");
-                info_span.html("Email scheduled");
-                info_span.removeClass("hidden alert-error").addClass("alert-success");
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                info_span = form.find("#id_schedule_info");
-                info_span.text(jqXHR.responseText);
-                info_span.removeClass("hidden").addClass("alert-error");
-            }
+        function scheduleMail(form) {
+            $.ajax({
+                type: "POST",
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function () {
+                    info_span = form.find("#id_schedule_info");
+                    info_span.html("Email scheduled");
+                    info_span.removeClass("hidden alert-error").addClass("alert-success");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    info_span = form.find("#id_schedule_info");
+                    info_span.text(jqXHR.responseText);
+                    info_span.removeClass("hidden").addClass("alert-error");
+                }
+            });
+            return true;
+        }
+
+        $(document).ready(function () {
+            var now = new Date();
+            $('input[type=datetime]').datepicker({
+                onSelect: function (date, obj) {
+                    scheduleMail($(this).closest('form'));
+                },
+                dateFormat: "yy-mm-dd",
+                minDate: now
+            });
+            $('.timepicker').timepicker({
+                'step': 60,
+                'timeFormat': 'H:i'
+            });
+            $('.timepicker').on('changeTime', function () {
+                scheduleMail($(this).closest('form'));
+            });
         });
-        return true;
-    }
-
-    $(document).ready(function () {
-      var now = new Date();
-      $('input[type=datetime]').datepicker({
-          onSelect: function(date, obj) {
-              scheduleMail($(this).closest('form'));
-          },
-          dateFormat: "yy-mm-dd",
-          minDate: now
-      });
-      $('.timepicker').timepicker({
-            'step': 60,
-            'timeFormat': 'H:i'
-      });
-      $('.timepicker').on('changeTime', function() {
-          scheduleMail($(this).closest('form'));
-      });
-    });
-  </script>
+    </script>
 {% endblock %}
