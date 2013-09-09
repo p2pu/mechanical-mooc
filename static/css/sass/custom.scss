@@ -63,7 +63,6 @@
 }
 
 #emailForm{
-  text-align: center;
   margin-bottom: 50px;
 }
 .full-width{
@@ -170,6 +169,7 @@ input[type="email"]{
     margin: 20px
   }
 }
+
 .social{
   margin-left: 0;
   margin-bottom: 0;
@@ -181,6 +181,11 @@ input[type="email"]{
     line-height: 1;
   }
 }
+
+ul.tagit input[type="text"]{
+  box-shadow: none;
+}
+
 // Media queries for responsive design
 @media (max-width: 996px){
   body {

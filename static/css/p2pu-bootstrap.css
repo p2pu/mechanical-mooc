@@ -5787,6 +5787,15 @@ hr {
   border-top: 1px solid #aab0bf;
   border-bottom: 1px solid white; }
 
+.text-left {
+  text-align: left; }
+
+.text-center {
+  text-align: center; }
+
+.text-right {
+  text-align: right; }
+
 .navbar-inner {
   background-image: none;
   background-color: #fcfcfc;

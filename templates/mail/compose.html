@@ -19,7 +19,7 @@
 
     <div class="container">
       <div class="description clearfix">
-        <form id="emailForm" class="form well" action="" method="post">
+        <form id="emailForm" class="form text-left" action="" method="post">
           {% csrf_token %}
           <label>
             Tags<br />
@@ -67,7 +67,7 @@
             </div>
             <br/>
             <button id="finish" type="submit" class="btn btn-primary">Save email</button>
-            <a class="btn btn-large" href={% url mail_schedule %}>Cancel</a>
+            <a class="btn" href={% url mail_schedule %}>Cancel</a>
           </div>              
         </form>
       </div>
