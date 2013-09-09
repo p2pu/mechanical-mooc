@@ -1,15 +1,6 @@
 //
 // P2PU Mechanical Mooc customizations
 //-----------------------------------------------------
-.navbar-inner{
-  a.navbar-btn{
-    float: left;
-    margin: 17px;
-    font-size: 1.3em;
-    line-height: 21px;
-    color: #777777;
-  }
-}
 
 .jumbotron{
     background-image: url('/static/img/banner.png');
@@ -22,7 +13,12 @@
     text-shadow: 0 0 12px rgba(0, 0, 0, 0.5), 0 0 32px rgba(0, 0, 0, 0.25), 0 1px rgba(0, 0, 0, 0.75);
     position: relative;
     text-align: center;
-
+    position: relative;
+    .head-text{
+      position: absolute;
+      bottom: 45%;
+      width: 100%;
+    }
     .pre-title{
       font-size: 1.3em;
       margin: 15px 0;
@@ -36,12 +32,16 @@
 
 .description{
   margin: 0 0 10px 0;
+  padding: 30px;
   background-color: #FFF;
   position: relative;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.1);
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
+  ul{
+    margin-left: -30px;
+  }
   li{
     float: left;
     margin-left: 20px;
@@ -51,14 +51,21 @@
       margin: 11px 15px 0 0;
     }
     .description-text{
-      overflow: hidden;
-      h3{
+      h2{
         min-height: 95px;
       }
     }
   }
 }
 
+#step2, #step3{
+  margin-top: 30px;
+}
+
+#emailForm{
+  text-align: center;
+  margin-bottom: 50px;
+}
 .full-width{
   width: 99%;
 }
@@ -156,7 +163,24 @@ input[type="email"]{
   }
 }
 
-
+.conference{
+  text-align: center;
+  img{
+    width: 200px;
+    margin: 20px
+  }
+}
+.social{
+  margin-left: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+  li{
+    display: inline-block;
+    padding: 5px 8px;
+    line-height: 1;
+  }
+}
 // Media queries for responsive design
 @media (max-width: 996px){
   body {
