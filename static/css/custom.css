@@ -1,3 +1,25 @@
+.navbar .nav {
+  padding: 9px 10px 15px 0px;
+  margin-left: 0; }
+.navbar .home {
+  float: left;
+  line-height: 22px;
+  padding: 9px;
+  margin: 9px 0px 0 20px;
+  font-size: 23px; }
+  .navbar .home:hover {
+    text-decoration: none;
+    color: #05c6b4; }
+.navbar .brand {
+  position: absolute;
+  right: 10px;
+  top: 10px; }
+
+.navbar-inner a.navbar-btn {
+  float: left;
+  margin: 17px;
+  font-size: 1.3em; }
+
 .jumbotron {
   background-image: url("/static/img/banner.png");
   background-size: cover;
