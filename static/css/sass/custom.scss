@@ -1,38 +1,9 @@
 //
 // P2PU Mechanical Mooc customizations
 //-----------------------------------------------------
-.navbar{
-  .nav{
-    padding: 9px 10px 15px 0px;
-    margin-left: 0;
-  }
-  .home{
-    float: left;
-    line-height: 22px;
-    padding: 9px;
-    margin: 9px 0px 0 20px;
-    font-size: 23px;
-    &:hover{
-      text-decoration: none;
-      color: #05c6b4;
-    }
-  }
-  .brand{
-    position: absolute;
-    right: 10px;
-    top: 10px;
-  }
-}
-.navbar-inner{
-  a.navbar-btn{
-    float: left;
-    margin: 17px;
-    font-size: 1.3em;
-  }
-}
 
 .jumbotron{
-    background-image: url('/static/img/apocalypto2.jpg');
+    background-image: url('/static/img/banner.png');
     background-size: cover;
     background-position: 0% 0%;
     height: 334px;
@@ -57,6 +28,13 @@
     .title{
       color: #FFF;
     }
+}
+
+.subhead{
+  height: inherit;
+  margin-bottom: 30px;
+  padding: 20px 0;
+  text-align: left;
 }
 
 .description{
@@ -92,7 +70,6 @@
 }
 
 #emailForm{
-  text-align: center;
   margin-bottom: 50px;
 }
 .full-width{
@@ -199,6 +176,7 @@ input[type="email"]{
     margin: 20px
   }
 }
+
 .social{
   margin-left: 0;
   margin-bottom: 0;
@@ -210,6 +188,11 @@ input[type="email"]{
     line-height: 1;
   }
 }
+
+ul.tagit input[type="text"]{
+  box-shadow: none;
+}
+
 // Media queries for responsive design
 @media (max-width: 996px){
   body {
