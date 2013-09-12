@@ -138,7 +138,8 @@ INSTALLED_APPS = (
     'grouping',
     'mail',
     'sequence',
-    'unsubscribe'
+    'unsubscribe',
+    'gallery'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -188,16 +189,15 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'missioncontrol@data.p
 #TODO this may cause confusion with DJANOG EMAIL_ settings!
 EMAIL_DOMAIN = os.environ.get('EMAIL_DOMAIN', '')
 
-###########################################################################
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+AWS_S3_BUCKET = os.environ.get('AWS_S3_BUCKET', 'mechanicalmooc')
+
 # Configuration for django debug toolbar
-###########################################################################
 INTERNAL_IPS = ('127.0.0.1', )
 DEBUG_TOOLBAR_CONFIG = { 'INTERCEPT_REDIRECTS': False }
 
-
-#############################################################################
 # Support for settings
-#############################################################################
 try:
     from settings_local import *
 except ImportError:

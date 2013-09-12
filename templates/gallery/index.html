@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+  {% for bio in bios %}
+    <div class="profile-wrapper">
+      <a class="profile">
+        <img class="profile-image" src="{{bio.avatar}}">
+        <!--span class="profile-bio">{{bio.bio}}</span-->
+      </a>
+    </div>
+  {% endfor %}
+
+  <div class="clearfix"></div>
+
+  <!-- if user not added yet, show form/button to add user -->
+  {% if not has_bio %}
+    <div class="profile-edit">
+      <form id="image-form" action="https://{{ AWS_S3_BUCKET }}.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="key" value = "">
+        <input type="hidden" name="AWSAccessKeyId" value="{{ AWS_ACCESS_KEY_ID }}">
+        <input type="hidden" name="acl" value="public-read">
+        <input type="hidden" name="success_action_redirect" value="{{ s3_redirect_url }}">
+        <input type="hidden" name="policy" value="{{ s3_policy }}">
+        <input type="hidden" name="signature" value="{{ s3_signature }}">
+        <input type="hidden" name="Content-Type" value="image/png">
+        <input id="profile-pic-input" name="file" type="file">
+      </form>
+
+      <div id="image-preview"></div>
+
+      <form action="{% url gallery_save_bio %}" method="POST">
+        {% csrf_token %}
+        <label>Email</label><input type="text" name="email">
+        <label>Name</label><input type="text" name="name">
+        <label>Bio</label><input type="text" name="bio">
+        <input type="hidden" name="avatar" value="http://placehold.it/120x120">
+        <button type="submit">Submit</button>
+      </form>
+ 
+    </div>
+  {% endif %}
+
+{% endblock %}
+
+{% block js %}
+  <script>
+    $(document).ready(function() {
+      $('#profile-pic-input').change( function (e){
+        // determine mime type and set "Content-Value" input
+        // upload image to Amazon S3
+        var key = '{{ key_prefix }}' + e.target.value;
+        $('#image-form :input[name=key]').val(key)
+        $('#image-form').submit();
+      });
+      
+      var frm = $('#image-form');
+      frm.submit(function (e) {
+        var form_data = new FormData(e.target);
+        $.ajax({
+          type: frm.attr('method'),
+          url: frm.attr('action'),
+          data: form_data,
+          processData: false,
+          contentType: false,
+          cache: false,
+          success: function (data) {
+            alert('ok');
+          },
+          complete: function (req, msg){
+            alert(msg);
+          }
+        });
+        e.preventDefault();
+      });
+
+    });
+  </script>
+{% endblock %}
