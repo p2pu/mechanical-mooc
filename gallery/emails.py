@@ -1,0 +1,18 @@
+from django.conf import settings
+from django.template.loader import render_to_string
+
+import mailgun
+
+def send_confirmation_email( email, name, avatar, bio, confirmation_code ):
+    context = {
+        'email': email,
+        'name': name,
+        'avatar': avatar,
+        'bio': bio,
+        'confirmation_code': confirmation_code,
+        'mooc_title': settings.MOOC_TITLE,
+    }
+    subject = render_to_string('gallery/emails/confirm-updates-subject.txt', context).strip()
+    text_body = render_to_string('gallery/emails/confirm-updates.txt', context).strip()
+    html_body = render_to_string('gallery/emails/confirm-updates.html', context).strip()
+    mailgun.api.send_email(email, settings.DEFAULT_FROM_EMAIL, subject, text_body, html_body, tags=['bio_update'])

@@ -11,7 +11,7 @@ def create_s3_policy_doc(bucket, upload_path, redirect, max_file_size=2**20):
     {{"bucket": "{bucket}"}}, 
     ["starts-with", "$key", "{upload_path}"],
     {{"acl": "public-read"}},
-    {{"success_action_redirect": "{redirect}"}},
+    {{"success_action_status": "201"}},
     ["starts-with", "$Content-Type", ""],
     ["content-length-range", 0, {max_file_size}]
   ]

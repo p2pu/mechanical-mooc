@@ -156,6 +156,16 @@ input[type="email"]{
   }
 }
 
+.profile-wrapper {
+    float: left;
+    list-style: none;
+}
+
+.profile-image {
+    max-height: 120px;
+    max-width: 120px;
+}
+
 
 // Media queries for responsive design
 @media (max-width: 996px){

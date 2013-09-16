@@ -193,6 +193,8 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
 AWS_S3_BUCKET = os.environ.get('AWS_S3_BUCKET', 'mechanicalmooc')
 
+MOOC_TITLE = os.environ.get('MOOC_NAME', 'Dev MOOC')
+
 # Configuration for django debug toolbar
 INTERNAL_IPS = ('127.0.0.1', )
 DEBUG_TOOLBAR_CONFIG = { 'INTERCEPT_REDIRECTS': False }

@@ -1,10 +1,13 @@
+/* line 5, ../sass/custom.scss */
 .navbar-inner a.navbar-btn {
   float: left;
   margin: 17px;
   font-size: 1.3em;
   line-height: 21px;
-  color: #777777; }
+  color: #777777;
+}
 
+/* line 14, ../sass/custom.scss */
 .jumbotron {
   background-image: url("/static/img/banner.png");
   background-size: cover;
@@ -15,14 +18,20 @@
   line-height: 1.3em;
   text-shadow: 0 0 12px rgba(0, 0, 0, 0.5), 0 0 32px rgba(0, 0, 0, 0.25), 0 1px rgba(0, 0, 0, 0.75);
   position: relative;
-  text-align: center; }
-  .jumbotron .pre-title {
-    font-size: 1.3em;
-    margin: 15px 0;
-    color: #FFF; }
-  .jumbotron .title {
-    color: #FFF; }
+  text-align: center;
+}
+/* line 26, ../sass/custom.scss */
+.jumbotron .pre-title {
+  font-size: 1.3em;
+  margin: 15px 0;
+  color: #FFF;
+}
+/* line 32, ../sass/custom.scss */
+.jumbotron .title {
+  color: #FFF;
+}
 
+/* line 37, ../sass/custom.scss */
 .description {
   margin: 0 0 10px 0;
   background-color: #FFF;
@@ -30,23 +39,35 @@
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.1);
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
-  border-radius: 15px; }
-  .description li {
-    float: left;
-    margin-left: 20px;
-    width: 300px;
-    margin: 30px 0 20px 5%; }
-    .description li h2.pull-left i {
-      margin: 11px 15px 0 0; }
-    .description li .description-text {
-      overflow: hidden; }
-      .description li .description-text h3 {
-        min-height: 95px; }
+  border-radius: 15px;
+}
+/* line 45, ../sass/custom.scss */
+.description li {
+  float: left;
+  margin-left: 20px;
+  width: 300px;
+  margin: 30px 0 20px 5%;
+}
+/* line 50, ../sass/custom.scss */
+.description li h2.pull-left i {
+  margin: 11px 15px 0 0;
+}
+/* line 53, ../sass/custom.scss */
+.description li .description-text {
+  overflow: hidden;
+}
+/* line 55, ../sass/custom.scss */
+.description li .description-text h3 {
+  min-height: 95px;
+}
 
+/* line 62, ../sass/custom.scss */
 .full-width {
-  width: 99%; }
+  width: 99%;
+}
 
 /* Progress Bar */
+/* line 69, ../sass/custom.scss */
 .progress-step .step-full, .progress-step .step-empty {
   height: 30px;
   width: 30px;
@@ -63,75 +84,124 @@
   text-shadow: 0px 0px 3px #222;
   text-align: center;
   line-height: 28px;
-  font-weight: bold; }
+  font-weight: bold;
+}
+/* line 87, ../sass/custom.scss */
 .progress-step .step-empty {
-  background-color: #51A351; }
+  background-color: #51A351;
+}
 
+/* line 93, ../sass/custom.scss */
 .progress-step-square .step-full,
 .progress-step-square .step-empty {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  border-radius: 2px; }
+  border-radius: 2px;
+}
 
+/* line 98, ../sass/custom.scss */
 .progress.progress-step {
   margin: 14px 17px 14px 14px;
   position: relative;
-  overflow: visible; }
+  overflow: visible;
+}
 
 /* Form */
+/* line 106, ../sass/custom.scss */
 #step2 .help-block {
   margin-top: 0;
   padding-top: 5px;
   padding-bottom: 5px;
-  color: #999; }
+  color: #999;
+}
 
+/* line 113, ../sass/custom.scss */
 #step2 select {
-  margin-top: 5px; }
+  margin-top: 5px;
+}
 
+/* line 117, ../sass/custom.scss */
 #infoForm .control-group.error .controls label {
-  color: #333; }
+  color: #333;
+}
 
 /* Success page */
+/* line 122, ../sass/custom.scss */
 #step3 i {
-  font-size: 130px; }
+  font-size: 130px;
+}
 
+/* line 125, ../sass/custom.scss */
 #step3 {
-  text-align: center; }
+  text-align: center;
+}
 
+/* line 129, ../sass/custom.scss */
 .about p, .faq p {
   font-size: 18px;
   text-align: justify;
   line-height: 26px;
-  padding-top: 0.7em; }
+  padding-top: 0.7em;
+}
 
+/* line 136, ../sass/custom.scss */
 .faq h2 {
-  padding-top: 1em; }
+  padding-top: 1em;
+}
 
+/* line 141, ../sass/custom.scss */
 input[type="email"] {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+}
 
+/* line 146, ../sass/custom.scss */
 .input-append,
 .input-prepend {
-  font-size: 12px; }
-  .input-append .add-on,
-  .input-append .btn,
-  .input-append .btn-group,
-  .input-prepend .add-on,
-  .input-prepend .btn,
-  .input-prepend .btn-group {
-    margin-right: -6px; }
-  .input-append .alert,
-  .input-prepend .alert {
-    margin-left: 10px; }
+  font-size: 12px;
+}
+/* line 150, ../sass/custom.scss */
+.input-append .add-on,
+.input-append .btn,
+.input-append .btn-group,
+.input-prepend .add-on,
+.input-prepend .btn,
+.input-prepend .btn-group {
+  margin-right: -6px;
+}
+/* line 154, ../sass/custom.scss */
+.input-append .alert,
+.input-prepend .alert {
+  margin-left: 10px;
+}
+
+/* line 159, ../sass/custom.scss */
+.profile-wrapper {
+  float: left;
+  list-style: none;
+}
+
+/* line 164, ../sass/custom.scss */
+.profile-image {
+  max-height: 120px;
+  max-width: 120px;
+}
 
 @media (max-width: 996px) {
+  /* line 172, ../sass/custom.scss */
   body {
-    padding: 0; }
+    padding: 0;
+  }
 
+  /* line 175, ../sass/custom.scss */
   .github-fork img {
     width: 100px;
-    height: 100px; } }
+    height: 100px;
+  }
+}
 @media (min-width: 979px) and (max-width: 1200px) {
+  /* line 181, ../sass/custom.scss */
   .description li {
     width: 290px;
-    margin: 30px 0 15px 20px; } }
+    margin: 30px 0 15px 20px;
+  }
+}

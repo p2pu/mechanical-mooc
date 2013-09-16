@@ -5,6 +5,7 @@ from django import http
 from django.core.urlresolvers import reverse
 from gallery import models as gallery_api
 from gallery.utils import create_s3_policy_doc
+from gallery.emails import send_confirmation_email
 
 import hmac, hashlib
 
@@ -36,10 +37,20 @@ def save_bio(request):
     if request.method == 'POST':
         # save bio info
         user_bio = gallery_api.save_bio(request.POST['email'], request.POST['name'], request.POST['bio'], request.POST['avatar'])
+        emails.send_confirmation_email(**user_bio)
         request.session['has_bio'] = True
         request.session['user_bio'] = user_bio
+
     return http.HttpResponseRedirect(reverse('gallery_gallery'))
 
 
 def avatar_success(request):
     return http.HttpResponse('')
+
+
+def confirm_updates(request, confirmation_code):
+    try:
+        gallery_api.confirm_bio(confirmation_code)
+    except Exception:
+        pass
+    return http.HttpResponseRedirect(reverse('gallery_gallery'))
