@@ -28,7 +28,7 @@ def _text_from_html(html):
 
 
 def _rewrite_links(html):
-    expression = re.compile(r'(?P<url>http://email.{}/c/.*?)[\"\' ]'.format(settings.MAILGUN_API_DOMAIN))
+    expression = re.compile(r'(?P<url>http://email.{0}/c/.*?)[\"\' ]'.format(settings.MAILGUN_API_DOMAIN))
 
     # for every link
     while expression.search(html):
