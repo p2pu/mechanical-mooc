@@ -1,4 +1,4 @@
-# Mechanical MOOC
+# Mechanical MOOC [![Build Status](https://travis-ci.org/p2pu/mechanical-mooc?branch=classgallery)](https://travis-ci.org/p2pu/mechanical-mooc)
 
 The Mechanical MOOC is a web based app for running a course with a large number of users. Users can sign up for a course, you can send regular email updates about the course and group people into small groups where they can discuss the course with their peers. Nothing more and nothing less.
 
