@@ -12,7 +12,7 @@ def send_confirmation_email( email, name, avatar, bio, confirmation_code ):
         'confirmation_code': confirmation_code,
         'mooc_title': settings.MOOC_TITLE,
     }
-    subject = render_to_string('gallery/emails/confirm-updates-subject.txt', context).strip()
-    text_body = render_to_string('gallery/emails/confirm-updates.txt', context).strip()
-    html_body = render_to_string('gallery/emails/confirm-updates.html', context).strip()
+    subject = render_to_string('gallery/emails/confirm-profile-subject.txt', context).strip()
+    text_body = render_to_string('gallery/emails/confirm-profile.txt', context).strip()
+    html_body = render_to_string('gallery/emails/confirm-profile.html', context).strip()
     mailgun.api.send_email(email, settings.DEFAULT_FROM_EMAIL, subject, text_body, html_body, tags=['bio_update'])
