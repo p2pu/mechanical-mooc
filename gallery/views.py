@@ -34,16 +34,25 @@ def gallery(request):
 
 def save_bio(request):
     """ receive AJAX post from class gallery page """
+    
     if request.method == 'POST':
         # save bio info
-        user_bio = gallery_api.save_bio(request.POST['email'], request.POST['name'], request.POST['bio'], request.POST['avatar'])
-        if request.session.get('user_email', False):
-            # TODO what to do if user_email in session and email in bio doesn't match?
+        user_bio = gallery_api.save_bio(
+            request.POST['email'],
+            request.POST['name'],
+            request.POST['bio'],
+            request.POST['avatar']
+        )
+        
+        user_email = request.session.get('user_email', False)
+        if user_email and user_email == user_bio['email']:
             user_bio = gallery_api.confirm_bio(user_bio['confirmation_code'])
         else:
             send_confirmation_email(**user_bio)
+        
         request.session['has_bio'] = True
         request.session['user_bio'] = user_bio
+    
     return http.HttpResponseRedirect(reverse('gallery_gallery'))
 
 
