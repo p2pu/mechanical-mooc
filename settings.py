@@ -139,7 +139,8 @@ INSTALLED_APPS = (
     'mail',
     'sequence',
     'unsubscribe',
-    'gallery'
+    'gallery',
+    'twitter',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -195,6 +196,9 @@ AWS_S3_BUCKET = os.environ.get('AWS_S3_BUCKET', 'mechanicalmooc')
 
 MOOC_TITLE = os.environ.get('MOOC_NAME', 'Dev MOOC')
 
+TWITTER_OAUTH_CONSUMER_KEY = os.environ.get('TWITTER_OAUTH_CONSUMER_KEY', '')
+TWITTER_OAUTH_CONSUMER_SECRET = os.environ.get('TWITTER_OAUTH_CONSUMER_SECRET', '')
+
 # Configuration for django debug toolbar
 INTERNAL_IPS = ('127.0.0.1', )
 DEBUG_TOOLBAR_CONFIG = { 'INTERCEPT_REDIRECTS': False }
@@ -204,6 +208,3 @@ try:
     from settings_local import *
 except ImportError:
     pass
-
-
-
