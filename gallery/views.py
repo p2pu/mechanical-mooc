@@ -37,10 +37,13 @@ def save_bio(request):
     if request.method == 'POST':
         # save bio info
         user_bio = gallery_api.save_bio(request.POST['email'], request.POST['name'], request.POST['bio'], request.POST['avatar'])
-        emails.send_confirmation_email(**user_bio)
+        if request.session.get('user_email', False):
+            # TODO what to do if user_email in session and email in bio doesn't match?
+            user_bio = gallery_api.confirm_bio(user_bio['confirmation_code'])
+        else:
+            send_confirmation_email(**user_bio)
         request.session['has_bio'] = True
         request.session['user_bio'] = user_bio
-
     return http.HttpResponseRedirect(reverse('gallery_gallery'))
 
 
@@ -50,7 +53,9 @@ def avatar_success(request):
 
 def confirm_updates(request, confirmation_code):
     try:
-        gallery_api.confirm_bio(confirmation_code)
+        bio = gallery_api.confirm_bio(confirmation_code)
+        request.session['user_bio'] = bio
+        request.session['user_email'] = bio['email']
     except Exception:
         pass
     return http.HttpResponseRedirect(reverse('gallery_gallery'))
