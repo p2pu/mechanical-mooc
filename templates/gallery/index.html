@@ -2,50 +2,55 @@
 
 {% block body %}
 
-  <ul>
-  {% for bio in bios %}
-    <li class="profile-wrapper">
-      <a class="profile">
-        <img class="profile-image" src="{{bio.avatar}}">
-        <!--span class="profile-bio">{{bio.bio}}</span-->
-      </a>
-    </li>
-  {% endfor %}
-  </ul>
-
-  <div class="clearfix"></div>
-
-  <!-- if user not added yet, show form/button to add user -->
-  {% if 1 %}
-  <div class="dropdown">
-    <a class="dropdown-toggle" href="#" data-toggle="dropdown">Add profile</a>
-
-    <div class="profile-edit dropdown-menu">
-      <div id="avatar-preview"></div>
-      <form id="avatar-form" action="https://{{ AWS_S3_BUCKET }}.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="key" value = "">
-        <input type="hidden" name="AWSAccessKeyId" value="{{ AWS_ACCESS_KEY_ID }}">
-        <input type="hidden" name="acl" value="public-read">
-        <input type="hidden" name="success_action_status" value="201">
-        <input type="hidden" name="policy" value="{{ s3_policy }}">
-        <input type="hidden" name="signature" value="{{ s3_signature }}">
-        <input type="hidden" name="Content-Type" value="image/png">
-        <input id="profile-pic-input" name="file" type="file">
-      </form>
-
-
-      <form id="bio-form" action="{% url gallery_save_bio %}" method="POST">
-        {% csrf_token %}
-        <label>Email</label><input type="text" name="email">
-        <label>Name</label><input type="text" name="name">
-        <label>Bio</label><input type="text" name="bio">
-        <input type="hidden" name="avatar" value="http://placehold.it/120x120">
-        <button class="btn btn-primary btn-block" type="submit">Submit</button>
-      </form>
- 
-    </div>
+  <div class='container'>
+    <ul class='class-gallery'>
+    {% for bio in bios %}
+      <li class="profile-wrapper">
+        <a class="profile">
+          <img class="profile-image img-polaroid" src="{{bio.avatar}}">
+          <!--span class="profile-bio">{{bio.bio}}</span-->
+        </a>
+      </li>
+    {% endfor %}
+    </ul>
   </div>
-  {% endif %}
+
+  <div class="container">
+    <!-- if user not added yet, show form/button to add user -->
+    {% if 1 %}
+    <div class="dropdown">
+      <a class="dropdown-toggle btn" href="#" data-toggle="dropdown">Add profile</a>
+ 
+      <div class="profile-edit dropdown-menu">
+        <div id="avatar-preview"></div>
+        <form id="avatar-form" action="https://{{ AWS_S3_BUCKET }}.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="key" value = "">
+          <input type="hidden" name="AWSAccessKeyId" value="{{ AWS_ACCESS_KEY_ID }}">
+          <input type="hidden" name="acl" value="public-read">
+          <input type="hidden" name="success_action_status" value="201">
+          <input type="hidden" name="policy" value="{{ s3_policy }}">
+          <input type="hidden" name="signature" value="{{ s3_signature }}">
+          <input type="hidden" name="Content-Type" value="image/png">
+          <input id="profile-pic-input" name="file" type="file">
+        </form>
+ 
+        <form id="bio-form" action="{% url gallery_save_bio %}" method="POST">
+          {% csrf_token %}
+          <label>Email</label><input type="text" name="email">
+          <label>Name</label><input type="text" name="name">
+          <label>Bio</label><input type="text" name="bio">
+          <input type="hidden" name="avatar" value="http://placehold.it/120x120">
+          <button class="btn btn-primary btn-block" type="submit">Submit</button>
+        </form>
+  
+      </div>
+      <div>
+        <p>OR</p>
+        <a class="btn" href={% url twitter_get_data %}>Get data from your twitter account</a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
 
 {% endblock %}
 

@@ -175,31 +175,36 @@ input[type="email"] {
 }
 
 /* line 159, ../sass/custom.scss */
+.class-gallery {
+  margin-top: 1.5em;
+}
+
+/* line 163, ../sass/custom.scss */
 .profile-wrapper {
   float: left;
   list-style: none;
 }
 
-/* line 164, ../sass/custom.scss */
+/* line 168, ../sass/custom.scss */
 .profile-image {
   max-height: 120px;
   max-width: 120px;
 }
 
 @media (max-width: 996px) {
-  /* line 172, ../sass/custom.scss */
+  /* line 176, ../sass/custom.scss */
   body {
     padding: 0;
   }
 
-  /* line 175, ../sass/custom.scss */
+  /* line 179, ../sass/custom.scss */
   .github-fork img {
     width: 100px;
     height: 100px;
   }
 }
 @media (min-width: 979px) and (max-width: 1200px) {
-  /* line 181, ../sass/custom.scss */
+  /* line 185, ../sass/custom.scss */
   .description li {
     width: 290px;
     margin: 30px 0 15px 20px;
