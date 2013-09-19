@@ -11,7 +11,7 @@ import requests
 
 
 def _parse_response(text):
-    return {k[0]: k[1] for k in [i.split('=') for i in text.split('&')]}
+    return dict( [(k[0], k[1]) for k in [i.split('=') for i in text.split('&')]] )
 
 
 def get_request_token():
