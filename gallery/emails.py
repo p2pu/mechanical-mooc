@@ -11,6 +11,7 @@ def send_confirmation_email( email, name, avatar, bio, confirmation_code ):
         'bio': bio,
         'confirmation_code': confirmation_code,
         'mooc_title': settings.MOOC_TITLE,
+        'mooc_domain': settings.MOOC_DOMAIN
     }
     subject = render_to_string('gallery/emails/confirm-profile-subject.txt', context).strip()
     text_body = render_to_string('gallery/emails/confirm-profile.txt', context).strip()

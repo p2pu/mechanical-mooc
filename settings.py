@@ -195,6 +195,7 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
 AWS_S3_BUCKET = os.environ.get('AWS_S3_BUCKET', 'mechanicalmooc')
 
 MOOC_TITLE = os.environ.get('MOOC_NAME', 'Dev MOOC')
+MOOC_DOMAIN = os.environ.get('MOOC_DOMAIN', '')
 
 TWITTER_OAUTH_CONSUMER_KEY = os.environ.get('TWITTER_OAUTH_CONSUMER_KEY', '')
 TWITTER_OAUTH_CONSUMER_SECRET = os.environ.get('TWITTER_OAUTH_CONSUMER_SECRET', '')
