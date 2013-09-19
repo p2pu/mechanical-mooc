@@ -1,7 +1,27 @@
 from django import http
+from django.conf import settings
+
+import json
+
 from twitter import utils
 
 def get_data(request):
+    if request.method == 'POST' and 'twitter_handle' in request.POST.keys():
+        twitter_handle = request.POST.get('twitter_handle')
+        creds = (settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_ACCESS_TOKEN_SECRET)
+        user_data = utils.get_user_data(twitter_handle, creds)
+        bio_data = {
+            'avatar': user_data['profile_image_url'],
+            'name': user_data['name'],
+            'bio': user_data['description']
+        }
+        if '_normal' in bio_data['avatar']:
+            bio_data['avatar'] = bio_data['avatar'][:bio_data['avatar'].index('_normal')]
+        return http.HttpResponse(json.dumps(bio_data))
+    #TODO return error
+
+
+def old(request):
     request_token_dict = utils.get_request_token()
     request.session['oauth_token'] = request_token_dict['oauth_token']
     request.session['oauth_token_secret'] = request_token_dict['oauth_token_secret']

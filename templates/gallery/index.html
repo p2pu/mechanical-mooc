@@ -18,10 +18,10 @@
   <div class="container">
     <!-- if user not added yet, show form/button to add user -->
     {% if 1 %}
-    <div class="dropdown">
-      <a class="dropdown-toggle btn" href="#" data-toggle="dropdown">Add profile</a>
+    <div class="row">
  
-      <div class="profile-edit dropdown-menu">
+      <div class="profile-edit well span5">
+        <h3>Fill in your data</h3>
         <div id="avatar-preview"></div>
         <form id="avatar-form" action="https://{{ AWS_S3_BUCKET }}.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
           <input type="hidden" name="key" value = "">
@@ -36,17 +36,37 @@
  
         <form id="bio-form" action="{% url gallery_save_bio %}" method="POST">
           {% csrf_token %}
-          <label>Email</label><input type="text" name="email">
-          <label>Name</label><input type="text" name="name">
-          <label>Bio</label><input type="text" name="bio">
-          <input type="hidden" name="avatar" value="http://placehold.it/120x120">
+          <input type="hidden" name="avatar">
+          <div class="control-group">
+            <label>Email</label>
+            <div class="controls">
+              <input type="text" name="email">
+            </div>
+          </div>
+          <div class="control-group">
+            <label>Name</label>
+            <div class="controls">
+              <input type="text" name="name">
+            </div>
+          </div>
+          <div class="control-group">
+            <label>Bio</label>
+            <div class="controls">
+              <input type="text" name="bio">
+            </div>
+          </div>
           <button class="btn btn-primary btn-block" type="submit">Submit</button>
         </form>
   
       </div>
-      <div>
-        <p>OR</p>
-        <a class="btn" href={% url twitter_get_data %}>Get data from your twitter account</a>
+
+      <div class="well span5">
+        <h3>Use data from twitter</h3>
+        <form id="twitter-form" action="{% url twitter_get_data %}" method="POST">
+          {% csrf_token %}
+          <label>Twitter handle</label><input type="text" name="twitter_handle">
+          <button class="btn btn-primary btn-block">Get data from your twitter account</button>
+        </form>
       </div>
     </div>
     {% endif %}
@@ -56,15 +76,15 @@
 
 {% block js %}
   <script>
-    function getAvatarUrl(){
+    function getS3AvatarUrl(){
         var avatar_url = 'https://{{ AWS_S3_BUCKET }}.s3.amazonaws.com/';
         avatar_url = avatar_url + '{{ key_prefix }}';
         avatar_url = avatar_url + $('#profile-pic-input').val();
         return avatar_url;
     }
 
-    function setAvatar(){
-        $('#avatar-preview').html('<img style="widht:120px;height:120px;" src="' + getAvatarUrl() + '">');
+    function setAvatar(url){
+        $('#avatar-preview').html('<img style="widht:120px;height:120px;" src="' + url + '">');
     }
     
     $(document).ready(function() {
@@ -88,14 +108,49 @@
           contentType: false,
           cache: false,
           complete: function (req, msg){
-            setAvatar();
+            setAvatar(getS3AvatarUrl());
+            $('#bio-form :input[name=avatar]').val(getS3AvatarUrl());
           }
         });
       });
       
-      var frm = $('#bio-form');
-      frm.submit(function (e) {
-        $('#bio-form :input[name=avatar]').val(getAvatarUrl());
+      $("#bio-form").validate({
+          debug: true,
+          rules: {
+              avatar: "required",
+              email: "required",
+              name: "required",
+              bio: "required",
+          },
+          errorClass: "error",
+          highlight: function (element, errorClass) {
+              $(element).parents(".control-group").addClass(errorClass);
+          },
+          unhighlight: function (element, errorClass, validClass) {
+              $(element).parents(".control-group").removeClass(errorClass);
+          },
+          errorPlacement: function () {
+          },
+          submitHandler: function (form) {
+              form.submit();
+          }
+      });
+
+      $('#twitter-form').submit(function(e){
+          e.preventDefault();
+          $.ajax({
+              type: 'POST',
+              url: $('#twitter-form').attr('action'),
+              data: $('#twitter-form').serialize(),
+              cache: false,
+              success: function (data, textStatus, jqXHR){
+                  var jsonData = $.parseJSON(data);
+                  setAvatar(jsonData.avatar);
+                  $('#bio-form :input[name=avatar]').val(jsonData.avatar);
+                  $('#bio-form :input[name=name]').val(jsonData.name);
+                  $('#bio-form :input[name=bio]').val(jsonData.bio);
+              }
+          });
       });
 
     });

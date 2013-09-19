@@ -38,7 +38,9 @@ def get_user_data(screen_name, oauth_token_pair):
         param_data=[('screen_name', screen_name)],
         oauth_token_pair=oauth_token_pair
     )
-    return resp
+    if resp.status_code != 200:
+        raise Exception('Could not get user data')
+    return resp.json()
 
 
 def authorize_request(method, url, param_data=None, extra_oauth_params=None, oauth_token_pair=None, body_data=None):
