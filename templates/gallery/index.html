@@ -37,22 +37,28 @@
         <form id="bio-form" action="{% url gallery_save_bio %}" method="POST">
           {% csrf_token %}
           <input type="hidden" name="avatar">
+          <div class="control-group hidden">
+            <label>Twitter handle</label>
+            <div class="controls">
+              <input class="input-block-level" type="text" name="twitter">
+            </div>
+          </div>
           <div class="control-group">
             <label>Email</label>
             <div class="controls">
-              <input type="text" name="email">
+              <input class="input-block-level" type="text" name="email">
             </div>
           </div>
           <div class="control-group">
             <label>Name</label>
             <div class="controls">
-              <input type="text" name="name">
+              <input class="input-block-level" type="text" name="name">
             </div>
           </div>
           <div class="control-group">
             <label>Bio</label>
             <div class="controls">
-              <input type="text" name="bio">
+              <input class="input-block-level" type="text" name="bio">
             </div>
           </div>
           <button class="btn btn-primary btn-block" type="submit">Submit</button>
@@ -65,7 +71,8 @@
         <form id="twitter-form" action="{% url twitter_get_data %}" method="POST">
           {% csrf_token %}
           <label>Twitter handle</label><input type="text" name="twitter_handle">
-          <button class="btn btn-primary btn-block">Get data from your twitter account</button>
+          <a class="btn btn-primary btn-block disabled"><i class='icon-spinner icon-spin icon-large'></i></a>
+          <button type="submit" class="btn btn-primary btn-block" >Get data from your twitter account</button>
         </form>
       </div>
     </div>
@@ -79,7 +86,7 @@
     function getS3AvatarUrl(){
         var avatar_url = 'https://{{ AWS_S3_BUCKET }}.s3.amazonaws.com/';
         avatar_url = avatar_url + '{{ key_prefix }}';
-        avatar_url = avatar_url + $('#profile-pic-input').val();
+        avatar_url = avatar_url + $('#profile-pic-input')[0].files[0].name;
         return avatar_url;
     }
 
@@ -94,22 +101,33 @@
         $('#avatar-form :input[name=Content-Type]').val(mime_type);
         
         // set key value for uploaded file
-        var key = '{{ key_prefix }}' + e.target.value;
+        var key = '{{ key_prefix }}' + e.target.files[0].name;
         $('#avatar-form :input[name=key]').val(key);
 
         // upload image to Amazon S3
         var frm = $('#avatar-form');
         var form_data = new FormData(frm[0]);
         $.ajax({
-          type: frm.attr('method'),
+          type: 'POST',
           url: frm.attr('action'),
           data: form_data,
           processData: false,
           contentType: false,
           cache: false,
-          complete: function (req, msg){
-            setAvatar(getS3AvatarUrl());
-            $('#bio-form :input[name=avatar]').val(getS3AvatarUrl());
+          statusCode: {
+            201: function(){
+              setAvatar(getS3AvatarUrl());
+              $('#bio-form :input[name=avatar]').val(getS3AvatarUrl());
+            }
+          },
+          success: function(){
+              alert('success');
+          },
+          error: function(xhr, status, error){
+              alert(status);
+          },
+          complete: function (xhr, msg){
+            alert('done');
           }
         });
       });
@@ -146,6 +164,9 @@
               success: function (data, textStatus, jqXHR){
                   var jsonData = $.parseJSON(data);
                   setAvatar(jsonData.avatar);
+                  var twitterHandle = $('#twitter-form :input[name=twitter_handle]').val();
+                  $('#bio-form :input[name=twitter]').val(twitterHandle);
+                  $('#bio-form :input[name=twitter]').parents(".control-group").removeClass('hidden');
                   $('#bio-form :input[name=avatar]').val(jsonData.avatar);
                   $('#bio-form :input[name=name]').val(jsonData.name);
                   $('#bio-form :input[name=bio]').val(jsonData.bio);
