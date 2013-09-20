@@ -114,20 +114,13 @@
           processData: false,
           contentType: false,
           cache: false,
-          statusCode: {
-            201: function(){
+          success: function(){
               setAvatar(getS3AvatarUrl());
               $('#bio-form :input[name=avatar]').val(getS3AvatarUrl());
-            }
-          },
-          success: function(){
-              alert('success');
           },
           error: function(xhr, status, error){
-              alert(status);
           },
           complete: function (xhr, msg){
-            alert('done');
           }
         });
       });
