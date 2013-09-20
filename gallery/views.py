@@ -8,6 +8,7 @@ from gallery.utils import create_s3_policy_doc
 from gallery.emails import send_confirmation_email
 
 import hmac, hashlib
+import random
 
 
 def gallery(request):
@@ -18,9 +19,26 @@ def gallery(request):
 
     prefix = hmac.new('THEANSWERIS42', request.session.session_key, hashlib.sha1).hexdigest()
 
+    bios = gallery_api.get_bios('TODO', limit=32)
+    bios += [{'avatar': 'http://placehold.it/120x120'} for i in range(len(bios), 32)]
+    bios = random.sample(bios, len(bios))
+
+    # if user is logged in and has a bio, display it!
+    user_bio = request.session.get('user_bio', None)
+    if user_bio:
+        if user_bio in bios:
+            # swap user bio with bio at position 12
+            bio_index = bios.index(user_bio)
+            bios[bio_index] = bios[11]
+        bios[11] = user_bio
+    else:
+        # make a gap at position 12
+        bios[11] = {'avatar': 'http://placehold.it/120x120'}
+
+
     context = {
-        'bios': gallery_api.get_bios( 'TODO' ),
-        'has_bio': request.session.get('has_bio', False),
+        'bios': bios,
+        'user_bio': user_bio,
         's3_policy': s3_policy,
         's3_signature': signature,
         's3_redirect_url': redirect_url,
@@ -50,7 +68,6 @@ def save_bio(request):
         else:
             send_confirmation_email(**user_bio)
         
-        request.session['has_bio'] = True
         request.session['user_bio'] = user_bio
     
     return http.HttpResponseRedirect(reverse('gallery_gallery'))

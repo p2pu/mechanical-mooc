@@ -54,6 +54,6 @@ def get_bio( email ):
     return _bio2dict(db.UserBio.objects.get(email=email))
 
 
-def get_bios( sequence ):
+def get_bios( sequence, limit ):
     bios_db = db.UserBio.objects.filter(confirmation_code__isnull=True, date_deleted__isnull=True)
     return [ _bio2dict(bio) for bio in bios_db ]
