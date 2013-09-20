@@ -20,15 +20,16 @@ def gallery(request):
     prefix = hmac.new('THEANSWERIS42', request.session.session_key, hashlib.sha1).hexdigest()
 
     bios = gallery_api.get_bios('TODO', limit=32)
-    bios += [{'avatar': 'http://placehold.it/120x120'} for i in range(len(bios), 32)]
+    bios += [{'avatar': 'http://placehold.it/120x120', 'email': ''} for i in range(len(bios), 32)]
     bios = random.sample(bios, len(bios))
 
     # if user is logged in and has a bio, display it!
     user_bio = request.session.get('user_bio', None)
     if user_bio:
-        if user_bio in bios:
+        bio_in_list = [ x for x in bios if x['email'] == user_bio['email'] ]
+        if len(bio_in_list) == 1:
             # swap user bio with bio at position 12
-            bio_index = bios.index(user_bio)
+            bio_index = bios.index(bio_in_list[0])
             bios[bio_index] = bios[11]
         bios[11] = user_bio
     else:
