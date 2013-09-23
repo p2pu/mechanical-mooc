@@ -5,21 +5,21 @@
 
 {% block css %}
   <!-- Le styles -->
-  <link href="{{STATIC_URL}}css/customizations.css" rel="stylesheet">
   <link href="{{STATIC_URL}}css/jquery.tagit.css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
-  <div id="step1" class="container">
-    <h1>Mechanical Mooc Admin - Send Email</h1>
-    <div class="row">
-      <div class="span12">
-        <img src="{{STATIC_URL}}img/banner.png" alt="Mechanical MOOC banner">
-      </div>
+  <div id="step1">
+  <div class="jumbotron subhead">
+        <div class="container">
+            <h1 class="title">Mechanical Mooc Admin - {% if email %}Edit{% else %}Compose{% endif %} Email</h1>
+        </div>
     </div>
-    <div class="row">
-      <div class="span12">
-        <form id="emailForm" class="form well" action="" method="post">
+
+
+    <div class="container">
+      <div class="description clearfix">
+        <form id="emailForm" class="form text-left" action="" method="post">
           {% csrf_token %}
           <label>
             Tags<br />
@@ -50,20 +50,24 @@
          
           <div class="form-actions">
           <!-- This works better in the newer bootstrap but it breaks too much other stuff -->
-            <div class="input-prepend input-append">
-                <span class="add-on">Send a test email to</span>
+            <div class="clearfix">
+                <label>Send a test email to</label>
                 <input id="test_email" class="span3" name="test_email" type="email"/>
-                <button id="send_preview" class="btn btn-success"><i class="icon-ok"></i> Send Preview</button>
+                <button id="send_preview" class="btn btn-success btn-mini">
+                    <i class="icon-envelope-alt"></i> Send Preview
+                </button>
                 <span id="id_test_email_success" class="alert alert-success hidden">
                   {% trans 'Test email sent.' %}
+                  <i class="icon-smile"></i>
                 </span>
                 <span id="id_test_email_failure" class="alert alert-error hidden">
                   {% trans 'Could not send test email.' %}
+                  <i class="icon-frown"></i>
                 </span>
             </div>
             <br/>
-            <button id="finish" type="submit" class="btn btn-large">Save email</button>
-            <a class="btn btn-large" href={% url mail_schedule %}>Cancel</a>
+            <button id="finish" type="submit" class="btn btn-primary">Save email</button>
+            <a class="btn" href={% url mail_schedule %}>Cancel</a>
           </div>              
         </form>
       </div>

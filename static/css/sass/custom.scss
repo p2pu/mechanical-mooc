@@ -1,0 +1,211 @@
+//
+// P2PU Mechanical Mooc customizations
+//-----------------------------------------------------
+
+.jumbotron{
+    background-image: url('/static/img/banner.png');
+    background-size: cover;
+    background-position: 0% 0%;
+    height: 334px;
+    margin-bottom: -60px;
+    font-size: 21px;
+    line-height: 1.3em;
+    text-shadow: 0 0 12px rgba(0, 0, 0, 0.5), 0 0 32px rgba(0, 0, 0, 0.25), 0 1px rgba(0, 0, 0, 0.75);
+    position: relative;
+    text-align: center;
+    position: relative;
+    .head-text{
+      position: absolute;
+      bottom: 45%;
+      width: 100%;
+    }
+    .pre-title{
+      font-size: 1.3em;
+      margin: 15px 0;
+      color: #FFF;
+    }
+
+    .title{
+      color: #FFF;
+    }
+}
+
+.subhead{
+  height: inherit;
+  margin-bottom: 30px;
+  padding: 20px 0;
+  text-align: left;
+}
+
+.description{
+  margin: 0 0 10px 0;
+  padding: 30px;
+  background-color: #FFF;
+  position: relative;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  ul{
+    margin-left: -30px;
+  }
+  li{
+    float: left;
+    margin-left: 20px;
+    width: 300px;
+    margin: 30px 0 20px 5%;
+    h2.pull-left i{
+      margin: 11px 15px 0 0;
+    }
+    .description-text{
+      h2{
+        min-height: 95px;
+      }
+    }
+  }
+}
+
+#step2, #step3{
+  margin-top: 30px;
+}
+
+#emailForm{
+  margin-bottom: 50px;
+}
+.full-width{
+  width: 99%;
+}
+
+/* Progress Bar */
+
+.progress-step{
+  .step-full, .step-empty{
+    height: 30px;
+    width: 30px;
+    background-color: #0e90d2;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    position: absolute;
+    left: 0%;
+    margin-top: -6px;
+    margin-left: -14px;
+    font-size: 12pt;
+    color: white;
+    text-shadow: 0px 0px 3px #222;
+    text-align: center;
+    line-height: 28px;
+    font-weight: bold;
+  }
+  .step-empty{
+    background-color: #51A351;
+  }
+}
+
+.progress-step-square .step-full,
+.progress-step-square .step-empty {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.progress.progress-step {
+  margin: 14px 17px 14px 14px;
+  position: relative;
+  overflow: visible;
+}
+
+/* Form */
+
+#step2 .help-block{
+  margin-top: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #999;
+}
+
+#step2 select{
+  margin-top: 5px;
+}
+
+#infoForm .control-group.error .controls label{
+  color: #333;
+}
+
+/* Success page */
+#step3 i{
+  font-size: 130px;
+}
+#step3 {
+  text-align: center;
+}
+
+.about p, .faq p {
+  font-size: 18px;
+  text-align: justify;
+  line-height: 26px;
+  padding-top: 0.7em;
+}
+
+.faq h2 {
+  padding-top: 1em;
+}
+
+// Compose mail template
+input[type="email"]{
+    margin-bottom: 0;
+  }
+
+.input-append,
+.input-prepend{
+  font-size: 12px;
+  .add-on,
+  .btn,
+  .btn-group{
+    margin-right: -6px;
+  }
+
+  .alert{
+    margin-left: 10px;
+  }
+}
+
+.conference{
+  text-align: center;
+  img{
+    width: 200px;
+    margin: 20px
+  }
+}
+
+.social{
+  margin-left: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+  li{
+    display: inline-block;
+    padding: 5px 8px;
+    line-height: 1;
+  }
+}
+
+ul.tagit input[type="text"]{
+  box-shadow: none;
+}
+
+// Media queries for responsive design
+@media (max-width: 996px){
+  body {
+    padding: 0;
+  }
+  .github-fork img{
+    width: 100px;
+    height: 100px;
+  }
+}
+@media (min-width: 979px) and (max-width: 1200px) {
+  .description li {
+    width: 290px;
+    margin: 30px 0 15px 20px;
+  }
+}
