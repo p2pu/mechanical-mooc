@@ -1,11 +1,11 @@
-Greetings Mechanical MOOCsters,
+Welcome to "Play With Your Music"--we'll get underway in earnest around November 1st. That's when you'll receive an email from the course Maestro, "Mister Mix" with some stellar activities to get you making music.
 
-Welcome to A Gentle Introduction to Python, the world's first Mechanical Massive Open Online Course.  This course is created by the Mechanical MOOC out of existing, openly available educational resources across the web, including course materials from MIT, study groups from OpenStudy, and exercises from Codecademy.  P2PU has built the machine that powers the experience and can connect you to a small group of peers.
+With that first email, you'll be placed in your musical cohort--30 to 40 folks that you'll be sharing your tunes with. Don't be shy--you can go ahead and introduce yourself by hitting "reply." 
 
-The next round of the course begins June, 2013. You should expect to begin receiving e-mails preparing you for the course in the last week of May.  If you’re signing up near the start of the course, you can access a full archive of e-mails for the course at http://mechanicalmooc.wordpress.com/category/seq26nov12/
+In the meantime, you might want to register for an account with Soundation (http://soundation.com/) and SoundCloud (https://soundcloud.com/). If you have any #PWYM-related questions, you can post them to our Google+ community: http://bit.ly/1aiSsfw
 
-The Mechanical MOOC reminds you there is no course instructor on this journey--you and your peers will rely on each other to understand the content and figure out the difficult concepts.  We believe we've assembled some of the best tools out there for learning independently and connecting with a large support group, but the energy that will power the course comes from you.
+Now you're vaguely rockin'...
 
-Rest up, and prepare to learn Python!
+-The #PWYM Team
 
-The Mechanical MOOC
+To unsubscribe follow this link: %unsubscribe_url%
