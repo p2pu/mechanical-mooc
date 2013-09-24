@@ -5,7 +5,7 @@
 
 /* line 9, ../sass/custom.scss */
 .jumbotron {
-  background-image: url("/static/img/banner.png");
+  background-image: url("/static/img/banner.jpg");
   background-size: cover;
   background-position: 0% 0%;
   height: 334px;
@@ -142,23 +142,23 @@
   margin-top: 5px;
 }
 
-/* line 134, ../sass/custom.scss */
+/* line 135, ../sass/custom.scss */
 #infoForm .control-group.error .controls label {
   color: #333;
 }
 
 /* Success page */
-/* line 139, ../sass/custom.scss */
+/* line 140, ../sass/custom.scss */
 #step3 i {
   font-size: 130px;
 }
 
-/* line 142, ../sass/custom.scss */
+/* line 143, ../sass/custom.scss */
 #step3 {
   text-align: center;
 }
 
-/* line 146, ../sass/custom.scss */
+/* line 147, ../sass/custom.scss */
 .about p, .faq p {
   font-size: 18px;
   text-align: justify;
@@ -166,22 +166,22 @@
   padding-top: 0.7em;
 }
 
-/* line 153, ../sass/custom.scss */
+/* line 154, ../sass/custom.scss */
 .faq h2 {
   padding-top: 1em;
 }
 
-/* line 158, ../sass/custom.scss */
+/* line 159, ../sass/custom.scss */
 input[type="email"] {
   margin-bottom: 0;
 }
 
-/* line 163, ../sass/custom.scss */
+/* line 164, ../sass/custom.scss */
 .input-append,
 .input-prepend {
   font-size: 12px;
 }
-/* line 167, ../sass/custom.scss */
+/* line 168, ../sass/custom.scss */
 .input-append .add-on,
 .input-append .btn,
 .input-append .btn-group,
@@ -190,55 +190,55 @@ input[type="email"] {
 .input-prepend .btn-group {
   margin-right: -6px;
 }
-/* line 171, ../sass/custom.scss */
+/* line 172, ../sass/custom.scss */
 .input-append .alert,
 .input-prepend .alert {
   margin-left: 10px;
 }
 
-/* line 176, ../sass/custom.scss */
+/* line 177, ../sass/custom.scss */
 .conference {
   text-align: center;
 }
-/* line 178, ../sass/custom.scss */
+/* line 179, ../sass/custom.scss */
 .conference img {
   width: 200px;
   margin: 20px;
 }
 
-/* line 184, ../sass/custom.scss */
+/* line 185, ../sass/custom.scss */
 .social {
   margin-left: 0;
   margin-bottom: 0;
   padding-left: 0;
   list-style: none;
 }
-/* line 189, ../sass/custom.scss */
+/* line 190, ../sass/custom.scss */
 .social li {
   display: inline-block;
   padding: 5px 8px;
   line-height: 1;
 }
 
-/* line 196, ../sass/custom.scss */
+/* line 197, ../sass/custom.scss */
 ul.tagit input[type="text"] {
   box-shadow: none;
 }
 
 @media (max-width: 996px) {
-  /* line 202, ../sass/custom.scss */
+  /* line 203, ../sass/custom.scss */
   body {
     padding: 0;
   }
 
-  /* line 205, ../sass/custom.scss */
+  /* line 206, ../sass/custom.scss */
   .github-fork img {
     width: 100px;
     height: 100px;
   }
 }
 @media (min-width: 979px) and (max-width: 1200px) {
-  /* line 211, ../sass/custom.scss */
+  /* line 212, ../sass/custom.scss */
   .description li {
     width: 290px;
     margin: 30px 0 15px 20px;
