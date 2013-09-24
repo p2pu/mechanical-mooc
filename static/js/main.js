@@ -18,18 +18,6 @@ var MMOOC = window.MMOOC || {};
             $("#timezone").val(timezone.name());
             $("#timezoneHelp").append("We've pre-selected <span class=\"label label-info\">" + timezone.name() + "</span> using your clock.");
         },
-        countrySelectHandler = function () {
-            var idCountrySelect = $("#id_country_select");
-            idCountrySelect.prop("selectedIndex", -1);
-            idCountrySelect.change(function () {
-                if ($('#id_country_select').val() === 'United States') {
-                    $('#id_state_input').show();
-                } else {
-                    $('#id_state_input').hide();
-                }
-                $("#id_state_select").prop("selectedIndex", -1);
-            });
-        },
         emailValidationHandler = function () {
             $("#emailForm").validate({
                 debug: true,
@@ -61,17 +49,14 @@ var MMOOC = window.MMOOC || {};
             $("#infoForm").validate({
                 debug: true,
                 rules: {
-                    username: "required",
-                    educationrole: "required",
-                    country: "required",
-                    us_state: {
-                        required: {
-                            depends: function () {
-                                return $('#id_country_select').val() == 'United States';
-                            }
-                        }
-                    },
-                    timezone: "required",
+                    criticalListening: "required",
+                    editingAndMixing: "required",
+                    sharing: "required",
+                    artist1: "required",
+                    artist2: "required",
+                    artist3: "required",
+                    artist4: "required",
+                    artist5: "required",
                 },
                 errorClass: "error",
                 highlight: function (element, errorClass) {
@@ -92,7 +77,6 @@ var MMOOC = window.MMOOC || {};
             $(function () {
                 emailValidationHandler();
                 timezoneDetectionHandler();
-                countrySelectHandler();
                 infoFormValidationHandler();
             });
         };
