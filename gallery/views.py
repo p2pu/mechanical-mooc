@@ -3,6 +3,8 @@ from django.template import RequestContext
 from django.conf import settings
 from django import http
 from django.core.urlresolvers import reverse
+from django.views.decorators.http import require_http_methods
+
 from gallery import models as gallery_api
 from gallery.utils import create_s3_policy_doc
 from gallery.emails import send_confirmation_email
@@ -51,31 +53,25 @@ def gallery(request):
     return render_to_response('gallery/index.html', context, context_instance=RequestContext(request))
 
 
+@require_http_methods(['POST'])
 def save_bio(request):
     """ receive AJAX post from class gallery page """
+
+    user_bio = gallery_api.save_bio(
+        request.POST['email'],
+        request.POST['name'],
+        request.POST['bio'],
+        request.POST['avatar']
+    )
     
-    if request.method == 'POST':
-        # save bio info
-        user_bio = gallery_api.save_bio(
-            request.POST['email'],
-            request.POST['name'],
-            request.POST['bio'],
-            request.POST['avatar']
-        )
-        
-        user_email = request.session.get('user_email', False)
-        if user_email and user_email == user_bio['email']:
-            user_bio = gallery_api.confirm_bio(user_bio['confirmation_code'])
-        else:
-            send_confirmation_email(**user_bio)
-        
-        request.session['user_bio'] = user_bio
+    user_email = request.session.get('user_email', False)
+    if user_email and user_email == user_bio['email']:
+        user_bio = gallery_api.confirm_bio(user_bio['confirmation_code'])
+    else:
+        send_confirmation_email(**user_bio)
     
+    request.session['user_bio'] = user_bio
     return http.HttpResponseRedirect(reverse('gallery_gallery'))
-
-
-def avatar_success(request):
-    return http.HttpResponse('')
 
 
 def confirm_updates(request, confirmation_code):
