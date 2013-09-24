@@ -16,7 +16,7 @@ def get_data(request):
             'bio': user_data['description']
         }
         if '_normal' in bio_data['avatar']:
-            bio_data['avatar'] = bio_data['avatar'][:bio_data['avatar'].index('_normal')]
+            bio_data['avatar'] = bio_data['avatar'].replace('_normal', '')
         return http.HttpResponse(json.dumps(bio_data))
     #TODO return error
 
