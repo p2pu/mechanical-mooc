@@ -2,6 +2,10 @@
 // P2PU Mechanical Mooc customizations
 //-----------------------------------------------------
 
+.navbar .brand {
+    float:right;
+}
+
 .jumbotron{
     background-image: url('/static/img/banner.png');
     background-size: cover;
