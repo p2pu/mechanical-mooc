@@ -17,6 +17,9 @@ def gallery(request):
     """ show gallery for all signups for this sequence with profiles """
     s3_policy, signature = create_s3_policy_doc(settings.AWS_S3_BUCKET, 'gallery')
 
+    if request.GET.get('key'):
+        pass
+
     prefix = hmac.new(
         'THEANSWERIS42', request.session.session_key, hashlib.sha1
     ).hexdigest()
@@ -42,6 +45,7 @@ def gallery(request):
     context = {
         'bios': bios,
         'user_bio': user_bio,
+        'user_email': request.session.get('user_email'),
         's3_policy': s3_policy,
         's3_signature': signature,
         'AWS_ACCESS_KEY_ID': settings.AWS_ACCESS_KEY_ID,
@@ -68,7 +72,10 @@ def save_bio(request):
     if user_email and user_email == user_bio['email']:
         user_bio = gallery_api.confirm_bio(user_bio['confirmation_code'])
     else:
-        send_confirmation_email(**user_bio)
+        send_confirmation_email(
+            user_bio['email'], user_bio['name'], user_bio['avatar'],
+            user_bio['bio'], user_bio['confirmation_code']
+        )
     
     request.session['user_bio'] = user_bio
     return http.HttpResponseRedirect(reverse('gallery_gallery'))
