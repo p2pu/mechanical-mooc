@@ -26,6 +26,14 @@ class SimpleTest(TestCase):
         self.assertEqual(self.BIO_DATA, user_bio)
 
 
+    def test_save_bio_with_twitter(self):
+        bio_data = self.BIO_DATA.copy()
+        bio_data['twitter'] = 'testhandle'
+        user_bio = gallery_api.save_bio(**bio_data)
+        del user_bio['confirmation_code']
+        self.assertEqual(bio_data, user_bio)
+
+
     def test_get_sequence_bios(self):
         for i in range(10):
             data = self.BIO_DATA.copy()
@@ -42,7 +50,7 @@ class SimpleTest(TestCase):
         self.assertEquals(len(bios), 10)
 
 
-    def test_updaete_bio(self):
+    def test_update_bio(self):
         # create bio
         user_bio = gallery_api.save_bio(**self.BIO_DATA)
 

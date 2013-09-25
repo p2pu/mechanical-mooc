@@ -5,7 +5,7 @@ import base64
 import hmac, hashlib
 
 
-def create_s3_policy_doc(bucket, upload_path, redirect, max_file_size=2**20):
+def create_s3_policy_doc(bucket, upload_path, redirect=None, max_file_size=2**20):
     policy_template = """{{"expiration": "{expiration_date}",
   "conditions": [ 
     {{"bucket": "{bucket}"}}, 

@@ -5,16 +5,19 @@ import string
 import random
 
 def _bio2dict( bio_db ):
-    return { 
+    bio_dict = { 
         'email': bio_db.email,
         'name': bio_db.name,
         'bio': bio_db.bio,
         'avatar': bio_db.avatar,
-        'confirmation_code': bio_db.confirmation_code
+        'confirmation_code': bio_db.confirmation_code,
     }
+    if bio_db.twitter:
+        bio_dict['twitter'] = bio_db.twitter
+    return bio_dict
 
 
-def save_bio( email, name, bio, avatar ):
+def save_bio( email, name, bio, avatar, twitter=None ):
     
     now = datetime.datetime.utcnow()
 
@@ -30,6 +33,7 @@ def save_bio( email, name, bio, avatar ):
     bio_db.name = name
     bio_db.bio = bio
     bio_db.avatar = avatar
+    bio_db.twitter = twitter
     bio_db.date_added = now
     bio_db.date_updated = now
     bio_db.confirmation_code = ''.join([random.choice(string.letters + string.digits) for i in range(32)])
@@ -54,6 +58,8 @@ def get_bio( email ):
     return _bio2dict(db.UserBio.objects.get(email=email))
 
 
-def get_bios( sequence, limit ):
+def get_bios( sequence, limit=100 ):
     bios_db = db.UserBio.objects.filter(confirmation_code__isnull=True, date_deleted__isnull=True)
+    if limit > 0:
+        bios_db = bios_db[:limit]
     return [ _bio2dict(bio) for bio in bios_db ]

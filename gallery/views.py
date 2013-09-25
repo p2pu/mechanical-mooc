@@ -15,11 +15,11 @@ import random
 
 def gallery(request):
     """ show gallery for all signups for this sequence with profiles """
-    redirect_url = 'http://{0}/gallery/success/'.format(request.META.get('HTTP_HOST'))
-    
-    s3_policy, signature = create_s3_policy_doc(settings.AWS_S3_BUCKET, 'gallery', redirect_url)
+    s3_policy, signature = create_s3_policy_doc(settings.AWS_S3_BUCKET, 'gallery')
 
-    prefix = hmac.new('THEANSWERIS42', request.session.session_key, hashlib.sha1).hexdigest()
+    prefix = hmac.new(
+        'THEANSWERIS42', request.session.session_key, hashlib.sha1
+    ).hexdigest()
 
     bios = gallery_api.get_bios('TODO', limit=32)
     bios += [{'avatar': 'http://placehold.it/120x120', 'email': ''} for i in range(len(bios), 32)]
@@ -44,7 +44,6 @@ def gallery(request):
         'user_bio': user_bio,
         's3_policy': s3_policy,
         's3_signature': signature,
-        's3_redirect_url': redirect_url,
         'AWS_ACCESS_KEY_ID': settings.AWS_ACCESS_KEY_ID,
         'AWS_S3_BUCKET': settings.AWS_S3_BUCKET,
         'key_prefix': 'gallery/{0}'.format(prefix)
@@ -61,7 +60,8 @@ def save_bio(request):
         request.POST['email'],
         request.POST['name'],
         request.POST['bio'],
-        request.POST['avatar']
+        request.POST['avatar'],
+        request.POST.get('twitter', None)
     )
     
     user_email = request.session.get('user_email', False)
