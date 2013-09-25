@@ -2,6 +2,10 @@
 
 {% block body %}
 
+  {% if not user_email %}
+  <p class="alert">It looks like this is your fisrt time here. Maybe you haven't signed up or you are using a different device? Click here to sign up or go here to request a new authorization link if you want to update your profile. Otherwise feel free to have a look around.</p>
+  {% endif %}
+
   <div class='container'>
     <ul class='class-gallery'>
     {% for bio in bios %}
@@ -71,8 +75,7 @@
         <form id="twitter-form" action="{% url twitter_get_data %}" method="POST">
           {% csrf_token %}
           <label>Twitter handle</label><input type="text" name="twitter_handle">
-          <a class="btn btn-primary btn-block disabled"><i class='icon-spinner icon-spin icon-large'></i></a>
-          <button type="submit" class="btn btn-primary btn-block" >Get data from your twitter account</button>
+          <button type="submit" class="btn btn-primary btn-block" ><span id="twitter-loading" class="hidden"><i class='icon-spinner icon-spin icon-large'></i> </span>Get data from your twitter account</button>
         </form>
       </div>
     </div>
@@ -149,6 +152,7 @@
 
       $('#twitter-form').submit(function(e){
           e.preventDefault();
+          $('#twitter-loading').removeClass('hidden');
           $.ajax({
               type: 'POST',
               url: $('#twitter-form').attr('action'),
@@ -163,6 +167,9 @@
                   $('#bio-form :input[name=avatar]').val(jsonData.avatar);
                   $('#bio-form :input[name=name]').val(jsonData.name);
                   $('#bio-form :input[name=bio]').val(jsonData.bio);
+              },
+              complete: function () {
+                  $('#twitter-loading').addClass('hidden');
               }
           });
       });
