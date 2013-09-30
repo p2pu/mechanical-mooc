@@ -11,6 +11,7 @@ class SimpleTest(TestCase):
     def setUp(self):
         self.BIO_DATA = {
             'email': 'test@email.com',
+            'sequence': 1,
             'name': 'Test User',
             'bio': 'This is some test data about a user',
             'avatar': 'http://some.url/image.png'

@@ -11,25 +11,35 @@ from gallery.utils import create_s3_policy_doc
 from gallery.emails import send_confirmation_email
 
 from signup import models as signup_api
+from sequence import models as sequence_api
 
 import hmac, hashlib
 import random
 
 
-def gallery(request):
+def _check_user(request):
+    if request.GET.get('key'):
+        pass
+
+
+def sequence_redirect(request):
+    #TODO handle None returned from get_current_sequence when there is no sequence
+    current_sequence = sequence_api.get_current_sequence()['id']
+    url = reverse('gallery_gallery', kwargs={'sequence':current_sequence})
+    return http.HttpResponseRedirect(url)
+
+
+def gallery(request, sequence):
     """ show gallery for all signups for this sequence with profiles """
     s3_policy, signature = create_s3_policy_doc(settings.AWS_S3_BUCKET, 'gallery')
 
-    messages.error(request, 'Test this')
-
-    if request.GET.get('key'):
-        pass
+    _check_user(request)
 
     prefix = hmac.new(
         'THEANSWERIS42', request.session.session_key, hashlib.sha1
     ).hexdigest()
 
-    bios = gallery_api.get_bios('TODO', limit=32)
+    bios = gallery_api.get_bios(sequence, limit=32)
     bios += [{'avatar': 'http://placehold.it/120x120', 'email': ''} for i in range(len(bios), 32)]
     bios = random.sample(bios, len(bios))
 
@@ -46,11 +56,11 @@ def gallery(request):
         # make a gap at position 12
         bios[11] = {'avatar': 'http://placehold.it/120x120'}
 
-
     context = {
         'bios': bios,
         'user_bio': user_bio,
         'user_email': request.session.get('user_email'),
+        'sequence': sequence,
         's3_policy': s3_policy,
         's3_signature': signature,
         'AWS_ACCESS_KEY_ID': settings.AWS_ACCESS_KEY_ID,
@@ -62,11 +72,25 @@ def gallery(request):
 
 
 @require_http_methods(['POST'])
-def save_bio(request):
+def save_bio(request, sequence):
     """ receive AJAX post from class gallery page """
+
+    # check if user signed up for the mooc
+    signed_up = False
+    try:
+        signup = signup_api.get_signup(request.POST['email'])
+        signed_up = True
+    except:
+        pass
+
+    if not signed_up or signup['sequence'] != int(sequence):
+        messages.warning(request, 'It looks like you did not sign up for this instance of the MOOC! You can sign up for the next time the MOOC runs.')
+        # redirect user to signup page
+        return http.HttpResponseRedirect(reverse('home'))
 
     user_bio = gallery_api.save_bio(
         request.POST['email'],
+        sequence,
         request.POST['name'],
         request.POST['bio'],
         request.POST['avatar'],
@@ -76,23 +100,18 @@ def save_bio(request):
     user_email = request.session.get('user_email', False)
     if user_email and user_email == user_bio['email']:
         user_bio = gallery_api.confirm_bio(user_bio['confirmation_code'])
+        messages.success(request, 'Your information has been updated.')
     else:
         send_confirmation_email(
             user_bio['email'], user_bio['name'], user_bio['avatar'],
             user_bio['bio'], user_bio['confirmation_code']
         )
+        messages.success(request, 'Your information has been updated, you will shortly receive an email to confirm that you made the updates yourself.')
     
     request.session['user_bio'] = user_bio
 
-    # check if user signed up for the mooc
-    try:
-        signup_api.get_signup(request.POST['email'])
-    except:
-        messages.warning(request, 'It looks like you have not signed up for this sequence of the MOOC! We saved your profile, but you still need to sign up.')
-        # redirect user to signup page
-        return http.HttpResponseRedirect(reverse('home'))
-
-    return http.HttpResponseRedirect(reverse('gallery_gallery'))
+    url = reverse('gallery_gallery', kwargs={'sequence': sequence})
+    return http.HttpResponseRedirect(url)
 
 
 def confirm_updates(request, confirmation_code):

@@ -7,6 +7,7 @@ import random
 def _bio2dict( bio_db ):
     bio_dict = { 
         'email': bio_db.email,
+        'sequence': bio_db.sequence,
         'name': bio_db.name,
         'bio': bio_db.bio,
         'avatar': bio_db.avatar,
@@ -17,7 +18,7 @@ def _bio2dict( bio_db ):
     return bio_dict
 
 
-def save_bio( email, name, bio, avatar, twitter=None ):
+def save_bio( email, sequence, name, bio, avatar, twitter=None ):
     
     now = datetime.datetime.utcnow()
 
@@ -30,6 +31,7 @@ def save_bio( email, name, bio, avatar, twitter=None ):
 
     bio_db = db.UserBio()
     bio_db.email = email
+    bio_db.sequence = sequence
     bio_db.name = name
     bio_db.bio = bio
     bio_db.avatar = avatar
@@ -59,7 +61,11 @@ def get_bio( email ):
 
 
 def get_bios( sequence, limit=100 ):
-    bios_db = db.UserBio.objects.filter(confirmation_code__isnull=True, date_deleted__isnull=True)
+    bios_db = db.UserBio.objects.filter(
+        sequence=sequence,
+        confirmation_code__isnull=True,
+        date_deleted__isnull=True
+    )
     if limit > 0:
         bios_db = bios_db[:limit]
     return [ _bio2dict(bio) for bio in bios_db ]
