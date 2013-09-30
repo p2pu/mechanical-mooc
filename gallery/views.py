@@ -4,10 +4,13 @@ from django.conf import settings
 from django import http
 from django.core.urlresolvers import reverse
 from django.views.decorators.http import require_http_methods
+from django.contrib import messages
 
 from gallery import models as gallery_api
 from gallery.utils import create_s3_policy_doc
 from gallery.emails import send_confirmation_email
+
+from signup import models as signup_api
 
 import hmac, hashlib
 import random
@@ -16,6 +19,8 @@ import random
 def gallery(request):
     """ show gallery for all signups for this sequence with profiles """
     s3_policy, signature = create_s3_policy_doc(settings.AWS_S3_BUCKET, 'gallery')
+
+    messages.error(request, 'Test this')
 
     if request.GET.get('key'):
         pass
@@ -78,6 +83,15 @@ def save_bio(request):
         )
     
     request.session['user_bio'] = user_bio
+
+    # check if user signed up for the mooc
+    try:
+        signup_api.get_signup(request.POST['email'])
+    except:
+        messages.warning(request, 'It looks like you have not signed up for this sequence of the MOOC! We saved your profile, but you still need to sign up.')
+        # redirect user to signup page
+        return http.HttpResponseRedirect(reverse('home'))
+
     return http.HttpResponseRedirect(reverse('gallery_gallery'))
 
 
@@ -87,5 +101,6 @@ def confirm_updates(request, confirmation_code):
         request.session['user_bio'] = bio
         request.session['user_email'] = bio['email']
     except Exception:
-        pass
+        messages.error(request, 'Could not find the confirmation code. Please make sure the URL is correct')
+
     return http.HttpResponseRedirect(reverse('gallery_gallery'))
