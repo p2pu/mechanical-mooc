@@ -180,11 +180,20 @@ input[type="email"]{
 .profile-wrapper {
     float: left;
     list-style: none;
+    width: 120px;
+    height:120px;
+}
+
+.profile {
+    width: 120px;
+    height:120px;
 }
 
 .profile-image {
     max-height: 120px;
     max-width: 120px;
+    display: block;
+    margin: 0 auto;
 }
 
 .conference{

@@ -205,57 +205,67 @@ input[type="email"] {
 .profile-wrapper {
   float: left;
   list-style: none;
+  width: 120px;
+  height: 120px;
 }
 
-/* line 185, ../sass/custom.scss */
+/* line 187, ../sass/custom.scss */
+.profile {
+  width: 120px;
+  height: 120px;
+}
+
+/* line 192, ../sass/custom.scss */
 .profile-image {
   max-height: 120px;
   max-width: 120px;
+  display: block;
+  margin: 0 auto;
 }
 
-/* line 190, ../sass/custom.scss */
+/* line 200, ../sass/custom.scss */
 .conference {
   text-align: center;
 }
-/* line 192, ../sass/custom.scss */
+/* line 202, ../sass/custom.scss */
 .conference img {
   width: 200px;
   margin: 20px;
 }
 
-/* line 198, ../sass/custom.scss */
+/* line 208, ../sass/custom.scss */
 .social {
   margin-left: 0;
   margin-bottom: 0;
   padding-left: 0;
   list-style: none;
 }
-/* line 203, ../sass/custom.scss */
+/* line 213, ../sass/custom.scss */
 .social li {
   display: inline-block;
   padding: 5px 8px;
   line-height: 1;
 }
 
-/* line 210, ../sass/custom.scss */
+/* line 220, ../sass/custom.scss */
 ul.tagit input[type="text"] {
   box-shadow: none;
 }
 
 @media (max-width: 996px) {
-  /* line 216, ../sass/custom.scss */
+  /* line 226, ../sass/custom.scss */
   body {
     padding: 0;
   }
 
-  /* line 219, ../sass/custom.scss */
+  /* line 229, ../sass/custom.scss */
   .github-fork img {
     width: 100px;
     height: 100px;
   }
 }
 @media (min-width: 979px) and (max-width: 1200px) {
-  /* line 225, ../sass/custom.scss */
+  /* line 235, ../sass/custom.scss */
   .description li {
     width: 290px;
     margin: 30px 0 15px 20px;
