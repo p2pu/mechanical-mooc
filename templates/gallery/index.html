@@ -38,7 +38,7 @@
           <input id="profile-pic-input" name="file" type="file">
         </form>
  
-        <form id="bio-form" action="{% url gallery_save_bio %}" method="POST">
+        <form id="bio-form" action="{% url gallery_save_bio sequence=sequence %}" method="POST">
           {% csrf_token %}
           <input type="hidden" name="avatar">
           <div class="control-group hidden">

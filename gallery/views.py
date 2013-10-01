@@ -24,7 +24,7 @@ def _check_user(request):
 
 def sequence_redirect(request):
     #TODO handle None returned from get_current_sequence when there is no sequence
-    current_sequence = sequence_api.get_current_sequence()['id']
+    current_sequence = sequence_api.get_current_sequence_number()
     url = reverse('gallery_gallery', kwargs={'sequence':current_sequence})
     return http.HttpResponseRedirect(url)
 
