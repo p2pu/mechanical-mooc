@@ -18,5 +18,11 @@ urlpatterns = patterns('',
         name='gallery_confirm_update'
     ),
 
+    url(
+        r'^request_link/$',
+        'gallery.views.request_link',
+        name='gallery_request_link'
+    ),
+
     url(r'^clear_session/$', 'gallery.views.clear_session'),
 )

@@ -1,0 +1,6 @@
+Hey
+
+Click here: http://{{mooc_domain}}/{% url gallery_sequence_redirect %}?key={{key}} to update your info for {{ mooc_title }}.
+
+Cheers
+{{ mooc_title }}

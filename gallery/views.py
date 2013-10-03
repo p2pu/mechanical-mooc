@@ -9,6 +9,7 @@ from django.contrib import messages
 from gallery import models as gallery_api
 from gallery.utils import create_s3_policy_doc
 from gallery.emails import send_confirmation_email
+from gallery.emails import send_user_link
 
 from signup import models as signup_api
 from sequence import models as sequence_api
@@ -24,6 +25,7 @@ def check_user(method):
         if key:
             su = signup_api.get_signup_by_invite_code(key)
             request.session['user_email'] = su['email']
+            # TODO rather get the user bio if possible
             if request.session.get('user_bio'):
                 del request.session['user_bio']
             return http.HttpResponseRedirect(request.path)
@@ -31,8 +33,10 @@ def check_user(method):
     return call_view
 
 
+@check_user
 def sequence_redirect(request):
     #TODO handle None returned from get_current_sequence when there is no sequence
+    # TODO if we have a signed in user, we should redirect to the right sequence
     current_sequence = sequence_api.get_current_sequence_number()
     url = reverse('gallery_gallery', kwargs={'sequence':current_sequence})
     return http.HttpResponseRedirect(url)
@@ -131,6 +135,17 @@ def confirm_updates(request, confirmation_code):
         messages.error(request, 'Could not find the confirmation code. Please make sure the URL is correct')
     
     url = reverse('gallery_gallery', kwargs={'sequence': bio['sequence']})
+    return http.HttpResponseRedirect(url)
+
+
+@require_http_methods(['POST'])
+def request_link(request):
+    signup = signup_api.get_signup(request.POST.get('email'))
+    if settings.DEBUG:
+        url = reverse('gallery_sequence_redirect')
+        url += '?key={0}'.format(signup['key'])
+    send_user_link(signup['email'], signup['key'])
+    messages.success(request, 'You will shortly receive an email with a link to update your picture')
     return http.HttpResponseRedirect(url)
 
 

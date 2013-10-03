@@ -66,7 +66,8 @@ def _signup2json( signup_db ):
         'questions': simplejson.loads(signup_db.questions),
         'sequence': signup_db.sequence,
         'date_created': signup_db.date_added,
-        'date_updated': signup_db.date_updated
+        'date_updated': signup_db.date_updated,
+        'key': signup_db.invite_code
     }
     return signup
 

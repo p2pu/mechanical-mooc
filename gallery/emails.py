@@ -17,3 +17,16 @@ def send_confirmation_email( email, name, avatar, bio, confirmation_code ):
     text_body = render_to_string('gallery/emails/confirm-profile.txt', context).strip()
     html_body = render_to_string('gallery/emails/confirm-profile.html', context).strip()
     mailgun.api.send_email(email, settings.DEFAULT_FROM_EMAIL, subject, text_body, html_body, tags=['bio_update'])
+
+
+def send_user_link( email, key ):
+    context = {
+        'email': email,
+        'key': key,
+        'mooc_title': settings.MOOC_TITLE,
+        'mooc_domain': settings.MOOC_DOMAIN
+    }
+    subject = render_to_string('gallery/emails/user-link-subject.txt', context).strip()
+    text_body = render_to_string('gallery/emails/user-link.txt', context).strip()
+    html_body = render_to_string('gallery/emails/user-link.html', context).strip()
+    mailgun.api.send_email(email, settings.DEFAULT_FROM_EMAIL, subject, text_body, html_body, tags=['user_link'])

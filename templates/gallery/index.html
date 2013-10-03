@@ -3,7 +3,17 @@
 {% block body %}
 
   {% if not user_email %}
-  <p class="alert">It looks like this is your fisrt time here. Maybe you haven't signed up or you are using a different device? Click here to sign up or go here to request a new authorization link if you want to update your profile. Otherwise feel free to have a look around.</p>
+  <div class="alert">
+  <div class="container">
+  <p>It looks like this is your fisrt time here. Maybe you haven't signed up or you are using a different device?</p>
+  <p><a href="{% url home %}">Click here</a> to sign up or fill in your email address to request an authorized link to update your profile. Otherwise feel free to have a look around.</p>
+  <form action="{% url gallery_request_link %}" method="POST">
+    {% csrf_token %}
+    <input name="email" type="text" placeholder="email address">
+    <button type="submit">Send request</button>
+  </form>
+  </div>
+  </div>
   {% endif %}
 
   <div class='container'>
