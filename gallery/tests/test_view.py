@@ -3,6 +3,8 @@ from django.test.client import Client
 
 from mock import patch
 
+from signup import models as signup_api
+
 
 @patch('signup.models.sequence_model.get_current_sequence_number', lambda: 1)
 
@@ -10,14 +12,19 @@ class ViewTest(TestCase):
 
     SIGNUP_DATA = {
         'email': 'user@mail.com',
-        'timezone': 'Africa/Johannesburg',
-        'groupRadios': 'true', 
-        'styleRadios': 'try', 
-        'expertiseRadios': 'think',
+        'questions': {
+            'timezone': 'Africa/Johannesburg',
+            'groupRadios': 'true', 
+            'styleRadios': 'try', 
+            'expertiseRadios': 'think',
+        }
     }
 
     BIO_DATA = {
         'email': 'user@mail.com',
+        'name': 'Test User',
+        'bio': 'This is some info',
+        'avatar': 'http://placehold.it/120x120'
     }
 
     def test_sequence_redirect(self):
@@ -26,8 +33,14 @@ class ViewTest(TestCase):
         self.assertRedirects(resp, '/gallery/1/')
     
     
-    def test_signup_view(self):
+    def test_un_signedup_bio(self):
         c = Client()
-        resp = c.post('/gallery/1/save_bio/', self.SIGNUP_DATA)
-        self.assertRedirects(resp, '/success')
+        resp = c.post('/gallery/1/save_bio/', self.BIO_DATA)
+        self.assertRedirects(resp, '/')
 
+
+    def test_signedup_bio(self):
+        signup_api.create_signup(**self.SIGNUP_DATA)
+        c = Client()
+        resp = c.post('/gallery/1/save_bio/', self.BIO_DATA)
+        self.assertRedirects(resp, '/gallery/1/')
