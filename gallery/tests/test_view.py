@@ -7,7 +7,6 @@ from signup import models as signup_api
 
 
 @patch('signup.models.sequence_model.get_current_sequence_number', lambda: 1)
-
 class ViewTest(TestCase):
 
     SIGNUP_DATA = {
@@ -38,8 +37,8 @@ class ViewTest(TestCase):
         resp = c.post('/gallery/1/save_bio/', self.BIO_DATA)
         self.assertRedirects(resp, '/')
 
-
-    def test_signedup_bio(self):
+    @patch('gallery.views.send_confirmation_email')
+    def test_signedup_bio(self, patcher):
         signup_api.create_signup(**self.SIGNUP_DATA)
         c = Client()
         resp = c.post('/gallery/1/save_bio/', self.BIO_DATA)
