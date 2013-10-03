@@ -80,6 +80,17 @@ def get_signup( email ):
     return _signup2json(signup_db)
 
 
+def get_signup_by_invite_code( invite_code ):
+    user_set = db.UserSignup.objects.filter(
+        invite_code=invite_code,
+        date_deleted__isnull=True
+    )
+    if not user_set.exists():
+        raise Exception()
+
+    return _signup2json(user_set[0])
+
+
 def get_signups( sequence=None ):
     signups = db.UserSignup.objects.filter(date_deleted__isnull=True)
     if sequence:
