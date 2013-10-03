@@ -17,9 +17,18 @@ import hmac, hashlib
 import random
 
 
-def _check_user(request):
-    if request.GET.get('key'):
-        pass
+def check_user(method):
+    def call_view(*args, **kwargs):
+        request = args[0]
+        key = request.GET.get('key', None)
+        if key:
+            su = signup_api.get_signup_by_invite_code(key)
+            request.session['user_email'] = su['email']
+            if request.session.get('user_bio'):
+                del request.session['user_bio']
+            return http.HttpResponseRedirect(request.path)
+        return method(*args, **kwargs)
+    return call_view
 
 
 def sequence_redirect(request):
@@ -29,11 +38,10 @@ def sequence_redirect(request):
     return http.HttpResponseRedirect(url)
 
 
+@check_user
 def gallery(request, sequence):
     """ show gallery for all signups for this sequence with profiles """
     s3_policy, signature = create_s3_policy_doc(settings.AWS_S3_BUCKET, 'gallery')
-
-    _check_user(request)
 
     prefix = hmac.new(
         'THEANSWERIS42', request.session.session_key, hashlib.sha1
@@ -121,5 +129,14 @@ def confirm_updates(request, confirmation_code):
         request.session['user_email'] = bio['email']
     except Exception:
         messages.error(request, 'Could not find the confirmation code. Please make sure the URL is correct')
+    
+    url = reverse('gallery_gallery', kwargs={'sequence': bio['sequence']})
+    return http.HttpResponseRedirect(url)
 
-    return http.HttpResponseRedirect(reverse('gallery_gallery'))
+
+def clear_session(request):
+    if request.session.get('user_bio'):
+        del request.session['user_bio']
+    if request.session.get('user_email'):
+        del request.session['user_email']
+    return http.HttpResponseRedirect(reverse('gallery_sequence_redirect'))
