@@ -140,12 +140,15 @@ def confirm_updates(request, confirmation_code):
 
 @require_http_methods(['POST'])
 def request_link(request):
-    signup = signup_api.get_signup(request.POST.get('email'))
+    try:
+        signup = signup_api.get_signup(request.POST.get('email'))
+        messages.success(request, 'You will shortly receive an email with a link to update your picture')
+        send_user_link(signup['email'], signup['key'])
+    except:
+        messages.error(request, 'You have to sign up first!')
+    url = reverse('gallery_sequence_redirect')
     if settings.DEBUG:
-        url = reverse('gallery_sequence_redirect')
         url += '?key={0}'.format(signup['key'])
-    send_user_link(signup['email'], signup['key'])
-    messages.success(request, 'You will shortly receive an email with a link to update your picture')
     return http.HttpResponseRedirect(url)
 
 
