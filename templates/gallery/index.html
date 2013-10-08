@@ -7,7 +7,7 @@
   <div class="container">
   <p>It looks like this is your fisrt time here. Maybe you haven't signed up or you are using a different device?</p>
   <p><a href="{% url home %}">Click here</a> to sign up or fill in your email address to request an authorized link to update your profile. Otherwise feel free to have a look around.</p>
-  <form action="{% url gallery_request_link %}" method="POST">
+  <form class="form-inline" action="{% url gallery_request_link %}" method="POST">
     {% csrf_token %}
     <input name="email" type="text" placeholder="email address">
     <button type="submit">Send request</button>
@@ -20,10 +20,23 @@
     <ul class='class-gallery'>
     {% for bio in bios %}
       <li class="profile-wrapper">
-        <a class="profile">
+        <a class="profile" href="#profile-{{forloop.counter}}-modal" role="button" data-toggle="modal">
           <img class="profile-image" src="{{bio.avatar}}">
-          <!--span class="profile-bio">{{bio.bio}}</span-->
         </a>
+        <div id="profile-{{forloop.counter}}-modal" class="profile-edit modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">{{bio.name}}</h3>
+          </div>
+          <div class="modal-body">
+            <img class="profile-image" src="{{bio.avatar}}">
+            <span class="profile-bio">{{bio.bio}}</span>
+          </div>
+          {% if forloop.counter == 12 %}
+            <a href="#profile-modal" role="button" class="btn" data-toggle="modal">Edit</a>
+          {% endif %}
+        </div>
+
       </li>
     {% endfor %}
     </ul>
@@ -33,60 +46,69 @@
     <!-- if user not added yet, show form/button to add user -->
     {% if user_email %}
     <div class="row">
- 
-      <div class="profile-edit well span5">
-        <h3>Fill in your data</h3>
-        <div id="avatar-preview"></div>
-        <form id="avatar-form" action="https://{{ AWS_S3_BUCKET }}.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="key" value = "">
-          <input type="hidden" name="AWSAccessKeyId" value="{{ AWS_ACCESS_KEY_ID }}">
-          <input type="hidden" name="acl" value="public-read">
-          <input type="hidden" name="success_action_status" value="201">
-          <input type="hidden" name="policy" value="{{ s3_policy }}">
-          <input type="hidden" name="signature" value="{{ s3_signature }}">
-          <input type="hidden" name="Content-Type" value="image/png">
-          <input id="profile-pic-input" name="file" type="file">
-        </form>
- 
-        <form id="bio-form" action="{% url gallery_save_bio sequence=sequence %}" method="POST">
-          {% csrf_token %}
-          <input type="hidden" name="avatar">
-          <div class="control-group hidden">
+    
+      <div id="profile-modal" class="profile-edit modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="myModalLabel">Profile info</h3>
+        </div>
+        <div class="modal-body">
+          <form id="twitter-form" action="{% url twitter_get_data %}" method="POST">
+            {% csrf_token %}
             <label>Twitter handle</label>
-            <div class="controls">
-              <input class="input-block-level" type="text" name="twitter">
+            <div class="input-prepend input-append">
+              <span class="add-on">@</span>
+              <input type="text" name="twitter_handle" >
+              <button type="submit" class="btn btn-primary"><span id="twitter-loading" class="hidden"><i class='icon-spinner icon-spin icon-large'></i> </span>Get data from twitter</button>
             </div>
+          </form>
+         
+          <div id="avatar-preview">
+            {% if user_bio %}
+              <img src="{{ user_bio.avatar }}">
+            {% endif %}
           </div>
-          <div class="control-group">
-            <label>Email</label>
-            <div class="controls">
-              <input class="input-block-level" type="text" name="email">
+          <form id="avatar-form" action="https://{{ AWS_S3_BUCKET }}.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="key" value = "">
+            <input type="hidden" name="AWSAccessKeyId" value="{{ AWS_ACCESS_KEY_ID }}">
+            <input type="hidden" name="acl" value="public-read">
+            <input type="hidden" name="success_action_status" value="201">
+            <input type="hidden" name="policy" value="{{ s3_policy }}">
+            <input type="hidden" name="signature" value="{{ s3_signature }}">
+            <input type="hidden" name="Content-Type" value="image/png">
+            <input id="profile-pic-input" name="file" type="file">
+          </form>
+         
+          <form id="bio-form" action="{% url gallery_save_bio sequence=sequence %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="avatar" {% if user_bio %}value="{{user_bio.avatar}}"{% endif %}>
+            <div class="control-group hidden">
+              <label>Twitter handle</label>
+              <div class="controls">
+                <input class="input-block-level" type="text" name="twitter">
+              </div>
             </div>
-          </div>
-          <div class="control-group">
-            <label>Name</label>
-            <div class="controls">
-              <input class="input-block-level" type="text" name="name">
+            <div class="control-group">
+              <label>Email</label>
+              <div class="controls">
+                <input class="input-block-level" type="text" name="email">
+              </div>
             </div>
-          </div>
-          <div class="control-group">
-            <label>Bio</label>
-            <div class="controls">
-              <input class="input-block-level" type="text" name="bio">
+            <div class="control-group">
+              <label>Name</label>
+              <div class="controls">
+                <input class="input-block-level" type="text" name="name">
+              </div>
             </div>
-          </div>
-          <button class="btn btn-primary btn-block" type="submit">Submit</button>
-        </form>
-  
-      </div>
-
-      <div class="well span5">
-        <h3>Use data from twitter</h3>
-        <form id="twitter-form" action="{% url twitter_get_data %}" method="POST">
-          {% csrf_token %}
-          <label>Twitter handle</label><input type="text" name="twitter_handle">
-          <button type="submit" class="btn btn-primary btn-block" ><span id="twitter-loading" class="hidden"><i class='icon-spinner icon-spin icon-large'></i> </span>Get data from your twitter account</button>
-        </form>
+            <div class="control-group">
+              <label>Bio</label>
+              <div class="controls">
+                <input class="input-block-level" type="text" name="bio">
+              </div>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">Submit</button>
+          </form>
+        </div>
       </div>
     </div>
     {% endif %}
@@ -105,6 +127,10 @@
 
     function setAvatar(url){
         $('#avatar-preview').html('<img style="widht:120px;height:120px;" src="' + url + '">');
+    }
+
+    function setAvatarLoading(){
+        $('#avatar-preview').html('<i class="icon-spinner icon-spin icon-large"></i>');
     }
     
     $(document).ready(function() {
