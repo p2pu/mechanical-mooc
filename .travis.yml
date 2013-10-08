@@ -4,8 +4,11 @@ python:
   - "2.6"
 
 env:
-  - DJANGO=1.4
-  - DJANGO=1.5
+  global:
+    - SECRET_KEY=blajblajbasdf
+  matrix:
+    - DJANGO=1.4
+    - DJANGO=1.5
 
 install:
   - pip install -r requirements.txt --use-mirrors
