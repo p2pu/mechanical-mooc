@@ -4,6 +4,7 @@ from django.test.client import Client
 from mock import patch
 
 from signup import models as signup_api
+from gallery import models as gallery_api
 
 @patch('signup.models.sequence_model.get_current_sequence_number', lambda: 1)
 class ViewTest(TestCase):
@@ -35,6 +36,8 @@ class ViewTest(TestCase):
         c = Client()
         resp = c.post('/gallery/1/save_bio/', self.BIO_DATA)
         self.assertRedirects(resp, '/')
+        bios = gallery_api.get_bios(1)
+        self.assertEquals(len(bios), 0)
 
 
     def test_signed_up_not_signed_in_bio_save(self):
@@ -42,6 +45,8 @@ class ViewTest(TestCase):
         c = Client()
         resp = c.post('/gallery/1/save_bio/', self.BIO_DATA)
         self.assertRedirects(resp, '/gallery/1/')
+        bios = gallery_api.get_bios(1)
+        self.assertEquals(len(bios), 0)
     
 
     def test_signed_in(self):
@@ -59,3 +64,5 @@ class ViewTest(TestCase):
         resp = c.get('/gallery/1/?key={0}'.format(signup['key']))
         resp = c.post('/gallery/1/save_bio/', self.BIO_DATA)
         self.assertRedirects(resp, '/gallery/1/')
+        bios = gallery_api.get_bios(0)
+        self.assertEquals(len(bios), 0)
