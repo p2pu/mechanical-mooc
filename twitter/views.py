@@ -1,14 +1,19 @@
 from django import http
 from django.conf import settings
+from django.views.decorators.http import require_http_methods
 
 import json
 
 from twitter import utils
 
+@require_http_methods(['POST'])
 def get_data(request):
-    if request.method == 'POST' and 'twitter_handle' in request.POST.keys():
-        twitter_handle = request.POST.get('twitter_handle')
-        creds = (settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_ACCESS_TOKEN_SECRET)
+    if 'twitter_handle' not in request.POST.keys():
+        return http.HttpResponseServerError()
+
+    twitter_handle = request.POST.get('twitter_handle')
+    creds = (settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_ACCESS_TOKEN_SECRET)
+    try: 
         user_data = utils.get_user_data(twitter_handle, creds)
         bio_data = {
             'avatar': user_data['profile_image_url'],
@@ -18,7 +23,8 @@ def get_data(request):
         if '_normal' in bio_data['avatar']:
             bio_data['avatar'] = bio_data['avatar'].replace('_normal', '')
         return http.HttpResponse(json.dumps(bio_data))
-    #TODO return error
+    except:
+        return http.HttpResponseNotFound()
 
 
 def old(request):
