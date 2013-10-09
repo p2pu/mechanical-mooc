@@ -5,7 +5,6 @@ from mock import patch
 
 from signup import models as signup_api
 
-
 @patch('signup.models.sequence_model.get_current_sequence_number', lambda: 1)
 class ViewTest(TestCase):
 
@@ -37,9 +36,26 @@ class ViewTest(TestCase):
         resp = c.post('/gallery/1/save_bio/', self.BIO_DATA)
         self.assertRedirects(resp, '/')
 
-    @patch('gallery.views.send_confirmation_email')
-    def test_signedup_bio(self, patcher):
+
+    def test_signed_up_not_signed_in_bio_save(self):
         signup_api.create_signup(**self.SIGNUP_DATA)
         c = Client()
+        resp = c.post('/gallery/1/save_bio/', self.BIO_DATA)
+        self.assertRedirects(resp, '/')
+    
+
+    def test_signed_in(self):
+        signup = signup_api.create_signup(**self.SIGNUP_DATA)
+        c = Client()
+        resp = c.get('/gallery/1/?key={0}'.format(signup['key']))
+        session = c.session
+        self.assertEquals(session['user_email'], self.BIO_DATA['email'])
+        self.assertRedirects(resp, '/gallery/1/')
+    
+
+    def test_signed_up_signed_in_bio_save(self):
+        signup = signup_api.create_signup(**self.SIGNUP_DATA)
+        c = Client()
+        resp = c.get('/gallery/1/?key={0}'.format(signup['key']))
         resp = c.post('/gallery/1/save_bio/', self.BIO_DATA)
         self.assertRedirects(resp, '/gallery/1/')

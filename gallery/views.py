@@ -22,14 +22,21 @@ def check_user(method):
     def call_view(*args, **kwargs):
         request = args[0]
         key = request.GET.get('key', None)
-        if key:
+        if not key:
+            return method(*args, **kwargs)
+        try:
             su = signup_api.get_signup_by_invite_code(key)
-            request.session['user_email'] = su['email']
-            # TODO rather get the user bio if possible
-            if request.session.get('user_bio'):
-                del request.session['user_bio']
-            return http.HttpResponseRedirect(request.path)
-        return method(*args, **kwargs)
+        except:
+            return method(*args, **kwargs)
+        request.session['user_email'] = su['email']
+        if request.session.get('user_bio'):
+            del request.session['user_bio']
+        # get the user bio if possible
+        try:
+            request.session['user_bio'] = gallery_api.get_bio(su['email'])
+        except:
+            pass
+        return http.HttpResponseRedirect(request.path)
     return call_view
 
 
@@ -95,7 +102,7 @@ def save_bio(request, sequence):
     except:
         pass
 
-    if not signed_up or signup['sequence'] != int(sequence):
+    if not signed_up or signup['sequence'] != int(sequence) or request.POST['email'] != request.session.get('user_email'):
         messages.warning(request, 'It looks like you did not sign up for this instance of the MOOC! You can sign up for the next time the MOOC runs.')
         # redirect user to signup page
         return http.HttpResponseRedirect(reverse('home'))
@@ -108,33 +115,11 @@ def save_bio(request, sequence):
         request.POST['avatar'],
         request.POST.get('twitter', None)
     )
-    
-    user_email = request.session.get('user_email', False)
-    if user_email and user_email == user_bio['email']:
-        user_bio = gallery_api.confirm_bio(user_bio['confirmation_code'])
-        messages.success(request, 'Your information has been updated.')
-    else:
-        send_confirmation_email(
-            user_bio['email'], user_bio['name'], user_bio['avatar'],
-            user_bio['bio'], user_bio['confirmation_code']
-        )
-        messages.success(request, 'Your information has been updated, you will shortly receive an email to confirm that you made the updates yourself.')
-    
     request.session['user_bio'] = user_bio
+    
+    messages.success(request, 'Your information has been updated, you will shortly receive an email to confirm that you made the updates yourself.')
 
     url = reverse('gallery_gallery', kwargs={'sequence': sequence})
-    return http.HttpResponseRedirect(url)
-
-
-def confirm_updates(request, confirmation_code):
-    try:
-        bio = gallery_api.confirm_bio(confirmation_code)
-        request.session['user_bio'] = bio
-        request.session['user_email'] = bio['email']
-    except Exception:
-        messages.error(request, 'Could not find the confirmation code. Please make sure the URL is correct')
-    
-    url = reverse('gallery_gallery', kwargs={'sequence': bio['sequence']})
     return http.HttpResponseRedirect(url)
 
 

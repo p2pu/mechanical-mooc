@@ -11,7 +11,6 @@ def _bio2dict( bio_db ):
         'name': bio_db.name,
         'bio': bio_db.bio,
         'avatar': bio_db.avatar,
-        'confirmation_code': bio_db.confirmation_code,
     }
     if bio_db.twitter:
         bio_dict['twitter'] = bio_db.twitter
@@ -22,10 +21,9 @@ def save_bio( email, sequence, name, bio, avatar, twitter=None ):
     
     now = datetime.datetime.utcnow()
 
-    # if we do and it is pending, just delete it
-    # if we do and it is confirmed, just add new
-    if db.UserBio.objects.filter(email=email, date_deleted__isnull=True, confirmation_code__isnull=False).exists():
-        pending_bio = db.UserBio.objects.get(email=email, date_deleted__isnull=True, confirmation_code__isnull=False)
+    # delete any previous bios
+    if db.UserBio.objects.filter(email=email, date_deleted__isnull=True).exists():
+        pending_bio = db.UserBio.objects.get(email=email, date_deleted__isnull=True)
         pending_bio.date_deleted = now
         pending_bio.save()
 
@@ -43,27 +41,17 @@ def save_bio( email, sequence, name, bio, avatar, twitter=None ):
     return _bio2dict(bio_db)
 
 
-def confirm_bio( confirmation_code ):
-    bio_db = db.UserBio.objects.get(confirmation_code=confirmation_code)
-
-    if db.UserBio.objects.filter(email=bio_db.email, date_deleted__isnull=True, confirmation_code__isnull=True).exists():
-        old_bio = db.UserBio.objects.get(email=bio_db.email, date_deleted__isnull=True, confirmation_code__isnull=True)
-        old_bio.date_deleted = datetime.datetime.utcnow()
-        old_bio.save()
-
-    bio_db.confirmation_code = None
-    bio_db.save()
-    return _bio2dict(bio_db)
-
-
 def get_bio( email ):
-    return _bio2dict(db.UserBio.objects.get(email=email))
+    bios_db = db.UserBio.objects.filter(
+        email=email,
+        date_deleted__isnull=True
+    )
+    return _bio2dict(bios_db[0])
 
 
 def get_bios( sequence, limit=100 ):
     bios_db = db.UserBio.objects.filter(
         sequence=sequence,
-        confirmation_code__isnull=True,
         date_deleted__isnull=True
     )
     if limit > 0:
