@@ -59,7 +59,7 @@ def gallery(request, sequence):
     ).hexdigest()
 
     bios = gallery_api.get_bios(sequence, limit=32)
-    bios += [{'avatar': 'http://placehold.it/120x120', 'email': ''} for i in range(len(bios), 32)]
+    bios += [{'email': ''} for i in range(len(bios), 32)]
     bios = random.sample(bios, len(bios))
 
     # if user is logged in and has a bio, display it!
@@ -73,7 +73,7 @@ def gallery(request, sequence):
         bios[11] = user_bio
     else:
         # make a gap at position 12
-        bios[11] = {'avatar': 'http://placehold.it/120x120'}
+        bios[11] = {'email': ''}
 
     context = {
         'bios': bios,
