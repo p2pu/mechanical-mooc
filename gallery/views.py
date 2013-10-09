@@ -102,10 +102,15 @@ def save_bio(request, sequence):
     except:
         pass
 
-    if not signed_up or signup['sequence'] != int(sequence) or request.POST['email'] != request.session.get('user_email'):
-        messages.warning(request, 'It looks like you did not sign up for this instance of the MOOC! You can sign up for the next time the MOOC runs.')
+    if not signed_up or signup['sequence'] != int(sequence):
+        messages.error(request, 'It looks like you did not sign up for this instance of the MOOC! You can sign up for the next time the MOOC runs.')
         # redirect user to signup page
         return http.HttpResponseRedirect(reverse('home'))
+
+    if request.POST['email'] != request.session.get('user_email'):
+        messages.error(request, 'We didn\'t recognize the email address you just gave us, maybe you signed up with a different one?')
+        url = reverse('gallery_gallery', kwargs={'sequence': sequence})
+        return http.HttpResponseRedirect(url)
 
     user_bio = gallery_api.save_bio(
         request.POST['email'],
@@ -125,14 +130,15 @@ def save_bio(request, sequence):
 
 @require_http_methods(['POST'])
 def request_link(request):
+    signup = None
     try:
         signup = signup_api.get_signup(request.POST.get('email'))
-        messages.success(request, 'You will shortly receive an email with a link to update your picture')
+        messages.success(request, 'You will shortly receive an email with a link to update your picture.')
         send_user_link(signup['email'], signup['key'])
     except:
         messages.error(request, 'You have to sign up first!')
     url = reverse('gallery_sequence_redirect')
-    if settings.DEBUG:
+    if settings.DEBUG and signup:
         url += '?key={0}'.format(signup['key'])
     return http.HttpResponseRedirect(url)
 
