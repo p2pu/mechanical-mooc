@@ -41,7 +41,7 @@ class ViewTest(TestCase):
         signup_api.create_signup(**self.SIGNUP_DATA)
         c = Client()
         resp = c.post('/gallery/1/save_bio/', self.BIO_DATA)
-        self.assertRedirects(resp, '/')
+        self.assertRedirects(resp, '/gallery/1/')
     
 
     def test_signed_in(self):
