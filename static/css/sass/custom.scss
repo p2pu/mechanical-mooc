@@ -181,12 +181,13 @@ input[type="email"]{
     float: left;
     list-style: none;
     width: 120px;
-    height:120px;
+    height: 120px;
 }
 
 .profile {
     width: 120px;
-    height:120px;
+    height: 120px;
+    position: relative;
 }
 
 .profile-image {
@@ -194,6 +195,19 @@ input[type="email"]{
     max-width: 120px;
     display: block;
     margin: 0 auto;
+}
+
+#add-profile-button {
+    position: absolute;
+    left: 30%;
+    top: 70%;
+    width: 250px;
+    text-size: 20pt;
+    color: black;
+    text-shadow: 1px 1px 2px white, 0 0 1em #FFF, 0 0 0.2em #FFF;
+    z-index: 999;
+    font-size: xx-large;
+    font-weight: bold;
 }
 
 .conference{

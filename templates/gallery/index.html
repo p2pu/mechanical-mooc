@@ -25,9 +25,10 @@
           <img class="profile-image" src="{{bio.avatar}}">
         </a>
         {% elif forloop.counter == 12 %}
-          <a class="profile" href="#profile-modal" role="button" class="btn" data-toggle="modal">
+          <div class="profile">
             <img class="profile-image" src="{{ STATIC_URL }}img/member-missing.png">
-          </a>
+            <a id="add-profile-button" href="#profile-modal" role="button" data-toggle="modal"><i class="icon-hand-up"> </i>Click to add your photo</a>
+          </div>
         {% else %}
           <img class="profile-mage" src="{{ STATIC_URL }}img/blank.gif">
         {% endif %}
@@ -62,6 +63,7 @@
           <h3 id="myModalLabel">Profile info</h3>
         </div>
         <div class="modal-body">
+          <h4>Get data from twitter (optional)</h4>
           <div id="twitter-error" class="hidden alert alert-error">
             <p>We couldn't fetch your data from twitter. Please make sure that you used the correct twitter username.</p>
           </div>
@@ -74,6 +76,8 @@
               <button type="submit" class="btn btn-primary"><span id="twitter-loading" class="hidden"><i class='icon-spinner icon-spin icon-large'></i> </span>Get data from twitter</button>
             </div>
           </form>
+
+          <h4>Or fill it in</h4>
          
           <div id="avatar-preview">
             {% if user_bio %}
@@ -104,25 +108,28 @@
             {% csrf_token %}
             <input type="hidden" name="avatar" {% if user_bio %}value="{{user_bio.avatar}}"{% endif %}>
             <div class="control-group hidden">
-              <label>Twitter handle</label>
+              <label>Twitter handle (optional)</label>
               <div class="controls">
                 <input class="input-block-level" type="text" name="twitter">
               </div>
             </div>
             <div class="control-group">
               <label>Email</label>
+              <div id="email_error"></div>
               <div class="controls">
                 <input class="input-block-level" type="text" name="email">
               </div>
             </div>
             <div class="control-group">
               <label>Name</label>
+              <div id="name_error"></div>
               <div class="controls">
                 <input class="input-block-level" type="text" name="name">
               </div>
             </div>
             <div class="control-group">
               <label>Bio</label>
+              <div id="bio_error"></div>
               <div class="controls">
                 <input class="input-block-level" type="text" name="bio">
               </div>
@@ -215,7 +222,7 @@
           debug: true,
           rules: {
               avatar: "required",
-              email: "required",
+              email: { required: true, email: true},
               name: "required",
               bio: "required",
           },
@@ -226,7 +233,9 @@
           unhighlight: function (element, errorClass, validClass) {
               $(element).parents(".control-group").removeClass(errorClass);
           },
-          errorPlacement: function () {
+          errorPlacement: function (error, element) {
+              var name = $(element).attr("name");
+              error.appendTo($("#" + name + "_error"));
           },
           submitHandler: function (form) {
               form.submit();
@@ -254,6 +263,9 @@
                   $('#bio-form :input[name=avatar]').val(jsonData.avatar);
                   $('#bio-form :input[name=name]').val(jsonData.name);
                   $('#bio-form :input[name=bio]').val(jsonData.bio);
+                  setTimeout(function(){
+                      $('#bio-form :input[name=email]').focus();
+                  }, 1000);
               },
               error: function () {
                   $('#twitter-error').removeClass('hidden');
