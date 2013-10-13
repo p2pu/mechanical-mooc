@@ -47,6 +47,15 @@ class ViewTest(TestCase):
         self.assertRedirects(resp, '/gallery/1/')
         bios = gallery_api.get_bios(1)
         self.assertEquals(len(bios), 0)
+
+
+    @patch('gallery.emails.mailgun.api.send_mass_email')
+    def test_request_user_link(self, patcher):
+        signup = signup_api.create_signup(**self.SIGNUP_DATA)
+        c = Client()
+        resp = c.post('/gallery/request_link/', self.BIO_DATA, follow=True)
+        self.assertRedirects(resp, '/gallery/1/')
+        self.assertTrue(patcher.called)
     
 
     def test_signed_in(self):
