@@ -74,9 +74,6 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '4%aegq+pof66!e^-xzqst0tyr-(^r(&amp;90pij@gga90abc@r7&amp;d'
-
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -92,6 +89,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 
@@ -128,6 +126,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'south',
+    'debug_toolbar',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -137,7 +136,9 @@ INSTALLED_APPS = (
     'grouping',
     'mail',
     'sequence',
-    'unsubscribe'
+    'unsubscribe',
+    'classphoto',
+    'twitter',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -169,6 +170,7 @@ LOGGING = {
     }
 }
 
+SECRET_KEY = os.environ.get('SECRET_KEY', None)
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
@@ -187,4 +189,27 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'missioncontrol@data.p
 #TODO this may cause confusion with DJANOG EMAIL_ settings!
 EMAIL_DOMAIN = os.environ.get('EMAIL_DOMAIN', '')
 
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+AWS_S3_BUCKET = os.environ.get('AWS_S3_BUCKET', 'mechanicalmooc')
+
+MOOC_TITLE = os.environ.get('MOOC_NAME', 'Dev MOOC')
+MOOC_DOMAIN = os.environ.get('MOOC_DOMAIN', '')
+
+TWITTER_OAUTH_CONSUMER_KEY = os.environ.get('TWITTER_OAUTH_CONSUMER_KEY', '')
+TWITTER_OAUTH_CONSUMER_SECRET = os.environ.get('TWITTER_OAUTH_CONSUMER_SECRET', '')
+
+TWITTER_ACCESS_TOKEN = os.environ.get('TWITTER_ACCESS_TOKEN')
+TWITTER_ACCESS_TOKEN_SECRET = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
+
 EXPERIMENTAL_GROUPS = [u'group-4-30@mechanicalmooc.org', u'group-4-24@mechanicalmooc.org', u'group-4-35@mechanicalmooc.org', u'group-4-2@mechanicalmooc.org', u'group-4-5@mechanicalmooc.org', u'group-4-37@mechanicalmooc.org', u'group-4-15@mechanicalmooc.org', u'group-4-22@mechanicalmooc.org', u'group-4-18@mechanicalmooc.org', u'group-4-20@mechanicalmooc.org', u'group-4-17@mechanicalmooc.org', u'group-4-9@mechanicalmooc.org', u'group-4-43@mechanicalmooc.org', u'group-4-34@mechanicalmooc.org', u'group-4-6@mechanicalmooc.org', u'group-4-1@mechanicalmooc.org', u'group-4-13@mechanicalmooc.org', u'group-4-31@mechanicalmooc.org', u'group-4-33@mechanicalmooc.org', u'group-4-7@mechanicalmooc.org', u'group-4-32@mechanicalmooc.org']
+
+# Configuration for django debug toolbar
+INTERNAL_IPS = ('127.0.0.1', )
+DEBUG_TOOLBAR_CONFIG = { 'INTERCEPT_REDIRECTS': False }
+
+# Support for settings
+try:
+    from settings_local import *
+except ImportError:
+    pass

@@ -3,6 +3,7 @@ from requests.auth import HTTPBasicAuth
 from django.conf import settings
 import django.utils.simplejson as json
 
+
 def call_mailgun(method, api_sub_url, data, params=None):
     api_url = '/'.join([settings.MAILGUN_API_URL.strip('/'), api_sub_url.strip('/')])
     auth = HTTPBasicAuth('api', settings.MAILGUN_API_KEY)
@@ -21,7 +22,7 @@ def send_email(to_email, from_email, subject, text_body, html_body=None, tags=No
     )
 
 
-def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, tags=None, campaign_id=None):
+def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, tags=None, campaign_id=None, recipient_variables=None):
     """ send email to multiple users, but each being to only one in the to field """
     post_data = [
         ('from', from_email),
@@ -33,7 +34,10 @@ def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, t
     ]
 
     post_data += [ ('to', to_email) for to_email in to_emails ]
-    post_data += [ ('recipient-variables', [json.dumps({to_email:{}}) for to_email in to_emails] ) ]
+    if recipient_variables:
+        post_data += [ ('recipient-variables', recipient_variables) ]
+    else:
+        post_data += [ ('recipient-variables', json.dumps({ to_email:{} for to_email in to_emails }) ) ]
 
     if html_body:
         post_data += [('html', html_body),]
@@ -165,12 +169,59 @@ def get_list_stats(list_address):
     return resp.json()
 
 
-def get_logs(limit=100, offset=0):
+def get_logs(limit=100, skip=0):
     resp  = call_mailgun(
         'GET', '/'.join([settings.MAILGUN_API_DOMAIN, 'log']),
         {},
-        {'limit': limit, 'offset': offset}
+        {'limit': limit, 'skip': skip}
     )
     if resp.status_code != 200:
         raise Exception(resp.text)
     return resp.json()
+
+
+def get_campaign_events(campaign_id, event, recipient=None, limit=None, page=None, count=None):
+    sub_url = '/'.join(
+        [settings.MAILGUN_API_DOMAIN, 'campaigns', campaign_id, 'events']
+    )
+    params = {}
+    if event:
+        params['event'] = event
+    if recipient:
+        params['recipient'] = recipient
+    if limit:
+        params['limit'] = limit
+    if page:
+        params['page'] = page
+    if count:
+        params['count'] = count
+
+    resp = call_mailgun('GET', sub_url, {}, params)
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+    return resp.json()
+
+
+def _get_campaign_action(campaign_id, action, group_by, limit=None, page=None, count=None):
+    sub_url = '/'.join(
+        [settings.MAILGUN_API_DOMAIN, 'campaigns', campaign_id, action]
+    )
+    params = { 'groupby': group_by }
+    if limit:
+        params['limit'] = limit
+    if page:
+        params['page'] = page
+    if count:
+        params['count'] = count
+    resp = call_mailgun('GET', sub_url, {}, params)
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+    return resp.json()
+
+
+def get_campaign_opens(campaign_id, group_by, limit=None, page=None, count=None):
+    return _get_campaign_action(campaign_id, 'opens', group_by, limit, page, count)
+
+
+def get_campaign_clicks(campaign_id, group_by, limit=None, page=None, count=None):
+    return _get_campaign_action(campaign_id, 'clicks', group_by, limit, page, count)

@@ -29,11 +29,11 @@ context = zmq.Context()
 
 # Socket to receive messages on
 receiver = context.socket(zmq.PULL)
-receiver.connect("tcp://{}:5557".format(master_address))
+receiver.connect("tcp://{0}:5557".format(master_address))
 
 # Socket to sync with master
 sync = context.socket(zmq.PUSH)
-sync.connect("tcp://{}:5558".format(master_address))
+sync.connect("tcp://{0}:5558".format(master_address))
 sync.send('Reporting for duty')
 
 # Process tasks forever
