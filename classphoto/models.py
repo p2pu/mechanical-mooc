@@ -2,7 +2,6 @@ from classphoto import db
 
 import datetime
 import string
-import random
 
 def _bio2dict( bio_db ):
     bio_dict = { 
@@ -36,7 +35,6 @@ def save_bio( email, sequence, name, bio, avatar, twitter=None ):
     bio_db.twitter = twitter
     bio_db.date_added = now
     bio_db.date_updated = now
-    bio_db.confirmation_code = ''.join([random.choice(string.letters + string.digits) for i in range(32)])
     bio_db.save()
     return _bio2dict(bio_db)
 
