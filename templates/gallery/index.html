@@ -10,12 +10,11 @@
   {% if not user_email %}
     <div class="container">
       <div class="alert">
-        <p>It looks like this is your first time here. Have you signed up or are you using a different device?</p>
-        <p><a href="{% url home %}">Click here</a> to sign up or fill in your email address to request an authorized link to update your profile. Otherwise feel free to have a look around.</p>
+        <p>To add your photo you need to use your own unique link to log in to this page.</p>
         <form class="form-inline" action="{% url gallery_request_link %}" method="POST">
           {% csrf_token %}
           <input name="email" type="text" placeholder="email address">
-          <button type="submit">Send request</button>
+          <button type="submit">Get link</button>
         </form>
       </div>
     </div>
