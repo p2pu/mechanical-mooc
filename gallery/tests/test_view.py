@@ -49,7 +49,7 @@ class ViewTest(TestCase):
         self.assertEquals(len(bios), 0)
 
 
-    @patch('gallery.emails.mailgun.api.send_mass_email')
+    @patch('gallery.emails.mailgun.api.send_email')
     def test_request_user_link(self, patcher):
         signup = signup_api.create_signup(**self.SIGNUP_DATA)
         c = Client()

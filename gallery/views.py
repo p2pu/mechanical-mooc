@@ -8,7 +8,6 @@ from django.contrib import messages
 
 from gallery import models as gallery_api
 from gallery.utils import create_s3_policy_doc
-from gallery.emails import send_confirmation_email
 from gallery.emails import send_user_link
 
 from signup import models as signup_api
@@ -122,7 +121,7 @@ def save_bio(request, sequence):
     )
     request.session['user_bio'] = user_bio
     
-    messages.success(request, 'Your information has been updated, you will shortly receive an email to confirm that you made the updates yourself.')
+    messages.success(request, 'Your information has been updated!')
 
     url = reverse('gallery_gallery', kwargs={'sequence': sequence})
     return http.HttpResponseRedirect(url)

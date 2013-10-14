@@ -4,6 +4,9 @@ from mock import patch
 
 from gallery import models as gallery_api
 from gallery import db
+from gallery import emails
+
+from signup import models as signup_api
 
 @patch('signup.models.sequence_model.get_current_sequence_number', lambda: 1)
 class SimpleTest(TestCase):
@@ -62,3 +65,27 @@ class SimpleTest(TestCase):
         bios = filter(f, bios)
         self.assertEquals(len(bios), 1)
         self.assertEquals(bios[0], updated_bio)
+
+
+    def test_send_user_link_to_whole_sequence( self ):
+        signup_api.create_signup('mail1@mail.com', {})
+        signup_api.create_signup('mail2@mail.com', {})
+        signup_api.create_signup('mail3@mail.com', {})
+        signup_api.create_signup('mail4@mail.com', {})
+        signup_api.create_signup('mail5@mail.com', {})
+        bio = self.BIO_DATA.copy()
+        bio['email'] = 'mail1@mail.com'
+        user_bio = gallery_api.save_bio(**bio)
+        bio['email'] = 'mail2@mail.com'
+        user_bio = gallery_api.save_bio(**bio)
+        bio['email'] = 'mail3@mail.com'
+        user_bio = gallery_api.save_bio(**bio)
+        bio['email'] = 'mail4@mail.com'
+        user_bio = gallery_api.save_bio(**bio)
+        bio['email'] = 'mail5@mail.com'
+        user_bio = gallery_api.save_bio(**bio)
+
+        with patch('gallery.emails.mailgun.api.send_mass_email') as sme:
+            emails.send_user_link_to_whole_sequence(1)
+            self.assertTrue(sme.called)
+
