@@ -41,9 +41,10 @@ def check_user(method):
 
 @check_user
 def sequence_redirect(request):
-    #TODO handle None returned from get_current_sequence when there is no sequence
     # TODO if we have a signed in user, we should redirect to the right sequence
     current_sequence = sequence_api.get_current_sequence_number()
+    if not current_sequence:
+        return http.HttpResponseNotFound()
     url = reverse('gallery_gallery', kwargs={'sequence':current_sequence})
     return http.HttpResponseRedirect(url)
 
