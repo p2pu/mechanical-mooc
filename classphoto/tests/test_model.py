@@ -2,9 +2,9 @@ from django.test import TestCase
 
 from mock import patch
 
-from gallery import models as gallery_api
-from gallery import db
-from gallery import emails
+from classphoto import models as classphoto_api
+from classphoto import db
+from classphoto import emails
 
 from signup import models as signup_api
 
@@ -22,14 +22,14 @@ class SimpleTest(TestCase):
 
 
     def test_save_bio(self):
-        user_bio = gallery_api.save_bio(**self.BIO_DATA)
+        user_bio = classphoto_api.save_bio(**self.BIO_DATA)
         self.assertEqual(self.BIO_DATA, user_bio)
 
 
     def test_save_bio_with_twitter(self):
         bio_data = self.BIO_DATA.copy()
         bio_data['twitter'] = 'testhandle'
-        user_bio = gallery_api.save_bio(**bio_data)
+        user_bio = classphoto_api.save_bio(**bio_data)
         self.assertEqual(bio_data, user_bio)
 
 
@@ -37,18 +37,18 @@ class SimpleTest(TestCase):
         for i in range(10):
             data = self.BIO_DATA.copy()
             data['email'] = 'test-{0}@mail.com'.format(i)
-            user_bio = gallery_api.save_bio(**data)
+            user_bio = classphoto_api.save_bio(**data)
 
-        bios = gallery_api.get_bios(1)
+        bios = classphoto_api.get_bios(1)
         self.assertEquals(len(bios), 10)
 
 
     def test_update_bio(self):
         # create bio
-        user_bio = gallery_api.save_bio(**self.BIO_DATA)
+        user_bio = classphoto_api.save_bio(**self.BIO_DATA)
 
         # bio should now be in primary list of bios
-        bios = gallery_api.get_bios(1)
+        bios = classphoto_api.get_bios(1)
         f = lambda x: x['email'] == user_bio['email']
         bios = filter(f, bios)
         self.assertEquals(len(bios), 1)
@@ -57,10 +57,10 @@ class SimpleTest(TestCase):
         # update bio
         update_data = self.BIO_DATA.copy()
         update_data['bio'] = 'This is the updated BIO'
-        updated_bio = gallery_api.save_bio(**update_data)
+        updated_bio = classphoto_api.save_bio(**update_data)
        
         # new bio should now be displayed
-        bios = gallery_api.get_bios(1)
+        bios = classphoto_api.get_bios(1)
         f = lambda x: x['email'] == user_bio['email']
         bios = filter(f, bios)
         self.assertEquals(len(bios), 1)
@@ -75,17 +75,17 @@ class SimpleTest(TestCase):
         signup_api.create_signup('mail5@mail.com', {})
         bio = self.BIO_DATA.copy()
         bio['email'] = 'mail1@mail.com'
-        user_bio = gallery_api.save_bio(**bio)
+        user_bio = classphoto_api.save_bio(**bio)
         bio['email'] = 'mail2@mail.com'
-        user_bio = gallery_api.save_bio(**bio)
+        user_bio = classphoto_api.save_bio(**bio)
         bio['email'] = 'mail3@mail.com'
-        user_bio = gallery_api.save_bio(**bio)
+        user_bio = classphoto_api.save_bio(**bio)
         bio['email'] = 'mail4@mail.com'
-        user_bio = gallery_api.save_bio(**bio)
+        user_bio = classphoto_api.save_bio(**bio)
         bio['email'] = 'mail5@mail.com'
-        user_bio = gallery_api.save_bio(**bio)
+        user_bio = classphoto_api.save_bio(**bio)
 
-        with patch('gallery.emails.mailgun.api.send_mass_email') as sme:
+        with patch('classphoto.emails.mailgun.api.send_mass_email') as sme:
             emails.send_user_link_to_whole_sequence(1)
             self.assertTrue(sme.called)
 

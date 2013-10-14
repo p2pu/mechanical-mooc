@@ -11,7 +11,7 @@
     <div class="container">
       <div class="alert">
         <p>To add your photo you need to use your own unique link to log in to this page.</p>
-        <form class="form-inline" action="{% url gallery_request_link %}" method="POST">
+        <form class="form-inline" action="{% url classphoto_request_link %}" method="POST">
           {% csrf_token %}
           <input name="email" type="text" placeholder="email address">
           <button type="submit">Get link</button>
@@ -110,7 +110,7 @@
             </div>
           </form>
          
-          <form id="bio-form" action="{% url gallery_save_bio sequence=sequence %}" method="POST">
+          <form id="bio-form" action="{% url classphoto_save_bio sequence=sequence %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="avatar" {% if user_bio %}value="{{user_bio.avatar}}"{% endif %}>
             <div class="control-group hidden">

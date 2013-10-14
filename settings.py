@@ -137,7 +137,7 @@ INSTALLED_APPS = (
     'mail',
     'sequence',
     'unsubscribe',
-    'gallery',
+    'classphoto',
     'twitter',
 )
 

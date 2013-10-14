@@ -1,4 +1,4 @@
-from gallery import db
+from classphoto import db
 
 import datetime
 import string

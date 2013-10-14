@@ -12,7 +12,7 @@ env:
 install:
   - pip install -r requirements.txt --use-mirrors
 
-script: python manage.py test gallery groups mail sequence signup unsubscribe
+script: python manage.py test classphoto groups mail sequence signup unsubscribe
 
 notifications:
   email:
