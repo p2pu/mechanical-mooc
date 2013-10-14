@@ -125,6 +125,6 @@ def send_group_updates():
             'Weekly Snapshot: What\'s the Mechanical MOOC Community Up To',
             text_body,
             html_body,
-            ['sequence_4', 'week_3', 'group_encourage'],
+            ['sequence_4', 'week_7', 'group_encourage'],
             sequence_api.sequence_campaign(4)
         )
