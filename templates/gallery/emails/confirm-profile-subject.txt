@@ -1,1 +1,0 @@
-Confirm the changes to your profile on {{ mooc_title }}.
