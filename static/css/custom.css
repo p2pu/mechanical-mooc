@@ -197,48 +197,103 @@ input[type="email"] {
 }
 
 /* line 176, ../sass/custom.scss */
+.class-gallery {
+  margin-top: 1.5em;
+}
+
+/* line 180, ../sass/custom.scss */
+.profile-wrapper {
+  float: left;
+  list-style: none;
+  width: 120px;
+  height: 120px;
+}
+
+/* line 187, ../sass/custom.scss */
+.profile {
+  width: 120px;
+  height: 120px;
+  position: relative;
+}
+
+/* line 193, ../sass/custom.scss */
+.profile-image {
+  max-height: 120px;
+  max-width: 120px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* line 200, ../sass/custom.scss */
+.bubble:before {
+  border-color: #2e88c4 rgba(0, 0, 0, 0);
+  border-style: solid;
+  border-width: 0 20px 20px 20px;
+  top: -20px;
+  content: "";
+  display: block;
+  left: 50px;
+  position: absolute;
+  width: 0;
+  z-index: 999;
+}
+
+/* line 213, ../sass/custom.scss */
+.bubble {
+  background: linear-gradient(#2e88c4, #075698) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  border-radius: 10px 10px 10px 10px;
+  color: #FFFFFF;
+  margin: 1em 0 3em;
+  padding: 15px;
+  position: absolute;
+  width: 200px;
+  z-index: 999;
+  text-align: center;
+}
+
+/* line 225, ../sass/custom.scss */
 .conference {
   text-align: center;
 }
-/* line 178, ../sass/custom.scss */
+/* line 227, ../sass/custom.scss */
 .conference img {
   width: 200px;
   margin: 20px;
 }
 
-/* line 184, ../sass/custom.scss */
+/* line 233, ../sass/custom.scss */
 .social {
   margin-left: 0;
   margin-bottom: 0;
   padding-left: 0;
   list-style: none;
 }
-/* line 189, ../sass/custom.scss */
+/* line 238, ../sass/custom.scss */
 .social li {
   display: inline-block;
   padding: 5px 8px;
   line-height: 1;
 }
 
-/* line 196, ../sass/custom.scss */
+/* line 245, ../sass/custom.scss */
 ul.tagit input[type="text"] {
   box-shadow: none;
 }
 
 @media (max-width: 996px) {
-  /* line 202, ../sass/custom.scss */
+  /* line 251, ../sass/custom.scss */
   body {
     padding: 0;
   }
 
-  /* line 205, ../sass/custom.scss */
+  /* line 254, ../sass/custom.scss */
   .github-fork img {
     width: 100px;
     height: 100px;
   }
 }
 @media (min-width: 979px) and (max-width: 1200px) {
-  /* line 211, ../sass/custom.scss */
+  /* line 260, ../sass/custom.scss */
   .description li {
     width: 290px;
     margin: 30px 0 15px 20px;
