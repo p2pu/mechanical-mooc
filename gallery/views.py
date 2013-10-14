@@ -94,6 +94,8 @@ def gallery(request, sequence):
 def save_bio(request, sequence):
     """ receive AJAX post from class gallery page """
 
+    url = reverse('gallery_gallery', kwargs={'sequence': sequence})
+
     # check if user signed up for the mooc
     signed_up = False
     try:
@@ -103,13 +105,12 @@ def save_bio(request, sequence):
         pass
 
     if not signed_up or signup['sequence'] != int(sequence):
-        messages.error(request, 'It looks like you did not sign up for this instance of the MOOC! You can sign up for the next time the MOOC runs.')
-        # redirect user to signup page
-        return http.HttpResponseRedirect(reverse('home'))
+        messages.error(request, 'We couln\'t find your signup. Please check if you just gave us the email you signed up with?')
+        #TODO: this error should not be possible
+        return http.HttpResponseRedirect(url)
 
     if request.POST['email'] != request.session.get('user_email'):
-        messages.error(request, 'We didn\'t recognize the email address you just gave us, maybe you signed up with a different one?')
-        url = reverse('gallery_gallery', kwargs={'sequence': sequence})
+        messages.error(request, 'Oops! We don\'t recognize that email. Maybe you signed up with a different one?')
         return http.HttpResponseRedirect(url)
 
     user_bio = gallery_api.save_bio(
@@ -122,9 +123,8 @@ def save_bio(request, sequence):
     )
     request.session['user_bio'] = user_bio
     
-    messages.success(request, 'Your information has been updated!')
+    messages.success(request, 'Sweet! You\'re now in the Class Photo!')
 
-    url = reverse('gallery_gallery', kwargs={'sequence': sequence})
     return http.HttpResponseRedirect(url)
 
 
@@ -133,10 +133,10 @@ def request_link(request):
     signup = None
     try:
         signup = signup_api.get_signup(request.POST.get('email'))
-        messages.success(request, 'You will shortly receive an email with a link to update your picture.')
+        messages.success(request, 'Check your inbox -- a tasty new link will be there shortly.')
         send_user_link(signup['email'], signup['key'])
     except:
-        messages.error(request, 'You have to sign up first!')
+        messages.error(request, 'Not so fast, partner -- you need to sign up for the Mechanical MOOC first!')
     url = reverse('gallery_sequence_redirect')
     if settings.DEBUG and signup:
         url += '?key={0}'.format(signup['key'])

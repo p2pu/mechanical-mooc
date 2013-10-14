@@ -1,1 +1,1 @@
-Your link to update your picture for {{ mooc_title }}.
+Here is your  tasty (and unique!) link to update your picture for the Class Photo.

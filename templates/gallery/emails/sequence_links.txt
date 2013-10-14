@@ -1,8 +1,8 @@
-Hey
+Hi there, Moocster,
 
-Before the course start we would like to have some fun and make a class photo of everyone taking this MOOC. Please take some time and let your peers know something about yourself.
+Before the course starts we would like to have some fun and make a class photo of everyone taking this MOOC. Take a second to upload your profile picture to the Class Photo!
 
-You can follow this link to add your information: http://{{ mooc_domain }}{% url gallery_gallery sequence=sequence %}?key=%recipient.key%
+You can follow this link to view your cohort and add your photo: http://{{ mooc_domain }}{% url gallery_gallery sequence=sequence %}?key=%recipient.key%
 
-Cheers
+What a good-looking group!
 The Mechanical MOOC

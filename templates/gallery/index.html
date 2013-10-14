@@ -2,18 +2,23 @@
 
 {% block body %}
 
-  {% if not user_email %}
-  <div class="alert">
   <div class="container">
-  <p>It looks like this is your fisrt time here. Maybe you haven't signed up or you are using a different device?</p>
-  <p><a href="{% url home %}">Click here</a> to sign up or fill in your email address to request an authorized link to update your profile. Otherwise feel free to have a look around.</p>
-  <form class="form-inline" action="{% url gallery_request_link %}" method="POST">
-    {% csrf_token %}
-    <input name="email" type="text" placeholder="email address">
-    <button type="submit">Send request</button>
-  </form>
+    <h1>Welcome to your Python Class Photo!</h1>
+    <p>Add your slick profile picture, and meet the folks taking the course.</p>
   </div>
-  </div>
+
+  {% if not user_email %}
+    <div class="container">
+      <div class="alert">
+        <p>It looks like this is your first time here. Have you signed up or are you using a different device?</p>
+        <p><a href="{% url home %}">Click here</a> to sign up or fill in your email address to request an authorized link to update your profile. Otherwise feel free to have a look around.</p>
+        <form class="form-inline" action="{% url gallery_request_link %}" method="POST">
+          {% csrf_token %}
+          <input name="email" type="text" placeholder="email address">
+          <button type="submit">Send request</button>
+        </form>
+      </div>
+    </div>
   {% endif %}
 
   <div class='container'>
@@ -26,8 +31,10 @@
           </a>
         {% elif forloop.counter == 12 and user_email %}
           <div class="profile">
-            <img class="profile-image" src="{{ STATIC_URL }}img/member-missing.png">
-            <a id="add-profile-button" href="#profile-modal" role="button" data-toggle="modal"><i class="icon-hand-up"> </i>Click to add your photo</a>
+            <a href="#profile-modal" role="button" data-toggle="modal">
+              <img class="profile-image" src="{{ STATIC_URL }}img/member-missing.png">
+            </a>
+            <p class="bubble">Click me to add your photo.</p>
           </div>
         {% else %}
           <img class="profile-mage" src="{{ STATIC_URL }}img/blank.gif">
@@ -42,9 +49,9 @@
             <span class="profile-bio">{{bio.bio}}</span>
           </div>
           {% if forloop.counter == 12 and user_bio %}
+            <div class="modal-footer">
             <a href="#profile-modal" role="button" class="btn" data-toggle="modal">Edit</a>
-          {% elif forloop.counter == 12 %}
-            <a href="#profile-modal" role="button" class="btn" data-toggle="modal">Create</a>
+            </div>
           {% endif %}
         </div>
       </li>
@@ -65,7 +72,7 @@
         <div class="modal-body">
           <h4>Get data from twitter (optional)</h4>
           <div id="twitter-error" class="hidden alert alert-error">
-            <p>We couldn't fetch your data from twitter. Please make sure that you used the correct twitter username.</p>
+            <p>Sorry, we couldn't get your Twitter info. Maybe try it without the "@"?</p>
           </div>
           <form id="twitter-form" action="{% url twitter_get_data %}" method="POST">
             {% csrf_token %}
@@ -81,12 +88,12 @@
          
           <div id="avatar-preview">
             {% if user_bio %}
-              <img src="{{ user_bio.avatar }}">
+              <img src="{{ user_bio.avatar }}" style="max-width:120px;max-height:120px;">
             {% endif %}
           </div>
 
           <div id="avatar-error" class="hidden alert alert-error">
-            <p>Something went wrong while trying to upload your picture. Please wait a while and try again.</p>
+            <p>OK, our bad -- something went wrong with the upload. Please give it 5 mins and try again.</p>
           </div>
 
           <form id="avatar-form" action="https://{{ AWS_S3_BUCKET }}.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
@@ -114,7 +121,7 @@
               </div>
             </div>
             <div class="control-group">
-              <label>Email</label>
+              <label>Email (the one you signed up with)</label>
               <div id="email_error"></div>
               <div class="controls">
                 <input class="input-block-level" type="text" name="email">
@@ -124,14 +131,14 @@
               <label>Name</label>
               <div id="name_error"></div>
               <div class="controls">
-                <input class="input-block-level" type="text" name="name">
+                <input class="input-block-level" type="text" name="name" {% if user_bio %}value="{{user_bio.name}}"{% endif %}>
               </div>
             </div>
             <div class="control-group">
               <label>Bio</label>
               <div id="bio_error"></div>
               <div class="controls">
-                <input class="input-block-level" type="text" name="bio">
+                <input class="input-block-level" type="text" name="bio" {% if user_bio %}value="{{user_bio.bio}}"{% endif %}>
               </div>
             </div>
             <button class="btn btn-primary btn-block" type="submit">Submit</button>

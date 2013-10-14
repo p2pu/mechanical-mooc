@@ -225,62 +225,75 @@ input[type="email"] {
 }
 
 /* line 200, ../sass/custom.scss */
-#add-profile-button {
+.bubble:before {
+  border-color: #2e88c4 rgba(0, 0, 0, 0);
+  border-style: solid;
+  border-width: 0 20px 20px 20px;
+  top: -20px;
+  content: "";
+  display: block;
+  left: 50px;
   position: absolute;
-  left: 30%;
-  top: 70%;
-  width: 250px;
-  text-size: 20pt;
-  color: black;
-  text-shadow: 1px 1px 2px white, 0 0 1em #FFF, 0 0 0.2em #FFF;
+  width: 0;
   z-index: 999;
-  font-size: xx-large;
-  font-weight: bold;
 }
 
 /* line 213, ../sass/custom.scss */
+.bubble {
+  background: linear-gradient(#2e88c4, #075698) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  border-radius: 10px 10px 10px 10px;
+  color: #FFFFFF;
+  margin: 1em 0 3em;
+  padding: 15px;
+  position: absolute;
+  width: 200px;
+  z-index: 999;
+  text-align: center;
+}
+
+/* line 225, ../sass/custom.scss */
 .conference {
   text-align: center;
 }
-/* line 215, ../sass/custom.scss */
+/* line 227, ../sass/custom.scss */
 .conference img {
   width: 200px;
   margin: 20px;
 }
 
-/* line 221, ../sass/custom.scss */
+/* line 233, ../sass/custom.scss */
 .social {
   margin-left: 0;
   margin-bottom: 0;
   padding-left: 0;
   list-style: none;
 }
-/* line 226, ../sass/custom.scss */
+/* line 238, ../sass/custom.scss */
 .social li {
   display: inline-block;
   padding: 5px 8px;
   line-height: 1;
 }
 
-/* line 233, ../sass/custom.scss */
+/* line 245, ../sass/custom.scss */
 ul.tagit input[type="text"] {
   box-shadow: none;
 }
 
 @media (max-width: 996px) {
-  /* line 239, ../sass/custom.scss */
+  /* line 251, ../sass/custom.scss */
   body {
     padding: 0;
   }
 
-  /* line 242, ../sass/custom.scss */
+  /* line 254, ../sass/custom.scss */
   .github-fork img {
     width: 100px;
     height: 100px;
   }
 }
 @media (min-width: 979px) and (max-width: 1200px) {
-  /* line 248, ../sass/custom.scss */
+  /* line 260, ../sass/custom.scss */
   .description li {
     width: 290px;
     margin: 30px 0 15px 20px;

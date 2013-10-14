@@ -35,7 +35,7 @@ class ViewTest(TestCase):
     def test_un_signedup_bio(self):
         c = Client()
         resp = c.post('/gallery/1/save_bio/', self.BIO_DATA)
-        self.assertRedirects(resp, '/')
+        self.assertRedirects(resp, '/gallery/1/')
         bios = gallery_api.get_bios(1)
         self.assertEquals(len(bios), 0)
 
