@@ -39,7 +39,6 @@ def send_user_link_to_whole_sequence( sequence ):
             signup['email']: {'key': signup['key']} for signup in signups
         }
 
-        #TODO: include campaign id for sequence 
         mailgun.api.send_mass_email(
             emails,
             settings.DEFAULT_FROM_EMAIL,
