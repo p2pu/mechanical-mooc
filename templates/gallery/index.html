@@ -21,10 +21,10 @@
     {% for bio in bios %}
       <li class="profile-wrapper">
         {% if bio.avatar %}
-        <a class="profile" href="#profile-{{forloop.counter}}-modal" role="button" data-toggle="modal">
-          <img class="profile-image" src="{{bio.avatar}}">
-        </a>
-        {% elif forloop.counter == 12 %}
+          <a class="profile" href="#profile-{{forloop.counter}}-modal" role="button" data-toggle="modal">
+            <img class="profile-image" src="{{bio.avatar}}">
+          </a>
+        {% elif forloop.counter == 12 and user_email %}
           <div class="profile">
             <img class="profile-image" src="{{ STATIC_URL }}img/member-missing.png">
             <a id="add-profile-button" href="#profile-modal" role="button" data-toggle="modal"><i class="icon-hand-up"> </i>Click to add your photo</a>
