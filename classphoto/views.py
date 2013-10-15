@@ -60,7 +60,7 @@ def classphoto(request, sequence):
 
     bios = classphoto_api.get_bios(sequence, limit=0)
     bios += [{'email': ''} for i in range(len(bios), 36)]
-    bios = random.sample(bios, len(bios))
+    bios = random.sample(bios, 36)
 
     # if user is logged in and has a bio, display it!
     user_bio = request.session.get('user_bio', None)
