@@ -94,7 +94,9 @@
           <div id="avatar-error" class="hidden alert alert-error">
             <p>OK, our bad -- something went wrong with the upload. Please give it 5 mins and try again.</p>
           </div>
-
+          <div id="avatar-missing" class="hidden alert alert-error">
+            <p>Whoops, did you forgot your picture? Grab it from twitter or upload an image from your computer.</p>
+          </div>
           <form id="avatar-form" action="https://{{ AWS_S3_BUCKET }}.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
             <input type="hidden" name="key" value = "">
             <input type="hidden" name="AWSAccessKeyId" value="{{ AWS_ACCESS_KEY_ID }}">
@@ -198,6 +200,7 @@
         disableForm('twitter-form');
         startAvatarLoading();
         $('#avatar-error').addClass('hidden');
+        $('#avatar-missing').addClass('hidden');
 
         // upload image to Amazon S3
         var frm = $('#avatar-form');
@@ -244,6 +247,12 @@
               error.appendTo($("#" + name + "_error"));
           },
           submitHandler: function (form) {
+              
+              var avatar = $('#bio-form :input[name=avatar]').val();
+              if (avatar.length == 0){
+                  $('#avatar-missing').removeClass('hidden')
+                  return false;
+              }
               form.submit();
           }
       });
@@ -252,6 +261,7 @@
           e.preventDefault();
           $('#avatar-error').addClass('hidden');
           $('#twitter-error').addClass('hidden');
+          $('#avatar-missing').addClass('hidden');
           disableForm('bio-form');
           disableForm('avatar-form');
           $('#twitter-loading').removeClass('hidden');
