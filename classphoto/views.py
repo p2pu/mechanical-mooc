@@ -58,8 +58,8 @@ def classphoto(request, sequence):
         'THEANSWERIS42', request.session.session_key, hashlib.sha1
     ).hexdigest()
 
-    bios = classphoto_api.get_bios(sequence, limit=32)
-    bios += [{'email': ''} for i in range(len(bios), 32)]
+    bios = classphoto_api.get_bios(sequence, limit=0)
+    bios += [{'email': ''} for i in range(len(bios), 36)]
     bios = random.sample(bios, len(bios))
 
     # if user is logged in and has a bio, display it!
@@ -95,6 +95,8 @@ def save_bio(request, sequence):
     """ receive AJAX post from class classphoto page """
 
     url = reverse('classphoto_classphoto', kwargs={'sequence': sequence})
+
+    # TODO validate data on the server side also!
 
     # check if user signed up for the mooc
     signed_up = False
