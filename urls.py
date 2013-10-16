@@ -18,6 +18,7 @@ urlpatterns = patterns('',
 
     url(r'^about/$', TemplateView.as_view(template_name="about.html"), name="about"),
     url(r'^curriculum/$', TemplateView.as_view(template_name="curriculum.html"), name="curriculum"),
+    url(r'^badges/$', TemplateView.as_view(template_name="badges.html"), name="badges"),
     url(r'', include('signup.urls')),
     url(r'^mail/', include('mail.urls')),
     url(r'^unsubscribe/', include('unsubscribe.urls')),
