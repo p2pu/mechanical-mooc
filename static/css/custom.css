@@ -1,186 +1,203 @@
 /* line 5, ../sass/custom.scss */
 .navbar .brand {
-  float: right;
+    float: right;
 }
-
+.top-margin{
+    margin-top: 20px;
+}
+.clear-left-margin{
+    margin-left: 0;
+}
+.add-top-margin{
+    margin-top: 30px;
+}
 /* line 9, ../sass/custom.scss */
 .jumbotron {
-  background-image: url("/static/img/banner.jpg");
-  background-size: cover;
-  background-position: 0% 0%;
-  height: 334px;
-  margin-bottom: -60px;
-  font-size: 21px;
-  line-height: 1.3em;
-  text-shadow: 0 0 12px rgba(0, 0, 0, 0.5), 0 0 32px rgba(0, 0, 0, 0.25), 0 1px rgba(0, 0, 0, 0.75);
-  position: relative;
-  text-align: center;
-  position: relative;
+    background-image: url("/static/img/banner.jpg");
+    background-size: cover;
+    background-position: 0% 0%;
+    height: 334px;
+    margin-bottom: -60px;
+    font-size: 21px;
+    line-height: 1.3em;
+    text-shadow: 0 0 12px rgba(0, 0, 0, 0.5), 0 0 32px rgba(0, 0, 0, 0.25), 0 1px rgba(0, 0, 0, 0.75);
+    position: relative;
+    text-align: center;
+    position: relative;
 }
+
 /* line 21, ../sass/custom.scss */
 .jumbotron .head-text {
-  position: absolute;
-  bottom: 45%;
-  width: 100%;
+    position: absolute;
+    bottom: 45%;
+    width: 100%;
 }
+
 /* line 26, ../sass/custom.scss */
 .jumbotron .pre-title {
-  font-size: 1.3em;
-  margin: 15px 0;
-  color: #FFF;
+    font-size: 1.3em;
+    margin: 15px 0;
+    color: #FFF;
 }
+
 /* line 32, ../sass/custom.scss */
 .jumbotron .title {
-  color: #FFF;
+    color: #FFF;
 }
 
 /* line 37, ../sass/custom.scss */
 .subhead {
-  height: inherit;
-  margin-bottom: 30px;
-  padding: 20px 0;
-  text-align: left;
+    height: inherit;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    text-align: left;
 }
 
 /* line 44, ../sass/custom.scss */
 .description {
-  margin: 0 0 10px 0;
-  padding: 30px;
-  background-color: #FFF;
-  position: relative;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.1);
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
+    margin: 0 0 10px 0;
+    padding: 30px;
+    background-color: #FFF;
+    position: relative;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
+
 /* line 53, ../sass/custom.scss */
 .description ul {
-  margin-left: -30px;
+    margin-left: -30px;
 }
+
 /* line 56, ../sass/custom.scss */
 .description li {
-  float: left;
-  margin-left: 20px;
-  width: 300px;
-  margin: 30px 0 20px 5%;
+    float: left;
+    margin-left: 20px;
+    width: 300px;
+    margin: 30px 0 20px 5%;
 }
+
 /* line 61, ../sass/custom.scss */
 .description li h2.pull-left i {
-  margin: 11px 15px 0 0;
+    margin: 11px 15px 0 0;
 }
+
 /* line 65, ../sass/custom.scss */
 .description li .description-text h2 {
-  min-height: 95px;
+    min-height: 95px;
 }
 
 /* line 72, ../sass/custom.scss */
 #step2, #step3 {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 /* line 76, ../sass/custom.scss */
 #emailForm {
-  margin-bottom: 50px;
+    margin-bottom: 50px;
 }
 
 /* line 79, ../sass/custom.scss */
 .full-width {
-  width: 99%;
+    width: 99%;
 }
 
 /* Progress Bar */
 /* line 86, ../sass/custom.scss */
 .progress-step .step-full, .progress-step .step-empty {
-  height: 30px;
-  width: 30px;
-  background-color: #0e90d2;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  position: absolute;
-  left: 0%;
-  margin-top: -6px;
-  margin-left: -14px;
-  font-size: 12pt;
-  color: white;
-  text-shadow: 0px 0px 3px #222;
-  text-align: center;
-  line-height: 28px;
-  font-weight: bold;
+    height: 30px;
+    width: 30px;
+    background-color: #0e90d2;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    position: absolute;
+    left: 0%;
+    margin-top: -6px;
+    margin-left: -14px;
+    font-size: 12pt;
+    color: white;
+    text-shadow: 0px 0px 3px #222;
+    text-align: center;
+    line-height: 28px;
+    font-weight: bold;
 }
+
 /* line 104, ../sass/custom.scss */
 .progress-step .step-empty {
-  background-color: #51A351;
+    background-color: #51A351;
 }
 
 /* line 110, ../sass/custom.scss */
 .progress-step-square .step-full,
 .progress-step-square .step-empty {
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
 }
 
 /* line 115, ../sass/custom.scss */
 .progress.progress-step {
-  margin: 14px 17px 14px 14px;
-  position: relative;
-  overflow: visible;
+    margin: 14px 17px 14px 14px;
+    position: relative;
+    overflow: visible;
 }
 
 /* Form */
 /* line 123, ../sass/custom.scss */
 #step2 .help-block {
-  margin-top: 0;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  color: #999;
+    margin-top: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #999;
 }
 
 /* line 130, ../sass/custom.scss */
 #step2 select {
-  margin-top: 5px;
+    margin-top: 5px;
 }
 
 /* line 135, ../sass/custom.scss */
 #infoForm .control-group.error .controls label {
-  color: #333;
+    color: #333;
 }
 
 /* Success page */
 /* line 140, ../sass/custom.scss */
 #step3 i {
-  font-size: 130px;
+    font-size: 130px;
 }
 
 /* line 143, ../sass/custom.scss */
 #step3 {
-  text-align: center;
+    text-align: center;
 }
 
 /* line 147, ../sass/custom.scss */
 .about p, .faq p {
-  font-size: 18px;
-  text-align: justify;
-  line-height: 26px;
-  padding-top: 0.7em;
+    font-size: 18px;
+    text-align: justify;
+    line-height: 26px;
+    padding-top: 0.7em;
 }
 
 /* line 154, ../sass/custom.scss */
 .faq h2 {
-  padding-top: 1em;
+    padding-top: 0.5em;
 }
 
 /* line 159, ../sass/custom.scss */
 input[type="email"] {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 /* line 164, ../sass/custom.scss */
 .input-append,
 .input-prepend {
-  font-size: 12px;
+    font-size: 12px;
 }
+
 /* line 168, ../sass/custom.scss */
 .input-append .add-on,
 .input-append .btn,
@@ -188,59 +205,72 @@ input[type="email"] {
 .input-prepend .add-on,
 .input-prepend .btn,
 .input-prepend .btn-group {
-  margin-right: -6px;
+    margin-right: -6px;
 }
+
 /* line 172, ../sass/custom.scss */
 .input-append .alert,
 .input-prepend .alert {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 /* line 177, ../sass/custom.scss */
 .conference {
-  text-align: center;
+    text-align: center;
 }
+
 /* line 179, ../sass/custom.scss */
 .conference img {
-  width: 200px;
-  margin: 20px;
+    width: 200px;
+    margin: 20px;
 }
 
 /* line 185, ../sass/custom.scss */
 .social {
-  margin-left: 0;
-  margin-bottom: 0;
-  padding-left: 0;
-  list-style: none;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
 }
+
 /* line 190, ../sass/custom.scss */
 .social li {
-  display: inline-block;
-  padding: 5px 8px;
-  line-height: 1;
+    display: inline-block;
+    padding: 5px 8px;
+    line-height: 1;
 }
 
 /* line 197, ../sass/custom.scss */
 ul.tagit input[type="text"] {
-  box-shadow: none;
+    box-shadow: none;
+}
+
+.badges-list {
+    width: 100%;
+    display: table;
+}
+.badge-item{
+    float:none;
+    display: table-cell;
 }
 
 @media (max-width: 996px) {
-  /* line 203, ../sass/custom.scss */
-  body {
-    padding: 0;
-  }
+    /* line 203, ../sass/custom.scss */
+    body {
+        padding: 0;
+    }
 
-  /* line 206, ../sass/custom.scss */
-  .github-fork img {
-    width: 100px;
-    height: 100px;
-  }
+    /* line 206, ../sass/custom.scss */
+    .github-fork img {
+        width: 100px;
+        height: 100px;
+    }
 }
+
 @media (min-width: 979px) and (max-width: 1200px) {
-  /* line 212, ../sass/custom.scss */
-  .description li {
-    width: 290px;
-    margin: 30px 0 15px 20px;
-  }
+    /* line 212, ../sass/custom.scss */
+    .description li {
+        width: 290px;
+        margin: 30px 0 15px 20px;
+    }
 }

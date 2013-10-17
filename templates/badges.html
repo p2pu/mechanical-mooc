@@ -1,18 +1,36 @@
 {% extends 'base.html' %}
 
 {% block body %}
+	<div id="step1" class="container">
+		<h1>Nifty Badges for #PWYM</h1>
 
-    <div id="step1" class="container">
-      <h1>Nifty Badges for #PWYM</h1>
-      <div class="row">
-        <div class="span12 faq">
+		<div class="row">
+			<div class="span12 faq">
 
-          <p>For each module of Play With Your Music, you can submit your project for a badge. You'll get some feedback from your fellow learners, and a spiffy badge to show off on the interwebs.</p>
-          <iframe id="badge_embed" type="text/html" frameborder="0" height="310" width="210" src="http://badges.p2pu.org/en/badge/view/209/embedded/?rendering=normal"></iframe>
-          <iframe id="badge_embed" type="text/html" frameborder="0" height="310" width="210" src="http://badges.p2pu.org/en/badge/view/210/embedded/?rendering=normal"></iframe>
-          <iframe id="badge_embed" type="text/html" frameborder="0" height="310" width="210" src="http://badges.p2pu.org/en/badge/view/211/embedded/?rendering=normal"></iframe>
-          <iframe id="badge_embed" type="text/html" frameborder="0" height="310" width="210" src="http://badges.p2pu.org/en/badge/view/212/embedded/?rendering=normal"></iframe>
-
-          <p>To find out more about open badges and the learning theory behind them, check out badges.p2pu.org.</p>
-
+				<p>For each module of Play With Your Music, you can submit your project for a Badge. You'll get some feedback
+				   from
+				   your fellow learners, and a spiffy badge to show off on the interwebs.</p>
+				<ul class="unstyled badges-list">
+					<li class="badge-item">
+						<iframe id="badge_embed" type="text/html" frameborder="0" height="310" width="210"
+						        src="http://badges.p2pu.org/en/badge/view/209/embedded/?rendering=normal"></iframe>
+					</li>
+					<li class="badge-item">
+						<iframe id="badge_embed" type="text/html" frameborder="0" height="310" width="210"
+						        src="http://badges.p2pu.org/en/badge/view/210/embedded/?rendering=normal"></iframe>
+					</li>
+					<li class="badge-item">
+						<iframe id="badge_embed" type="text/html" frameborder="0" height="310" width="210"
+						        src="http://badges.p2pu.org/en/badge/view/211/embedded/?rendering=normal"></iframe>
+					</li>
+					<li class="badge-item">
+						<iframe id="badge_embed" type="text/html" frameborder="0" height="310" width="210"
+						        src="http://badges.p2pu.org/en/badge/view/212/embedded/?rendering=normal"></iframe>
+					</li>
+				</ul>
+				<p>To find out more about open badges and the learning theory behind them, check out <a
+						href="http://badges.p2pu.org/">badges.p2pu.org</a>.</p>
+			</div>
+		</div>
+	</div>
 {% endblock %}
