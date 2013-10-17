@@ -6,13 +6,13 @@ var MMOOC = window.MMOOC || {};
     'use strict';
 
     var init = function () {
-        $(function () {
-            $('.navbar-btn').sidr({
-                name: 'main-menu-panel',
-                source: '.nav-collapse.collapse'
+            $(function () {
+                $('.navbar-btn').sidr({
+                    name: 'main-menu-panel',
+                    source: '.nav-collapse.collapse'
+                });
             });
-        });
-    },
+        },
         timezoneDetectionHandler = function () {
             var timezone = jstz.determine();
             $("#timezone").val(timezone.name());
@@ -79,10 +79,24 @@ var MMOOC = window.MMOOC || {};
                 timezoneDetectionHandler();
                 infoFormValidationHandler();
             });
+        },
+        tocify = function (selector) {
+            $(function () {
+                $("#toc").tocify({
+                    context: '.faq',
+                    selectors: selector,
+                    hashGenerator: 'pretty',
+                    history: false,
+                    scrollTo: 70,
+                    highlightOffset: 20,
+                    extendPage: false
+                });
+            });
         };
 
     MMOOC.Splash = {};
     MMOOC.Splash.init = init;
     MMOOC.Splash.signup = signup;
+    MMOOC.Splash.tocify = tocify;
 
 }(jQuery, MMOOC));
