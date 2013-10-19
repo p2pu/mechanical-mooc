@@ -4,6 +4,9 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_http_methods
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
+from django.utils import simplejson as json
+from django.core.serializers.json import DjangoJSONEncoder
 
 from forms import SignupForm
 from signup import models as signup_model
@@ -44,3 +47,10 @@ def count(request, sequence):
         context,
         context_instance=RequestContext(request)
     )
+
+
+@login_required
+def export(request, sequence):
+    sequence = int(sequence)
+    signups = signup_model.get_signups(sequence)
+    return http.HttpResponse(json.dumps(signups, cls=DjangoJSONEncoder), content_type='application/json')
