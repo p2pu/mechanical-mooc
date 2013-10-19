@@ -16,11 +16,13 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^about/$', TemplateView.as_view(template_name="about.html")),
-    url(r'^faq/$', TemplateView.as_view(template_name="faq.html")),
+    url(r'^about/$', TemplateView.as_view(template_name="about.html"), name="about"),
+    url(r'^faq/$', TemplateView.as_view(template_name="faq.html"), name="faq"),
     url(r'', include('signup.urls')),
     url(r'^mail/', include('mail.urls')),
     url(r'^unsubscribe/', include('unsubscribe.urls')),
+    url(r'^classphoto/', include('classphoto.urls')),
+    url(r'^twitter/', include('twitter.urls')),
     url(r'accounts/login/', 'django.contrib.auth.views.login'),
 )
 

@@ -66,7 +66,8 @@ def _signup2json( signup_db ):
         'questions': simplejson.loads(signup_db.questions),
         'sequence': signup_db.sequence,
         'date_created': signup_db.date_added,
-        'date_updated': signup_db.date_updated
+        'date_updated': signup_db.date_updated,
+        'key': signup_db.invite_code
     }
     return signup
 
@@ -78,6 +79,17 @@ def get_signup( email ):
     signup_db = db.UserSignup.objects.get(email=email, date_deleted__isnull=True)
     
     return _signup2json(signup_db)
+
+
+def get_signup_by_invite_code( invite_code ):
+    user_set = db.UserSignup.objects.filter(
+        invite_code=invite_code,
+        date_deleted__isnull=True
+    )
+    if not user_set.exists():
+        raise Exception()
+
+    return _signup2json(user_set[0])
 
 
 def get_signups( sequence=None ):

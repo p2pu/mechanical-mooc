@@ -1,0 +1,299 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+  <div class="container">
+    <h1>Welcome to your Python Class Photo!</h1>
+    <p>Add your slick profile picture, and meet the folks taking the course.</p>
+  </div>
+
+  {% if not user_email %}
+    <div class="container">
+      <div class="alert">
+        <p>To add your photo you need to use your own unique link to log in to this page.</p>
+        <form class="form-inline" action="{% url classphoto_request_link %}" method="POST">
+          {% csrf_token %}
+          <input name="email" type="text" placeholder="email address">
+          <button type="submit">Get link</button>
+        </form>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class='container'>
+    <ul class='class-gallery'>
+    {% for bio in bios %}
+      <li class="profile-wrapper">
+        {% if bio.avatar %}
+          <a class="profile" href="#profile-{{forloop.counter}}-modal" role="button" data-toggle="modal">
+            <img class="profile-image" src="{{bio.avatar}}">
+          </a>
+        {% elif forloop.counter == 12 and user_email %}
+          <div class="profile">
+            <a href="#profile-modal" role="button" data-toggle="modal">
+              <img class="profile-image" src="{{ STATIC_URL }}img/member-missing.png">
+            </a>
+            <p class="bubble">Click me to add your photo.</p>
+          </div>
+        {% else %}
+          <img class="profile-mage" src="{{ STATIC_URL }}img/blank.gif">
+        {% endif %}
+        <div id="profile-{{forloop.counter}}-modal" class="profile-edit modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">{{bio.name}}</h3>
+          </div>
+          <div class="modal-body">
+            <img class="profile-image" src="{{bio.avatar}}">
+            <span class="profile-bio">{{bio.bio}}</span>
+          </div>
+          {% if forloop.counter == 12 and user_bio %}
+            <div class="modal-footer">
+            <a href="#profile-modal" role="button" class="btn" data-toggle="modal">Edit</a>
+            </div>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <div class="container">
+    <!-- if user not added yet, show form/button to add user -->
+    {% if user_email %}
+    <div class="row">
+    
+      <div id="profile-modal" class="profile-edit modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="myModalLabel">Profile info</h3>
+        </div>
+        <div class="modal-body">
+          <h4>Get data from twitter (optional)</h4>
+          <div id="twitter-error" class="hidden alert alert-error">
+            <p>Sorry, we couldn't get your Twitter info. Maybe try it without the "@"?</p>
+          </div>
+          <form id="twitter-form" action="{% url twitter_get_data %}" method="POST">
+            {% csrf_token %}
+            <label>Twitter handle</label>
+            <div class="input-prepend input-append">
+              <span class="add-on">@</span>
+              <input type="text" name="twitter_handle" >
+              <button type="submit" class="btn btn-primary"><span id="twitter-loading" class="hidden"><i class='icon-spinner icon-spin icon-large'></i> </span>Get data from twitter</button>
+            </div>
+          </form>
+
+          <h4>Or fill it in</h4>
+         
+          <div id="avatar-preview">
+            {% if user_bio %}
+              <img src="{{ user_bio.avatar }}" style="max-width:120px;max-height:120px;">
+            {% endif %}
+          </div>
+
+          <div id="avatar-error" class="hidden alert alert-error">
+            <p>OK, our bad -- something went wrong with the upload. Please give it 5 mins and try again.</p>
+          </div>
+          <div id="avatar-missing" class="hidden alert alert-error">
+            <p>Whoops, did you forgot your picture? Grab it from twitter or upload an image from your computer.</p>
+          </div>
+          <form id="avatar-form" action="https://{{ AWS_S3_BUCKET }}.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="key" value = "">
+            <input type="hidden" name="AWSAccessKeyId" value="{{ AWS_ACCESS_KEY_ID }}">
+            <input type="hidden" name="acl" value="public-read">
+            <input type="hidden" name="success_action_status" value="201">
+            <input type="hidden" name="policy" value="{{ s3_policy }}">
+            <input type="hidden" name="signature" value="{{ s3_signature }}">
+            <input type="hidden" name="Content-Type" value="image/png">
+            <div class="control-group">
+              <div class="controls">
+                <input id="profile-pic-input" name="file" type="file">
+              </div>
+            </div>
+          </form>
+         
+          <form id="bio-form" action="{% url classphoto_save_bio sequence=sequence %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="avatar" {% if user_bio %}value="{{user_bio.avatar}}"{% endif %}>
+            <div class="control-group hidden">
+              <label>Twitter handle (optional)</label>
+              <div class="controls">
+                <input class="input-block-level" type="text" name="twitter">
+              </div>
+            </div>
+            <div class="control-group">
+              <label>Email (the one you signed up with)</label>
+              <div id="email_error"></div>
+              <div class="controls">
+                <input class="input-block-level" type="text" name="email">
+              </div>
+            </div>
+            <div class="control-group">
+              <label>Name</label>
+              <div id="name_error"></div>
+              <div class="controls">
+                <input class="input-block-level" type="text" name="name" {% if user_bio %}value="{{user_bio.name}}"{% endif %}>
+              </div>
+            </div>
+            <div class="control-group">
+              <label>Bio</label>
+              <div id="bio_error"></div>
+              <div class="controls">
+                <input class="input-block-level" type="text" name="bio" {% if user_bio %}value="{{user_bio.bio}}"{% endif %}>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+{% block js %}
+  <script>
+    function getS3AvatarUrl(){
+        var avatar_url = 'https://{{ AWS_S3_BUCKET }}.s3.amazonaws.com/';
+        avatar_url = avatar_url + '{{ key_prefix }}';
+        avatar_url = avatar_url + $('#profile-pic-input')[0].files[0].name;
+        return avatar_url;
+    }
+
+    function setAvatar(url){
+        $('#avatar-preview').html('<img style="widht:120px;height:120px;" src="' + url + '">');
+    }
+
+    function startAvatarLoading(){
+        $('#avatar-preview').html('<i class="icon-spinner icon-spin icon-large"></i>');
+    }
+
+    function stopAvatarLoading(){
+        $('#avatar-preview').html('');
+    }
+
+
+    function disableForm(form_id){
+        $('#' + form_id + ' :input').attr('disabled', true);
+        $('#' + form_id + ' :input[type="submit"]').disabled = true;
+        $('#' + form_id + ' :input[type="submit"]').addClass('disabled');
+    }
+
+    function enableForm(form_id){
+        $('#' + form_id + ' :input').removeAttr('disabled');
+        $('#' + form_id + ' :input[type="submit"]').disabled = false;
+        $('#' + form_id + ' :input[type="submit"]').removeClass('disabled');
+    }
+    
+    $(document).ready(function() {
+      $('#profile-pic-input').change( function (e){
+        // determine mime type and set "Content-Value" input
+        var mime_type = e.target.files[0].type;
+        $('#avatar-form :input[name=Content-Type]').val(mime_type);
+        
+        // set key value for uploaded file
+        var key = '{{ key_prefix }}' + e.target.files[0].name;
+        $('#avatar-form :input[name=key]').val(key);
+
+        disableForm('bio-form');
+        disableForm('twitter-form');
+        startAvatarLoading();
+        $('#avatar-error').addClass('hidden');
+        $('#avatar-missing').addClass('hidden');
+
+        // upload image to Amazon S3
+        var frm = $('#avatar-form');
+        var form_data = new FormData(frm[0]);
+        $.ajax({
+          type: 'POST',
+          url: frm.attr('action'),
+          data: form_data,
+          processData: false,
+          contentType: false,
+          cache: false,
+          success: function(){
+              setAvatar(getS3AvatarUrl());
+              $('#bio-form :input[name=avatar]').val(getS3AvatarUrl());
+          },
+          error: function(xhr, status, error){
+              $('#avatar-error').removeClass('hidden');
+              stopAvatarLoading();
+          },
+          complete: function (xhr, msg){
+              enableForm('bio-form');
+              enableForm('twitter-form');
+          }
+        });
+      });
+      
+      $("#bio-form").validate({
+          debug: true,
+          rules: {
+              avatar: "required",
+              email: { required: true, email: true},
+              name: "required",
+              bio: "required",
+          },
+          errorClass: "error",
+          highlight: function (element, errorClass) {
+              $(element).parents(".control-group").addClass(errorClass);
+          },
+          unhighlight: function (element, errorClass, validClass) {
+              $(element).parents(".control-group").removeClass(errorClass);
+          },
+          errorPlacement: function (error, element) {
+              var name = $(element).attr("name");
+              error.appendTo($("#" + name + "_error"));
+          },
+          submitHandler: function (form) {
+              
+              var avatar = $('#bio-form :input[name=avatar]').val();
+              if (avatar.length == 0){
+                  $('#avatar-missing').removeClass('hidden')
+                  return false;
+              }
+              form.submit();
+          }
+      });
+
+      $('#twitter-form').submit(function(e){
+          e.preventDefault();
+          $('#avatar-error').addClass('hidden');
+          $('#twitter-error').addClass('hidden');
+          $('#avatar-missing').addClass('hidden');
+          disableForm('bio-form');
+          disableForm('avatar-form');
+          $('#twitter-loading').removeClass('hidden');
+          $.ajax({
+              type: 'POST',
+              url: $('#twitter-form').attr('action'),
+              data: $('#twitter-form').serialize(),
+              cache: false,
+              success: function (data, textStatus, jqXHR){
+                  var jsonData = $.parseJSON(data);
+                  setAvatar(jsonData.avatar);
+                  var twitterHandle = $('#twitter-form :input[name=twitter_handle]').val();
+                  $('#bio-form :input[name=twitter]').val(twitterHandle);
+                  $('#bio-form :input[name=twitter]').parents(".control-group").removeClass('hidden');
+                  $('#bio-form :input[name=avatar]').val(jsonData.avatar);
+                  $('#bio-form :input[name=name]').val(jsonData.name);
+                  $('#bio-form :input[name=bio]').val(jsonData.bio);
+                  setTimeout(function(){
+                      $('#bio-form :input[name=email]').focus();
+                  }, 1000);
+              },
+              error: function () {
+                  $('#twitter-error').removeClass('hidden');
+              },
+              complete: function () {
+                  $('#twitter-loading').addClass('hidden');
+                  enableForm('bio-form');
+                  enableForm('avatar-form');
+              }
+          });
+      });
+
+    });
+  </script>
+{% endblock %}
