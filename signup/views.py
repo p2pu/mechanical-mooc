@@ -29,3 +29,18 @@ def signup( request ):
 
 def signup_success( request ):
     return render_to_response('signup/success.html', {}, context_instance=RequestContext(request))
+
+
+def count(request, sequence):
+    sequence = int(sequence)
+
+    context = {
+        'signup_count': str(len(signup_model.get_signups(sequence))),
+        'sequence': sequence
+    }
+
+    return render_to_response(
+        'signup/count.html',
+        context,
+        context_instance=RequestContext(request)
+    )
