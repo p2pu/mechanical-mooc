@@ -12,7 +12,7 @@ from forms import SignupForm
 from signup import models as signup_model
 
 @require_http_methods(['POST'])
-def signup( request ):
+def signup( request, iframe=False ):
 
     form = SignupForm(request.POST)
 
@@ -27,7 +27,10 @@ def signup( request ):
 
     signup_model.create_or_update_signup(email, signup_questions )
 
+    if iframe:
+        return http.HttpResponseRedirect(reverse('signup_success_iframe'))
     return http.HttpResponseRedirect(reverse('signup_success'))
+
 
 
 def signup_success( request ):
