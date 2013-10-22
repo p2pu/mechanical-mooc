@@ -39,6 +39,15 @@ def save_bio( email, sequence, name, bio, avatar, twitter=None ):
     return _bio2dict(bio_db)
 
 
+def has_bio( email, sequence ):
+    bios_db = db.UserBio.objects.filter(
+        email=email,
+        sequence=sequence,
+        date_deleted__isnull=True
+    )
+    return bios_db.exists()
+
+
 def get_bio( email ):
     bios_db = db.UserBio.objects.filter(
         email=email,

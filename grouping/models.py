@@ -3,6 +3,8 @@ from django.conf import settings
 from groups import models as group_model
 from signup import models as signup_model
 from mailgun import api as mailgun_api
+from grouping.gentle_python_filters import filter_group_with_photo
+from grouping.gentle_python_filters import filter_group_without_photo
 
 import random
 import math
@@ -11,7 +13,8 @@ import pytz
 
 
 def shuffle(rac):
-    # shuffle items in a random access container
+    """ shuffle items in a random access container """
+    #NOTE why not return random.sample(rac, len(rac)) 
     shuffled = []
     while len(rac):
         ridx = random.randint(0, len(rac)-1)
@@ -20,14 +23,18 @@ def shuffle(rac):
     return shuffled
 
 
-def prepare_groups(sequence, max_group_size=40):
+def signup_grouping_filter(signup):
+    """ return True if the signup should be grouped """
+    return signup['questions']['groupRadios']
+
+
+def prepare_groups(sequence, max_group_size=40, signup_grouping_filter=signup_grouping_filter):
     """ Do grouping for sequence """
      
     signups = signup_model.get_signups(sequence)
     tz_grouping = {}
 
-    filter_group_preference = lambda su: su['questions']['groupRadios']
-    for user_signup in filter(filter_group_preference, signups):
+    for user_signup in filter(signup_grouping_filter, signups):
         timezone = user_signup['questions']['timezone']
         tz_offset = int(datetime.datetime.now(pytz.timezone(timezone)).strftime('%z'))
         user_signup['tz_offset'] = tz_offset
@@ -61,12 +68,13 @@ def create_groups(groups, sequence, name_prefix="Group"):
 
 
 def do_grouping(sequence):
-    groups = prepare_groups(sequence)
+    groups = prepare_groups(sequence, signup_grouping_filter=filter_group_with_photo)
+    groups += prepare_groups(sequence, signup_grouping_filter=filter_group_without_photo)
     create_groups(groups, sequence, 'Group {0}'.format(sequence))
 
     # handle singups not in group
     signups = signup_model.get_signups(sequence)
-    filter_group_preference = lambda su: su['questions']['groupRadios'] == False
+    filter_group_preference = lambda su: su['questions']['groupRadios'] == 'false'
     signups = filter(filter_group_preference, signups)
     group_address = 'ungrouped-s-{0}@{1}'.format(sequence, settings.EMAIL_DOMAIN)
     group_name = 'Ungrouped S{0}'.format(sequence, settings.EMAIL_DOMAIN)
