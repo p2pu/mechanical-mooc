@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.template.loader import render_to_string
+import django.utils.simplejson as json
 
 from mail import models as mail_api
 from groups import models as group_api
@@ -11,8 +12,9 @@ def send_email( email_uri ):
     """ Send the email to the intended target audience """
     email = mail_api.get_email(email_uri)
 
-    recipient_variables = {}
+    recipient_variables = None
     if email['audience'] == 'groups':
+        recipient_variables = {}
         groups = group_api.get_groups(email['sequence'])
         to_address = ','.join([g['address'] for g in groups])
         for group in groups:
@@ -22,6 +24,7 @@ def send_email( email_uri ):
                 context = {'bios': bios}
                 bios_snip = render_to_string('classphoto/emails/group_intro.html', context)
                 recipient_variables['email']['bios_snip'] = bios_snip
+        recipient_variables = json.dumps(recipient_variables)
     elif email['audience'] == 'individuals':
         to_address = sequence_api.sequence_list_name(email['sequence'])
 
