@@ -10,7 +10,7 @@ def call_mailgun(method, api_sub_url, data, params=None):
     return requests.request(method, api_url, auth=auth, data=data, params=params)
 
 
-def send_email(to_email, from_email, subject, text_body, html_body=None, tags=None, campaign_id=None):
+def send_email(to_email, from_email, subject, text_body, html_body=None, tags=None, campaign_id=None, recipient_variables=None):
     return send_mass_email(
         [to_email],
         from_email,
@@ -18,7 +18,8 @@ def send_email(to_email, from_email, subject, text_body, html_body=None, tags=No
         text_body,
         html_body,
         tags,
-        campaign_id
+        campaign_id,
+        recipient_variables
     )
 
 

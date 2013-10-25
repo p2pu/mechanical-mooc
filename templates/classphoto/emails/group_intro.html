@@ -1,0 +1,11 @@
+<p>Here are the beautiful mugs of all the people in your group!</p>
+
+<ul class='class-gallery'>
+  {% for bio in bios %}
+    <li style="list-style:none; width:120px; height:120px; float:left; margin:0px;">
+        <div class="profile">
+          <img style="max-height:120px;max-width:120px;display:block;margin:0 auto;" src="{{bio.avatar}}">
+        </div>
+    </li>
+  {% endfor %}
+</ul>

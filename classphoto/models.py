@@ -64,3 +64,11 @@ def get_bios( sequence, limit=100 ):
     if limit > 0:
         bios_db = bios_db[:limit]
     return [ _bio2dict(bio) for bio in bios_db ]
+
+
+def get_bios_by_email( sequence, emails ):
+    bios_db = db.UserBio.objects.filter(
+        sequence=sequence,
+        email__in=emails
+    )
+    return [ _bio2dict(bio) for bio in bios_db ]
