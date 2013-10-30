@@ -52,7 +52,7 @@ def sequence_redirect(request):
 @check_user
 def classphoto(request, sequence):
     """ show classphoto for all signups for this sequence with profiles """
-    s3_policy, signature = create_s3_policy_doc(settings.AWS_S3_BUCKET, 'classphoto')
+    s3_policy, signature = create_s3_policy_doc(settings.AWS_S3_BUCKET, 'pwymclassphoto')
 
     prefix = hmac.new(
         'THEANSWERIS42', request.session.session_key, hashlib.sha1
@@ -84,7 +84,7 @@ def classphoto(request, sequence):
         's3_signature': signature,
         'AWS_ACCESS_KEY_ID': settings.AWS_ACCESS_KEY_ID,
         'AWS_S3_BUCKET': settings.AWS_S3_BUCKET,
-        'key_prefix': 'classphoto/{0}'.format(prefix)
+        'key_prefix': 'pwymclassphoto/{0}'.format(prefix)
     }
     
     return render_to_response('classphoto/index.html', context, context_instance=RequestContext(request))
