@@ -7,6 +7,7 @@ from pyechonest import catalog
 
 import requests
 import time
+from collections import Counter
 
 
 def create_taste_profiles(sequence):
@@ -79,12 +80,12 @@ def score(profile1, profile2, cache):
     # so that rscore(x,y) == rscore(y,x)
 
     score = 0
-    if profile1 in cache.keys():
-        if profile2 in cache[profile1]['suggest'].keys():
+    if profile1 in cache:
+        if profile2 in cache[profile1]['suggest']:
             score = cache[profile1]['suggest'][profile2]
 
-    if profile2 in cache.keys():
-        if profile1 in cache[profile2]['suggest'].keys():
+    if profile2 in cache:
+        if profile1 in cache[profile2]['suggest']:
             score += cache[profile2]['suggest'][profile1]
 
     return score
@@ -96,21 +97,18 @@ def group_score(profile, group_profiles, data):
 
 
 def get_group_artists(group_profiles, data):
-    artists = {}
+    artists = Counter()
     for profile in group_profiles:
         signup = models.get_signup(data[profile]['name'])
         for artist in [ signup['questions'].get('artist{0}'.format(i)) for i in range(1,6) ]:
-            if artist in artists.keys():
-                artists[artist] += 1
-            else:
-                artists[artist] = 1
+            artists[artist] += 1
     return artists
 
 
 def ckmeans(sequence):
     group_size = 40
     #data = get_sequence_scores(sequence)
-    f = open('echonest.json', 'r')
+    f = open('echonest-data-2013-10-29.json', 'r')
     import json
     data = json.load(f)
     f.close()
@@ -121,15 +119,14 @@ def ckmeans(sequence):
     def update_groups():
         for gn, group in enumerate(groups):
             for profile in group:
-                group[profile] = group_score(profile, [p for p in group.keys() if p != profile], data)
-                #print('\t{0} = {1}'.format(profile, group[profile]))
-            print('Group {0} Total = {1}'.format(gn, sum(group.values())))
-            print('Artist: {0}'.format({k:v for k,v in get_group_artists(group.keys(), data).items() if v > 1 }))
+                group[profile] = group_score(profile, [p for p in group if p != profile], data)
+            #print('Group {0} Total = {1}'.format(gn, sum(group.values())))
+            #print('Artist: {0}'.format({k:v for k,v in get_group_artists(group.keys(), data).items() if v > 1 }))
         group_sums = [sum(group.values()) for group in groups]
         print("{0} {1}".format(sum(group_sums), group_sums))
     update_groups()
 
-    for bb in range(20):
+    for bb in range(10):
         for gn, group in enumerate(groups):
             for profile in group:
                 # calculate a group score for profile in all other groups
@@ -150,11 +147,8 @@ def ckmeans(sequence):
                         groups[bgi][profile] = best_score
                         #NOTE: not true the score since we remove the worst element. This may have undesireable effects
         
-        update_groups()            
-        #for gn, group in enumerate(groups):
-        #    print('Group {0}'.format(gn))
-        #    for profile in group:
-        #        group[profile] = group_score(profile, [p for p in group.keys() if p != profile], data)
-        #        #print('\t{0} = {1}'.format(profile, group[profile]))
-        #    print('\tTotal = {0}'.format(sum(group.values())))
+        update_groups()
+
+    for group in groups:
+        print('Artist: {0}'.format({k:v for k,v in get_group_artists(group.keys(), data).items() if v > 1 }))
            
