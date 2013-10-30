@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}Play with your music{% endblock %}</title>
+    <title>{% block title %}Mechanical MOOC{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -36,28 +36,6 @@
 </head>
 
 <body>
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="navbar-btn visible-phone visible-tablet" href="#main-menu-panel">
-                <i class="icon-list-ul"></i>
-            </a>
-            <div class="nav-collapse collapse">
-                <ul class="nav main-menu">
-                    <li><a class="home" href="{% url home %}"><i class="icon-home"></i></a></li>
-                    <li><a href="{% url about %}">About</a></li>
-                    <li><a href="{% url curriculum %}">Curriculum</a></li>
-                    <li><a href="{% url badges %}">Badges</a></li>
-                    <li><a href="https://plus.google.com/communities/111652425357803311063" target="_blank">Google+</a>
-                    <li><a href="https://soundcloud.com/groups/play-with-your-music" target="_blank">SoundCloud Group</a>
-                    </li>
-                </ul>
-            </div>
-            <a class="brand" href="https://p2pu.org"></a>
-
-        </div>
-    </div>
-</div>
 
 <div class="container">
 {% if messages %}
@@ -75,21 +53,11 @@
 {% block body %}
 {% endblock %}
 
-<footer>
-    <div class="container">
-        <hr>
-        <a href="https://p2pu.org/en/pages/terms-of-use/" target="_blank">
-            <img src="{{ STATIC_URL }}img/cc-icons.png" alt="" class="pull-right">
-        </a>
-        <span>Header image by <a href="http://www.flickr.com/photos/16983197@N06/">garysan97</a><span>
-    </div>
-</footer>
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <script src="{{ STATIC_URL }}/js/bootstrap.min.js"></script>
@@ -100,21 +68,5 @@
 {% endblock %}
 <script>MMOOC.Splash.init();</script>
 
-<script type="text/javascript">
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-    ga('create', 'UA-44337936-1', 'playwithyourmusic.org');
-    ga('send', 'pageview');
-</script>
 </body>
 </html>

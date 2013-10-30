@@ -22,7 +22,7 @@ def send_email(to_email, from_email, subject, text_body, html_body=None, tags=No
     )
 
 
-def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, tags=None, campaign_id=None):
+def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, tags=None, campaign_id=None, recipient_variables=None):
     """ send email to multiple users, but each being to only one in the to field """
     post_data = [
         ('from', from_email),
@@ -34,7 +34,10 @@ def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, t
     ]
 
     post_data += [ ('to', to_email) for to_email in to_emails ]
-    post_data += [ ('recipient-variables', [json.dumps({to_email:{}}) for to_email in to_emails] ) ]
+    if recipient_variables:
+        post_data += [ ('recipient-variables', recipient_variables) ]
+    else:
+        post_data += [ ('recipient-variables', json.dumps({ to_email:{} for to_email in to_emails }) ) ]
 
     if html_body:
         post_data += [('html', html_body),]
