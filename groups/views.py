@@ -17,8 +17,9 @@ def get_group( request ):
         email = request.POST.get('email')
         groups = group_model.get_member_groups(email)
         if len(groups) > 0:
+            group = groups[0]
             group['number'] = group['uri'].strip('/').split('/')[-1]
-            context['group'] = groups[0]
+            context['group'] = group
         else:
             context['problem'] = True
     
