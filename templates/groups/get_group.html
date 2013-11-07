@@ -7,14 +7,14 @@
         </div>
     </div>
     <div class="container">
-      <h3>Check your group</h3>
+      <h3>Find your group</h3>
       <form action="" method="POST">
         {% csrf_token %}
         <p><input name="email" type="email" placeholder="you@example.com"/></p>
-        <p><button type="submit">Check my group</button></p>
+        <p><button type="submit">Find my group</button></p>
       </form>
       {% if group %}
-        <p>You are in group {{group.number}}. You can reach your group by sending an email to {{group.address}}.</p>
+        <p>Drop a note to this ({{group.address}}) address - it will go to everyone in your group. Say "Hi" and get to know each other.</p>
       {% endif %}
       {% if problem %}
         <p class="alert-error">Sorry, we couldn't find your signup. Did you sign up with a different email address?</p>
