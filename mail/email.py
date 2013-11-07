@@ -18,7 +18,7 @@ def send_email( email_uri ):
     text_body = render_to_string('mail/email.txt', {'email': email})
     html_body = render_to_string('mail/email.html', {'email': email})
 
-    batch_size = 10
+    batch_size = 1000
 
     for i in range(0, len(to_addresses), batch_size):
         mailgun_api.send_mass_email(
