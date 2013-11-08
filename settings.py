@@ -8,7 +8,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Admin', os.environ.get('WEBMASTER')),
 )
 
 MANAGERS = ADMINS
