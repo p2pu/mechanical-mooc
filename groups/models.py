@@ -47,14 +47,14 @@ def get_groups( sequence=None ):
 
 
 def get_member_groups( member_email ):
-    membership = db.GroupMember.objects.filter(email=member_email)
+    membership = db.GroupMember.objects.filter(email__iexact=member_email)
     return [_group2json(member.group) for member in membership]
 
 
 def add_group_member( group_uri, member_email ):
     group_id = group_uri2id(group_uri)
     group_db = db.Group.objects.get(id=group_id)
-    if not group_db.members.filter(email=member_email).exists():
+    if not group_db.members.filter(email=member_email__iexact).exists():
         member = db.GroupMember(email=member_email, group=group_db)
         member.save()
 
@@ -62,7 +62,7 @@ def add_group_member( group_uri, member_email ):
 def remove_group_member( group_uri, member_email ):
     group_id = group_uri2id(group_uri)
     group_db = db.Group.objects.get(id=group_id)
-    group_db.members.get(email=member_email).delete()
+    group_db.members.get(email__iexact=member_email).delete()
 
 
 def sync_group_with_mailgun( group_uri ):
