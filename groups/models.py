@@ -54,7 +54,7 @@ def get_member_groups( member_email ):
 def add_group_member( group_uri, member_email ):
     group_id = group_uri2id(group_uri)
     group_db = db.Group.objects.get(id=group_id)
-    if not group_db.members.filter(email=member_email__iexact).exists():
+    if not group_db.members.filter(email__iexact=member_email).exists():
         member = db.GroupMember(email=member_email, group=group_db)
         member.save()
 
