@@ -30,9 +30,12 @@ def combine_photos(bios, width=10, avatar_size=(120,120)):
     for index, image in enumerate(images):
         x = index%width
         y = index/width
-        avatar = Image.open(image)
-        avatar.thumbnail(avatar_size, Image.ANTIALIAS)
-        collage.paste(avatar, (x*avatar_size[0], y*avatar_size[1]))
+        try:
+            avatar = Image.open(image)
+            avatar.thumbnail(avatar_size, Image.ANTIALIAS)
+            collage.paste(avatar, (x*avatar_size[0], y*avatar_size[1]))
+        except Exception as e:
+            print(e)
     return collage
 
 
