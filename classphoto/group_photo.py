@@ -9,7 +9,7 @@ from boto.s3.key import Key
 from django.conf import settings
 
 
-def combine_photos(bios, width=10, avatar_size=(120,120)):
+def combine_photos(bios, width=6, avatar_size=(120,120)):
     # download images and sticth them together
     images = []
     for bio in bios:
