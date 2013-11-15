@@ -7,13 +7,19 @@ def score(profile1, profile2, cache):
     # so that rscore(x,y) == rscore(y,x)
 
     score = 0
+    hits = 0
     if profile1 in cache:
         if profile2 in cache[profile1]['suggest']:
+            ++hits
             score = cache[profile1]['suggest'][profile2]
 
     if profile2 in cache:
         if profile1 in cache[profile2]['suggest']:
+            ++hits
             score += cache[profile2]['suggest'][profile1]
+
+    if hits == 2:
+        score /= 2
 
     return score
 
