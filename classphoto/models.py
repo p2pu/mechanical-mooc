@@ -70,6 +70,6 @@ def get_bios_by_email( sequence, emails ):
     bios_db = db.UserBio.objects.filter(
         sequence=sequence,
         email__in=emails,
-        date_delted__isnull=True
+        date_deleted__isnull=True
     )
     return [ _bio2dict(bio) for bio in bios_db ]
