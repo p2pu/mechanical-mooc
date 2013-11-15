@@ -13,7 +13,7 @@
             <div class="description clearfix">
                 <div class="span5"><iframe width="420" height="315" src="//www.youtube.com/embed/fBP5BJ8-sAM" frameborder="0" allowfullscreen></iframe></div>
                 <div class="span5">
-                <form id="emailForm" class="text-center">
+                <form id="emailForm" class="text-center" accept-charset="UTF-8">
                     <div class="">
                         <h3><i class="icon-calendar"></i> The next course starts January 15</h3>
                         <h4>
@@ -79,7 +79,7 @@
     </div>
     <div class="row">
     <div class="span8 offset2">
-    <form id="infoForm" class="form-horizontal" action="{% url signup %}" method="POST">
+    <form id="infoForm" class="form-horizontal" accept-charset="UTF-8" action="{% url signup %}" method="POST">
           {% csrf_token %}
           <input id="hiddenEmailField" type="hidden" name="email"></hidden>
           <input id="timezone" type="hidden" name="timezone">
