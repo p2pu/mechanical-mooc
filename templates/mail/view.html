@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+
+{% block body %}
+  <div id="step1">
+    <div class="jumbotron subhead">
+        <div class="container">
+            <h1 class="title">Mechanical Mooc Admin - {% if email %}Edit{% else %}Compose{% endif %} Email</h1>
+        </div>
+    </div>
+
+
+    <div class="container">
+      <div class="description clearfix">
+          {{ email.tags }}
+
+          <h2>{% trans 'To' %}</h2>
+          <p>{{email.audience}}-{{email.sequence}}</p>
+
+          <h2>Subject</h2>
+          <p>{{ email.subject }}</p>
+
+          <h2>Message Body</h2>
+          {{ email.html_body|safe }}
+                 
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

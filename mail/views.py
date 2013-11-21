@@ -158,3 +158,19 @@ def schedule_email( request, id ):
         return http.HttpResponse(_('Scheduled time is in the past'), status=400)
     mail_api.schedule_email(email_uri, dt)
     return http.HttpResponse('')
+
+
+@login_required
+def view_email( request, id ):
+    email_uri = mail_api.id2uri(id)
+    email = mail_api.get_email(email_uri)
+
+    context = {
+        'email': email,
+    }
+    return render_to_response(
+        'mail/view.html',
+        context,
+        context_instance=RequestContext(request)
+    )
+

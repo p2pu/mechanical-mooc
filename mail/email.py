@@ -14,31 +14,23 @@ def send_email( email_uri ):
 
     recipient_variables = None
     if email['audience'] == 'groups':
-        recipient_variables = {}
-        groups = group_api.get_groups(email['sequence'])
-        to_address = ','.join([g['address'] for g in groups])
-        for group in groups:
-            recipient_variables['email'] = {}
-            bios = get_bios_by_email(email['sequence'], group['members'])
-            if len(bios) > 0:
-                context = {'bios': bios}
-                bios_snip = render_to_string('classphoto/emails/group_intro.html', context)
-                recipient_variables['email']['bios_snip'] = bios_snip
-        recipient_variables = json.dumps(recipient_variables)
+        to_addresses = [g['address'] for g in group_api.get_groups(email['sequence'])]
     elif email['audience'] == 'individuals':
-        to_address = sequence_api.sequence_list_name(email['sequence'])
+        to_addresses = [sequence_api.sequence_list_name(email['sequence'])]
 
     text_body = render_to_string('mail/email.txt', {'email': email})
     html_body = render_to_string('mail/email.html', {'email': email})
 
-    mailgun_api.send_email(
-        to_address,
-        settings.DEFAULT_FROM_EMAIL,
-        email['subject'],
-        text_body,
-        html_body,
-        email['tags'].split(','),
-        sequence_api.sequence_campaign(email['sequence']),
-        recipient_variables
-    )
+    batch_size = 1000
+
+    for i in range(0, len(to_addresses), batch_size):
+        mailgun_api.send_mass_email(
+            to_addresses[i:i+batch_size],
+            settings.DEFAULT_FROM_EMAIL,
+            email['subject'],
+            text_body,
+            html_body,
+            email['tags'].split(','),
+            sequence_api.sequence_campaign(email['sequence'])
+        )
     mail_api.mark_sent(email_uri)

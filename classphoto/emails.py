@@ -5,7 +5,8 @@ from django.utils import simplejson as json
 import mailgun
 from signup import models as signup_api
 from sequence import models as sequence_api
-
+from groups import models as group_api
+from classphoto import group_photo
 
 def send_user_link( email, key ):
     context = {
@@ -50,3 +51,36 @@ def send_user_link_to_whole_sequence( sequence ):
             recipient_variables=json.dumps(recipient_variables)
         )
 
+
+def send_group_photos(sequence):
+
+    context = {
+        'mooc_title': settings.MOOC_TITLE,
+        'mooc_domain': settings.MOOC_DOMAIN,
+        'sequence': sequence,
+    }
+
+    urls = group_photo.make_group_photos(sequence)
+
+    for group_uri, image_url in urls.items():
+        group = group_api.get_group(group_uri)
+        context['image_url'] = image_url
+        subject = render_to_string(
+            'classphoto/emails/sequence_group_photo-subject.txt', context
+        ).strip()
+        text_body = render_to_string(
+            'classphoto/emails/sequence_group_photo.txt', context
+        ).strip()
+        html_body = render_to_string(
+            'classphoto/emails/sequence_group_photo.html', context
+        ).strip()
+
+        mailgun.api.send_email(
+            group['address'],
+            settings.DEFAULT_FROM_EMAIL,
+            subject,
+            text_body,
+            html_body,
+            tags=['group_photo'],
+            campaign_id=sequence_api.sequence_campaign(sequence)
+        )
