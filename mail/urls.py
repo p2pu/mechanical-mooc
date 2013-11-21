@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     url(r'^send_preview/', 'mail.views.send_preview', name='mail_send_preview'),
     url(r'^schedule/$', 'mail.views.schedule', name='mail_schedule'),
     url(r'^schedule_email/(?P<id>[\d]+)/$', 'mail.views.schedule_email', name='mail_schedule_email'),
+    url(r'^view/(?P<id>[\d]+)/$', 'mail.views.view_email', name='mail_view_email'),
 )

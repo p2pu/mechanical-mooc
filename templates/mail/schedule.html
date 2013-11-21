@@ -64,6 +64,9 @@
                                         class="icon-envelope"></i> send email to all {{ mail.audience }}</a>
                             </div>
                         {% endif %}
+                        <a class="btn btn-mini btn-primary" href="{% url mail_view_email mail.id %}">
+                            <i class="icon-envelope"></i> view
+                        </a>
                     </td>
                 </tr>
             {% endfor %}

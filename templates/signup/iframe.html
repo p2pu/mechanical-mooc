@@ -1,69 +1,20 @@
-{% extends 'base.html' %}
+{% extends 'iframe_base.html' %}
 
 {% block body %}
 
-    <div id="step1">
-        <div class="jumbotron">
-            <div class="head-text container">
-                <div class="pre-title">The Mechanical MOOC Presents...</div>
-                <h1 class="title">A Gentle Introduction to Python</h1>
-            </div>
-        </div>
-        <div class="container">
-            <div class="description clearfix">
-                <form id="emailForm" class="text-center" accept-charset="UTF-8">
-                    <div class="">
-                        <h3><i class="icon-calendar"></i> Next Class begins Fall 2013</h3>
-                        <h4>
-                            <small>but you can sign up now.</small>
-                        </h4>
+    <div id="step1" class="container">
+        <div class="row">
+            <form id="emailForm" class="text-center">
+                <div class="control-group">
+                    <div class="input-append">
+                        <input id="email" name="email" class="input" type="text" placeholder="you@example.com">
+                        <button id="join" type="submit" class="btn btn-primary">Join</button>
                     </div>
-
-                    <div class="control-group">
-                        <div class="input-append">
-                            <input id="email" name="email" class="input" type="text" placeholder="you@example.com">
-                            <button id="join" type="submit" class="btn btn-primary">Join</button>
-                        </div>
-                    </div>
-                </form>
-                <hr>
-                <ul class="unstyled">
-                    <li>
-                        <h2 class="pull-left"><i class="icon-gift"></i> </h2>
-                        <div class="description-text">
-                            <h2>Free &amp; Open.</h2>
-                            <p>
-                                A Gentle Introduction to Python is 100% free, just like all OpenCourseWare.
-                                Anyone can join, and you're welcome to share your work.
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <h2 class="pull-left"><i class="icon-bolt"></i> </h2>
-                        <div class="description-text">
-                            <h2>Learning Powerhouse.</h2>
-
-                            <p>
-                                Pick up Python from leading innovators in online learning. MIT's chops.
-                                Codecademy's exercises. OpenStudy's study groups. P2PU's community. Need we say more?
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <h2 class="pull-left"><i class="icon-calendar"></i> </h2>
-                        <div class="description-text">
-                            <h2>Weekly Lessons.</h2>
-                            <p>
-                                Make friends with some smarties, and start programming from Week 1.
-                                Open for signup now, course starts Fall 2013.
-                            </p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
-<!------------step 2-------------------------------------->
+
     <div id="step2" class="container hide">
     <div class="row">
         <div class="span8 offset2">
@@ -79,7 +30,7 @@
     </div>
     <div class="row">
     <div class="span8 offset2">
-    <form id="infoForm" class="form-horizontal" accept-charset="UTF-8" action="{% url signup %}" method="POST">
+    <form id="infoForm" class="form-horizontal" action="{% url signup_iframe iframe='true' %}" method="POST">
           {% csrf_token %}
           <input id="hiddenEmailField" type="hidden" name="email"></hidden>
           <fieldset>

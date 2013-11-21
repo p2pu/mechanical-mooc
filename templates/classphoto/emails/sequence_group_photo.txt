@@ -1,0 +1,8 @@
+Hi there, Moocster,
+
+Here is your group's class photo:
+
+{{ image_url }}
+
+What a good-looking group!
+The Mechanical MOOC

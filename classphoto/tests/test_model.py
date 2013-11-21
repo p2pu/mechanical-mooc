@@ -43,6 +43,17 @@ class SimpleTest(TestCase):
         self.assertEquals(len(bios), 10)
 
 
+    def test_get_sequence_bios_by_email(self):
+        emails = ['test-{0}@mail.com'.format(i) for i in range(10)]
+        for email in emails:
+            data = self.BIO_DATA.copy()
+            data['email'] = email
+            user_bio = classphoto_api.save_bio(**data)
+       
+        bios = classphoto_api.get_bios_by_email(1, emails[:5])
+        self.assertEquals(len(bios), 5)
+
+
     def test_update_bio(self):
         # create bio
         user_bio = classphoto_api.save_bio(**self.BIO_DATA)

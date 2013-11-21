@@ -55,11 +55,10 @@ def write_to_csv(data, filename):
     if len(data) == 0:
         return
     with open(filename, 'w') as f:
-        f.write(u'\t'.join(data[0].keys()))
-        f.write(u'\n')
+        writer = unicodecsv.writer(f)
+        writer.writerow(data[0].keys())
         for elem in data:
-            f.write(u'\t'.join(map(_stringify, elem.values())))
-            f.write(u'\n')
+            writer.writerow(elem.values())
 
 
 def get_old_data_aggregated():
