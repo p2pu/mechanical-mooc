@@ -74,7 +74,7 @@ def _signup2json( signup_db ):
 
 def get_signup( email ):
     if not db.UserSignup.objects.filter(email=email, date_deleted__isnull=True).exists():
-        raise Exception()
+        raise Exception(u'Signup for {0} not found'.format(email))
 
     signup_db = db.UserSignup.objects.get(email=email, date_deleted__isnull=True)
     
