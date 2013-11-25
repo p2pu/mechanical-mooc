@@ -1,8 +1,8 @@
 Hi there, Moocster,
 
-Here is your group's class photo:
+So, a while back we asked you to add your mug to the class photo. Here's a snapshot of your group's class photo:
 
 {{ image_url }}
 
-What a good-looking group!
+Pretty neat, huh?
 The Mechanical MOOC
