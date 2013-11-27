@@ -125,6 +125,7 @@ class ViewTest(TestCase):
 
         resp = c.get('/mail/send/1/')
         self.assertRedirects(resp, '/mail/schedule/')
+        self.assertTrue(args[0].called)
 
 
     @patch('mail.views.mailgun_api.send_email')
@@ -138,4 +139,5 @@ class ViewTest(TestCase):
         }
         resp = c.post('/mail/send_preview/', post_data)
         self.assertEquals(resp.status_code, 200)
+        self.assertTrue(args[0].called)
 
