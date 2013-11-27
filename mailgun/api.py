@@ -180,6 +180,54 @@ def get_logs(limit=100, skip=0):
     return resp.json()
 
 
+def fetch_all_logs():
+    logs = []
+    limit = 100
+    offset = 0
+    while True:
+        print('Fetching logs offset={0}'.format(offset))
+        res = get_logs(limit, offset)
+        logs += res['items']
+        offset += limit
+        if len(res['items']) == 0:
+            break
+    return logs
+
+
+def get_events(limit, **kwargs):
+    params = {'limit': limit}
+    params.update(kwargs)
+
+    resp  = call_mailgun(
+        'GET', '/'.join([settings.MAILGUN_API_DOMAIN, 'events']),
+        {}, params
+    )
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+    return resp.json()
+
+
+def get_all_events(**kwargs):
+    """ get all events """
+    params = {}
+    params.update(kwargs)
+    resp  = call_mailgun(
+        'GET', '/'.join([settings.MAILGUN_API_DOMAIN, 'events']),
+        {}, params
+    )
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+    events = []
+    while len(resp.json()['items']):
+        events += resp.json()['items']
+        url = resp.json()['paging']['next'].replace(settings.MAILGUN_API_URL+'/', '')
+        resp = call_mailgun('GET', url, {})
+
+    return events
+   
+
+
+
 def get_campaign_events(campaign_id, event, recipient=None, limit=None, page=None, count=None):
     sub_url = '/'.join(
         [settings.MAILGUN_API_DOMAIN, 'campaigns', campaign_id, 'events']

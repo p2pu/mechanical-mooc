@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="jumbotron subhead">
+        <div class="container">
+            <h2 class="title"></h2>
+        </div>
+    </div>
+    <div class="container">
+      <h3>Unsubscribe</h3>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <p><input name="email" type="email" placeholder="you@example.com"/></p>
+        <p><button type="submit">Unsubscribe</button></p>
+      </form>
+      {% if error %}
+        <p class="alert-error">Sorry, we couldn't find your signup. Did you sign up with a different email address?</p>
+      {% endif %}
+    <div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
