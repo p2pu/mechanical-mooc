@@ -171,3 +171,9 @@ class SimpleTest(TestCase):
         signup = signup_models.get_signup('dirk@mail.com')
         self.assertEquals(signup['sequence'], None)
 
+    def test_case_insensitve_signup(self):
+        signup_models.create_or_update_signup('thisisauser@mail.com', {'q1':'a1', 'q2':'a2', 'q3':'a3'})
+        signup = signup_models.get_signup('ThisIsAUser@mail.COM')
+        self.assertEquals(signup['email'], 'thisisauser@mail.com')
+
+

@@ -11,7 +11,7 @@ from sequence import models as sequence_model
 
 
 def create_signup( email, questions ):
-    if db.UserSignup.objects.filter(email=email, date_deleted__isnull=True).exists():
+    if db.UserSignup.objects.filter(email__iexact=email, date_deleted__isnull=True).exists():
         raise Exception('Signup already exists')
     invite_code=''.join([
         random.choice(string.letters+string.digits) for i in range(32)
@@ -33,7 +33,7 @@ def create_signup( email, questions ):
 
 def update_signup( email, questions ):
     """ will also add a signup to the latest sequence """
-    signup_db = db.UserSignup.objects.get(email=email, date_deleted__isnull=True)
+    signup_db = db.UserSignup.objects.get(email__iexact=email, date_deleted__isnull=True)
     
     old_questions = simplejson.loads(signup_db.questions)
     for key, value in questions.items():
@@ -48,14 +48,14 @@ def update_signup( email, questions ):
 
 def create_or_update_signup( email, questions ):
     # check if user is already added
-    if db.UserSignup.objects.filter(email=email, date_deleted__isnull=True).exists():
+    if db.UserSignup.objects.filter(email__iexact=email, date_deleted__isnull=True).exists():
         return update_signup(email, questions)
     else:
         return create_signup(email, questions)
 
 
 def delete_signup( email ):
-    signup_db = db.UserSignup.objects.get(email=email, date_deleted__isnull=True)
+    signup_db = db.UserSignup.objects.get(email__iexact=email, date_deleted__isnull=True)
     signup_db.date_deleted = datetime.utcnow()
     signup_db.save()
     
@@ -73,10 +73,10 @@ def _signup2json( signup_db ):
 
 
 def get_signup( email ):
-    if not db.UserSignup.objects.filter(email=email, date_deleted__isnull=True).exists():
+    if not db.UserSignup.objects.filter(email__iexact=email, date_deleted__isnull=True).exists():
         raise Exception(u'Signup for {0} not found'.format(email))
 
-    signup_db = db.UserSignup.objects.get(email=email, date_deleted__isnull=True)
+    signup_db = db.UserSignup.objects.get(email__iexact=email, date_deleted__isnull=True)
     
     return _signup2json(signup_db)
 
@@ -109,7 +109,7 @@ def remove_signup_from_sequence( email ):
     """ remove the signup from the sequence it is in and add it to the nexxt
         sequence if there is one.
     """
-    signup_db = db.UserSignup.objects.get(email=email, date_deleted__isnull=True)
+    signup_db = db.UserSignup.objects.get(email__iexact=email, date_deleted__isnull=True)
     
     sequence_number = sequence_model.get_current_sequence_number()
     if signup_db.sequence != sequence_number:
@@ -141,7 +141,7 @@ def handle_new_signups( ):
 
 def add_user_to_global_list( email ):
     """ add user to email list that gets all emails """
-    signup_db = db.UserSignup.objects.get(email=email, date_deleted__isnull=True)
+    signup_db = db.UserSignup.objects.get(email__iexact=email, date_deleted__isnull=True)
     if signup_db.sequence:
         list_name = sequence_model.sequence_list_name(signup_db.sequence)
         mailgun_api.add_list_member(list_name, email)
