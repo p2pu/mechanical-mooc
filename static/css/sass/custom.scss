@@ -6,6 +6,14 @@
     float:right;
 }
 
+.nyu-logo {
+    float:right;
+    background: url("/static/img/nyusteinhardtlogo.png");
+    width: 194px;
+    height: 24px;
+    margin: 18px 10px 17px;
+}
+
 .jumbotron{
     background-image: url('/static/img/banner.jpg');
     background-size: cover;
