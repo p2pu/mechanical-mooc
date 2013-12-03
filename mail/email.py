@@ -15,8 +15,10 @@ def send_email( email_uri ):
     elif email['audience'] == 'individuals':
         to_addresses = [sequence_api.sequence_list_name(email['sequence'])]
 
-    text_body = render_to_string('mail/email.txt', {'email': email})
-    html_body = render_to_string('mail/email.html', {'email': email})
+    context = {'email': email, 'mooc_domain': settings.MOOC_DOMAIN}
+
+    text_body = render_to_string('mail/email.txt', context)
+    html_body = render_to_string('mail/email.html', context)
 
     batch_size = 1000
 
