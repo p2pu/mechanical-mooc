@@ -69,7 +69,7 @@
           <h3 id="myModalLabel">Profile info</h3>
         </div>
         <div class="modal-body">
-          <h4>Get data from twitter (optional)</h4>
+          <h4>Get profile from twitter (optional)</h4>
           <div id="twitter-error" class="hidden alert alert-error">
             <p>Sorry, we couldn't get your Twitter info. Maybe try it without the "@"?</p>
           </div>
@@ -83,6 +83,19 @@
             </div>
           </form>
 
+          <h4>Or get profile from G+ (optional)</h4>
+          <div id="gplus-error" class="hidden alert alert-error">
+            <p>Sorry, we couldn't get your Google+. Make sure the URL looks like http://plus.google.com/xxxxxx/ where xxxxx are digits?</p>
+          </div>
+          <form id="gplus-form" action="{% url gplus_get_profile %}" method="POST">
+            {% csrf_token %}
+            <label>Profile URL</label>
+            <div class="input-append">
+              <input type="text" name="profile_url" >
+              <button type="submit" class="btn btn-primary"><span id="gplus-loading" class="hidden"><i class='icon-spinner icon-spin icon-large'></i> </span>Get profile form G+</button>
+            </div>
+          </form>
+       
           <h4>Or fill it in</h4>
          
           <div id="avatar-preview">
@@ -119,6 +132,12 @@
               <label>Twitter handle (optional)</label>
               <div class="controls">
                 <input class="input-block-level" type="text" name="twitter">
+              </div>
+            </div>
+            <div class="control-group hidden">
+              <label>G+ profile (optional)</label>
+              <div class="controls">
+                <input class="input-block-level" type="text" name="gplus">
               </div>
             </div>
             <div class="control-group">
@@ -198,6 +217,7 @@
 
         disableForm('bio-form');
         disableForm('twitter-form');
+        disableForm('gplus-form');
         startAvatarLoading();
         $('#avatar-error').addClass('hidden');
         $('#avatar-missing').addClass('hidden');
@@ -223,6 +243,7 @@
           complete: function (xhr, msg){
               enableForm('bio-form');
               enableForm('twitter-form');
+              enableForm('gplus-form');
           }
         });
       });
@@ -261,9 +282,11 @@
           e.preventDefault();
           $('#avatar-error').addClass('hidden');
           $('#twitter-error').addClass('hidden');
+          $('#gplus-error').addClass('hidden');
           $('#avatar-missing').addClass('hidden');
           disableForm('bio-form');
           disableForm('avatar-form');
+          disableForm('gplus-form');
           $('#twitter-loading').removeClass('hidden');
           $.ajax({
               type: 'POST',
@@ -290,6 +313,47 @@
                   $('#twitter-loading').addClass('hidden');
                   enableForm('bio-form');
                   enableForm('avatar-form');
+                  enableForm('gplus-form');
+              }
+          });
+      });
+
+      $('#gplus-form').submit(function(e){
+          e.preventDefault();
+          $('#avatar-error').addClass('hidden');
+          $('#twitter-error').addClass('hidden');
+          $('#gplus-error').addClass('hidden');
+          $('#avatar-missing').addClass('hidden');
+          disableForm('bio-form');
+          disableForm('avatar-form');
+          disableForm('twitter-form');
+          $('#gplus-loading').removeClass('hidden');
+          $.ajax({
+              type: 'POST',
+              url: $('#gplus-form').attr('action'),
+              data: $('#gplus-form').serialize(),
+              cache: false,
+              success: function (data, textStatus, jqXHR){
+                  var jsonData = $.parseJSON(data);
+                  setAvatar(jsonData.avatar);
+                  var profileUrl = $('#gplus-form :input[name=profile_url]').val();
+                  $('#bio-form :input[name=gplus]').val(profileUrl);
+                  $('#bio-form :input[name=gplus]').parents(".control-group").removeClass('hidden');
+                  $('#bio-form :input[name=avatar]').val(jsonData.avatar);
+                  $('#bio-form :input[name=name]').val(jsonData.name);
+                  $('#bio-form :input[name=bio]').val(jsonData.bio);
+                  setTimeout(function(){
+                      $('#bio-form :input[name=email]').focus();
+                  }, 1000);
+              },
+              error: function () {
+                  $('#gplus-error').removeClass('hidden');
+              },
+              complete: function () {
+                  $('#gplus-loading').addClass('hidden');
+                  enableForm('bio-form');
+                  enableForm('avatar-form');
+                  enableForm('twitter-form');
               }
           });
       });
