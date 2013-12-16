@@ -121,7 +121,8 @@ def save_bio(request, sequence):
         request.POST['name'],
         request.POST['bio'],
         request.POST['avatar'],
-        request.POST.get('twitter', None)
+        request.POST.get('twitter', None),
+        request.POST.get('gplus', None)
     )
     request.session['user_bio'] = user_bio
     

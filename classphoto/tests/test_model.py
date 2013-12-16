@@ -33,6 +33,13 @@ class SimpleTest(TestCase):
         self.assertEqual(bio_data, user_bio)
 
 
+    def test_save_bio_with_twitter(self):
+        bio_data = self.BIO_DATA.copy()
+        bio_data['gplus'] = 'http://plus.google.com/user/1231231231/'
+        user_bio = classphoto_api.save_bio(**bio_data)
+        self.assertEqual(bio_data, user_bio)
+
+
     def test_get_sequence_bios(self):
         for i in range(10):
             data = self.BIO_DATA.copy()
