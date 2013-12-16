@@ -7,11 +7,13 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils import simplejson as json
 from django.core.serializers.json import DjangoJSONEncoder
+from django.views.decorators.csrf import csrf_exempt
 
 from forms import SignupForm
 from signup import models as signup_model
 
 @require_http_methods(['POST'])
+@csrf_exempt
 def signup( request, iframe=False ):
 
     form = SignupForm(request.POST)
