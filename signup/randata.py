@@ -74,7 +74,7 @@ timezones = {
     "Pacific/Kiritimati": "+14:00"
 }
 
-group_choices = [ 0.8 < random.random() for i in range(1000) ]
+group_choices = [ random.random() < 0.9 for i in range(1000) ]
 
 expertise_choices = [
     "none",

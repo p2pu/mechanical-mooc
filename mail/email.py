@@ -11,20 +11,25 @@ def send_email( email_uri ):
     email = mail_api.get_email(email_uri)
 
     if email['audience'] == 'groups':
-        to_address = ','.join([g['address'] for g in group_api.get_groups(email['sequence'])])
+        to_addresses = [g['address'] for g in group_api.get_groups(email['sequence'])]
     elif email['audience'] == 'individuals':
-        to_address = sequence_api.sequence_list_name(email['sequence'])
+        to_addresses = [sequence_api.sequence_list_name(email['sequence'])]
 
-    text_body = render_to_string('mail/email.txt', {'email': email})
-    html_body = render_to_string('mail/email.html', {'email': email})
+    context = {'email': email, 'mooc_domain': settings.MOOC_DOMAIN}
 
-    mailgun_api.send_email(
-        to_address,
-        settings.DEFAULT_FROM_EMAIL,
-        email['subject'],
-        text_body,
-        html_body,
-        email['tags'].split(','),
-        sequence_api.sequence_campaign(email['sequence'])
-    )
+    text_body = render_to_string('mail/email.txt', context)
+    html_body = render_to_string('mail/email.html', context)
+
+    batch_size = 1000
+
+    for i in range(0, len(to_addresses), batch_size):
+        mailgun_api.send_mass_email(
+            to_addresses[i:i+batch_size],
+            settings.DEFAULT_FROM_EMAIL,
+            email['subject'],
+            text_body,
+            html_body,
+            email['tags'].split(','),
+            sequence_api.sequence_campaign(email['sequence'])
+        )
     mail_api.mark_sent(email_uri)

@@ -13,10 +13,12 @@ def _bio2dict( bio_db ):
     }
     if bio_db.twitter:
         bio_dict['twitter'] = bio_db.twitter
+    if bio_db.gplus:
+        bio_dict['gplus'] = bio_db.gplus
     return bio_dict
 
 
-def save_bio( email, sequence, name, bio, avatar, twitter=None ):
+def save_bio( email, sequence, name, bio, avatar, twitter=None, gplus=None):
     
     now = datetime.datetime.utcnow()
 
@@ -33,10 +35,20 @@ def save_bio( email, sequence, name, bio, avatar, twitter=None ):
     bio_db.bio = bio
     bio_db.avatar = avatar
     bio_db.twitter = twitter
+    bio_db.gplus = gplus
     bio_db.date_added = now
     bio_db.date_updated = now
     bio_db.save()
     return _bio2dict(bio_db)
+
+
+def has_bio( email, sequence ):
+    bios_db = db.UserBio.objects.filter(
+        email=email,
+        sequence=sequence,
+        date_deleted__isnull=True
+    )
+    return bios_db.exists()
 
 
 def get_bio( email ):
@@ -54,4 +66,13 @@ def get_bios( sequence, limit=100 ):
     )
     if limit > 0:
         bios_db = bios_db[:limit]
+    return [ _bio2dict(bio) for bio in bios_db ]
+
+
+def get_bios_by_email( sequence, emails ):
+    bios_db = db.UserBio.objects.filter(
+        sequence=sequence,
+        email__in=emails,
+        date_deleted__isnull=True
+    )
     return [ _bio2dict(bio) for bio in bios_db ]
