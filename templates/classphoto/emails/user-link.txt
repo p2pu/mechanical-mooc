@@ -3,4 +3,4 @@ Hi there
 Here's the link your requested to update your class photo. Click here to update your profile picture: http://{{mooc_domain}}/{% url classphoto_sequence_redirect %}?key={{key}}
 
 Cheers
-The Mechanical MOOC
+The DL MOOC
