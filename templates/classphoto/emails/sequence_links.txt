@@ -1,8 +1,38 @@
-Hi there, Moocster,
+Dear DLMOOC participants,
 
-Before the course starts we would like to have some fun and make a class photo of everyone taking this MOOC. Take a second to upload your profile picture to the Class Photo!
+What a great first week of DLMOOC we’re having! Groups are forming ( https://plus.google.com/u/1/communities/109999014963590178695/stream/de2cbb11-c507-4ecd-aa99-337f8b7d9caf ) ; conversations are happening ( https://plus.google.com/u/1/communities/109999014963590178695 ) ; the community is super engaged!
 
-You can follow this link to view your cohort and add your photo: http://{{ mooc_domain }}{% url classphoto_classphoto sequence=sequence %}?key=%recipient.key%
+Community members have been doing things like setting up a participant map that we can all add ourselves to ( https://www.zeemaps.com/map?group=807434 ) , setting up Vialogues to discuss videos ( https://vialogues.com/vialogues/play/13093 ) , and adding their blogs to our new blog hub ( http://dlmooc.deeper-learning.org/blog-hub/ ) . We love it, and hope you will feel free to come up with more exciting ways to make DLMOOC even better.
 
-What a good-looking group!
-The Mechanical MOOC
+You can visit this page  ( http://dlmooc.deeper-learning.org/weekly-materials/ ) for a detailed list of all the readings, videos and other activities for this week. Don’t forget our panel discussion at 4pm Pacific today ( http://dlmooc.deeper-learning.org/live/ ) . (This will also be archived at www.dlmooc.net/live ( http://www.dlmooc.net/live ) .)
+
+As we’re getting started, we want to make a big class photo for this course. Follow this link (http://{{ mooc_domain }}{% url classphoto_classphoto sequence=sequence %}?key=%recipient.key%) to add your photo and see others in the course.
+
+You might also want to consider doing one or more of the following:
+
+   
+  Tweet of the Week - Think of a time during your youth when you had a significant learning experience. What was it + why was it so significant?
+  Tweet your response with the hashtags #WhatisDL #dlmooc
+                
+                    
+  Put it Into Practice  ( http://dlmooc.deeper-learning.org/wk-1-put-it-to-practice-1-what-is-deeper-learning/ ) - These are activity ideas you can do individually or as part of a group.
+                            
+                                
+  Comment on others’ posts on the G+ community, Twitter, or on blogs.
+                                        
+
+
+And if all this is new and mysterious to you and you’re lurking around to see what’s going on, that’s great! We want you to participate in whatever way works for you.
+
+See you next week when we’ll be looking at student work for deeper learning.
+
+Sincerely,
+
+Ben, Rob, Laura, Ryan, Karen, and the whole DLMOOC team
+
+---------------
+
+Join our G+ community ( https://plus.google.com/u/1/communities/109999014963590178695 ) . Follow us on Twitter ( https://twitter.com/dlmooc ) . Like us on Facebook ( https://www.facebook.com/dlmooc ) .
+
+
+
