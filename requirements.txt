@@ -1,6 +1,6 @@
 Django==1.4.3
 Pillow==2.2.1
-S3ImageResize==0.1.4
+S3ImageResize==0.1.6
 South==0.7.6
 Werkzeug==0.9.4
 argparse==1.2.1
