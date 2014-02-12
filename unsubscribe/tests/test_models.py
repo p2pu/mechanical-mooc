@@ -26,7 +26,19 @@ class SimpleTest(TestCase):
 
 
     @patch('unsubscribe.models.mailgun_api.remove_list_member')
-    def test_unsubscribe_signup_up_user(self, remove_list_member):
+    @patch('unsubscribe.models.mailgun_api.delete_all_unsubscribes')
+    def test_unsubscribe_signed_up_user(self, remove_list_member, delete_all_unsubscribes):
         signup_model.create_signup('dirk@mail.com', {'q1':'a1', 'q2':'a2', 'q3':'a3'})
         unsubscribe_model.unsubscribe_user('dirk@mail.com')
         self.assertTrue(remove_list_member.called)
+        self.assertTrue(delete_all_unsubscribes.called)
+
+    @patch('unsubscribe.models.mailgun_api.remove_list_member')
+    @patch('unsubscribe.models.mailgun_api.delete_all_unsubscribes')
+    def test_unsubscribe_signed_upx2_user(self, remove_list_member, delete_all_unsubscribes):
+        signup_model.create_signup('dirk@mail.com', {'q1':'a1', 'q2':'a2', 'q3':'a3'})
+        with patch('signup.models.sequence_model.get_current_sequence_number', lambda: 2):
+            signup_model.create_signup('dirk@mail.com', {'q1':'a1', 'q2':'a2'})
+        unsubscribe_model.unsubscribe_user('dirk@mail.com')
+        self.assertTrue(remove_list_member.called)
+        self.assertTrue(delete_all_unsubscribes.called)
