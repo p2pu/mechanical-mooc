@@ -9,18 +9,24 @@ from django.test import TestCase
 from mock import patch
 
 from unsubscribe import models as unsubscribe_model
+from signup import models as signup_model
 
-@patch('unsubscribe.models.mailgun_api.remove_list_member')
-@patch('unsubscribe.models.mailgun_api.delete_all_unsubscribes')
-@patch('unsubscribe.models.signup_model.remove_signup_from_sequence')
-@patch('unsubscribe.models.signup_model.delete_signup')
-@patch('unsubscribe.models.signup_model.get_signup', lambda x: {'sequence': 1})
+@patch('signup.models.sequence_model.get_current_sequence_number', lambda: 1)
 class SimpleTest(TestCase):
 
+    @patch('unsubscribe.models.mailgun_api.remove_list_member')
+    @patch('unsubscribe.models.mailgun_api.delete_all_unsubscribes')
+    @patch('unsubscribe.models.signup_model.delete_signup')
+    @patch('unsubscribe.models.signup_model.get_all_user_signups', lambda x: [{'sequence': 1}])
     def test_unsubscribe_user(self, *args):
         unsubscribe_model.unsubscribe_user('user@mail.com')
+        self.assertTrue(args[0].called)
+        self.assertTrue(args[1].called)
+        self.assertTrue(args[2].called)
 
-    
-    def test_unsibscribe_user_from_sequence(self, *args):
-        unsubscribe_model.unsubscribe_from_sequence('user@mail.com')
 
+    @patch('unsubscribe.models.mailgun_api.remove_list_member')
+    def test_unsubscribe_signup_up_user(self, remove_list_member):
+        signup_model.create_signup('dirk@mail.com', {'q1':'a1', 'q2':'a2', 'q3':'a3'})
+        unsubscribe_model.unsubscribe_user('dirk@mail.com')
+        self.assertTrue(remove_list_member.called)
