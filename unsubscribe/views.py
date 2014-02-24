@@ -19,8 +19,11 @@ def unsubscribe(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         try:
-            signup = signup_model.get_signup(email)
-            send_unsubscribe_confirmation(signup)
+            # TODO
+            signups = signup_model.get_all_user_signups(email)
+            if len(signups) == 0:
+                raise Exception()
+            send_unsubscribe_confirmation(signups[0])
             messages.info(request, u'You will shortly receive an email to confirm that you wish to unsubscribe')
             return http.HttpResponseRedirect(reverse('home'))
         except:
@@ -38,28 +41,3 @@ def confirm(request, key):
         log.error(u'Could not find signup for confirmation code {0}'.format(key))
         messages.error(request, 'We could not find the signup that corresponds to the unsubscribe link you used.')
     return http.HttpResponseRedirect(reverse('home'))
-
-
-@csrf_exempt
-def unsubscribe_webhook(request):
-    verified = utils.verify_webhook(
-        request.POST.get('token'), 
-        request.POST.get('timestamp'),
-        request.POST.get('signature')
-    )
-
-    if not verified:
-        return http.HttpResponseForbidden()
-
-    address = request.POST.get('recipient')
-
-    try:
-        if request.POST.get('mailing-list'):
-            unsubscribe_model.unsubscribe_from_sequence(address)
-        else:
-            unsubscribe_model.unsubscribe_user(address)
-    except:
-        log.error(u'Could not unsubscribe {0}')
-
-    return http.HttpResponse('')
-

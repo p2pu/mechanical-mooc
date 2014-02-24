@@ -101,7 +101,7 @@ def save_bio(request, sequence):
     # check if user signed up for the mooc
     signed_up = False
     try:
-        signup = signup_api.get_signup(request.POST['email'])
+        signup = signup_api.get_signup(request.POST['email'], sequence)
         signed_up = True
     except:
         pass
@@ -135,9 +135,13 @@ def save_bio(request, sequence):
 def request_link(request):
     signup = None
     try:
-        signup = signup_api.get_signup(request.POST.get('email'))
+        signups = signup_api.get_all_user_signups(request.POST.get('email'))
+        if len(signups) == 0:
+            raise Exception()
+        signup = signups[0]
         messages.success(request, 'Check your inbox -- a tasty new link will be there shortly.')
         send_user_link(signup['email'], signup['key'])
+        # TODO user will receive an error if they request a link and they only signed up for a previous sequence :(
     except:
         messages.error(request, 'Not so fast, partner -- you need to sign up for the Mechanical MOOC first!')
     url = reverse('classphoto_sequence_redirect')
