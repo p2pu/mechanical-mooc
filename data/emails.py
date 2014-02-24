@@ -1,6 +1,11 @@
-import imaplib
-from email import message_from_string
+from data.utils import write_to_csv
+
 from django.conf import settings
+
+import imaplib
+import mailbox
+from email import message_from_string
+from datetime import datetime
 
 def get_emails():
     """ Download all the raw emails from the IMAP server and return a list of email.message.Message """
@@ -40,4 +45,15 @@ def process_messages(email_list):
         message['body'] = body
         messages += [message]
     return messages
+
+
+def export_emails(prefix=''):
+    messages = get_emails()
+    timestamp = datetime.now().date().isoformat()
+    mb = mailbox.mbox('{0}_emails_{1}.mbox'.format(prefix, timestamp))
+    for msg in messages:
+        mb.add(msg)
+    mb.close()
+    csv_data = process_messages(messages)
+    write_to_csv(csv_data, '{0}_emails_{1}.csv'.format(prefix, timestamp))
 
