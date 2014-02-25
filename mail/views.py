@@ -76,6 +76,23 @@ def compose( request ):
 
 
 @login_required
+def copy( request, id ):
+    email_uri = mail_api.id2uri(id)
+    email = mail_api.get_email(email_uri)
+    new_email = mail_api.save_email(
+        email['subject'],
+        email['text_body'],
+        email['html_body'],
+        email['sequence'],
+        email['audience'],
+        email['tags']
+    )
+    #TODO should we update the sequence
+
+    return http.HttpResponseRedirect(reverse('mail_edit', kwargs={'id': new_email['id']}))
+
+
+@login_required
 def edit( request, id ):
     email_uri = mail_api.id2uri(id)
     email = mail_api.get_email(email_uri)
