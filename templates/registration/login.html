@@ -11,7 +11,7 @@
             <p>Your username and password didn't match. Please try again.</p>
         {% endif %}
 
-        <form method="post" class="form-horizontal pull-left" action="{% url django.contrib.auth.views.login %}">
+        <form method="post" class="form-horizontal pull-left" action="{% url 'django.contrib.auth.views.login' %}">
         {% csrf_token %}
             <div class="control-group">
                 {{ form.username.label_tag }}

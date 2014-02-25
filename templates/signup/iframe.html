@@ -30,7 +30,7 @@
     </div>
     <div class="row">
     <div class="span8 offset2">
-    <form id="infoForm" class="form-horizontal" action="{% url signup_iframe iframe='true' %}" method="POST">
+    <form id="infoForm" class="form-horizontal" action="{% url 'signup_iframe' iframe='true' %}" method="POST">
           {% csrf_token %}
           <input id="hiddenEmailField" type="hidden" name="email"></hidden>
           <fieldset>

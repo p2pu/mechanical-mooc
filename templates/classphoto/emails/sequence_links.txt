@@ -2,7 +2,7 @@ Hi there, Moocster,
 
 Before the course starts we would like to have some fun and make a class photo of everyone taking this MOOC. Take a second to upload your profile picture to the Class Photo!
 
-You can follow this link to view your cohort and add your photo: http://{{ mooc_domain }}{% url classphoto_classphoto sequence=sequence %}?key=%recipient.key%
+You can follow this link to view your cohort and add your photo: http://{{ mooc_domain }}{% url 'classphoto_classphoto' sequence=sequence %}?key=%recipient.key%
 
 What a good-looking group!
 The Mechanical MOOC

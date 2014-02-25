@@ -40,7 +40,7 @@
                         {% if mail.date_sent %}
                             sent at {{ mail.date_sent }}
                         {% else %}
-                            <form action="{% url mail_schedule_email mail.id %}">
+                            <form action="{% url 'mail_schedule_email' mail.id %}">
                                 {% csrf_token %}
                                 <input id="id_date_{{ mail.id }}" name="scheduled_date" type="datetime"
                                        {% if mail.date_scheduled %}value="{{ mail.date_scheduled.date.isoformat }}"{% endif %}>
@@ -56,18 +56,18 @@
                     <td>
                         <div class="btn-group">
                             {% if not mail.date_sent %}
-                                <a class="btn btn-mini" href="{% url mail_edit mail.id %}"><i class="icon-edit"></i>
+                                <a class="btn btn-mini" href="{% url 'mail_edit' mail.id %}"><i class="icon-edit"></i>
                                     edit email</a>
-                                <a class="btn btn-mini btn-danger" href="{% url mail_delete mail.id %}"><i
+                                <a class="btn btn-mini btn-danger" href="{% url 'mail_delete' mail.id %}"><i
                                         class="icon-trash"></i> delete email</a>
-                                <a class="btn btn-mini btn-primary" href="{% url mail_send mail.id %}"><i
+                                <a class="btn btn-mini btn-primary" href="{% url 'mail_send' mail.id %}"><i
                                         class="icon-envelope"></i> send email to all {{ mail.audience }}</a>
                             {% endif %}
-                            <a class="btn btn-mini btn-primary" href="{% url mail_view_email mail.id %}">
+                            <a class="btn btn-mini btn-primary" href="{% url 'mail_view_email' mail.id %}">
                                 <i class="icon-eye-open"></i> view
                             </a>
                             {% if mail.date_sent %}
-                                <a class="btn btn-mini btn-primary" href="{% url mail_copy mail.id %}"><i class="icon-file"></i> copy</a>
+                                <a class="btn btn-mini btn-primary" href="{% url 'mail_copy' mail.id %}"><i class="icon-file"></i> copy</a>
                             {% endif %}
                         </div>
                     </td>
@@ -77,7 +77,7 @@
         </table>
     </div>
 
-    <a class="btn btn-primary" href="{% url mail_compose %}">Create new email</a>
+    <a class="btn btn-primary" href="{% url 'mail_compose' %}">Create new email</a>
     <div>
 {% endblock %}
 

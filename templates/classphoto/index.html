@@ -11,7 +11,7 @@
     <div class="container">
       <div class="alert">
         <p>To add your photo you need to use your own unique link to log in to this page.</p>
-        <form class="form-inline" action="{% url classphoto_request_link %}" method="POST">
+        <form class="form-inline" action="{% url 'classphoto_request_link' %}" method="POST">
           {% csrf_token %}
           <input name="email" type="text" placeholder="email address">
           <button type="submit">Get link</button>
@@ -73,7 +73,7 @@
           <div id="twitter-error" class="hidden alert alert-error">
             <p>Sorry, we couldn't get your Twitter info. Maybe try it without the "@"?</p>
           </div>
-          <form id="twitter-form" action="{% url twitter_get_data %}" method="POST">
+          <form id="twitter-form" action="{% url 'twitter_get_data' %}" method="POST">
             {% csrf_token %}
             <label>Twitter handle</label>
             <div class="input-prepend input-append">
@@ -87,7 +87,7 @@
           <div id="gplus-error" class="hidden alert alert-error">
             <p>Sorry, we couldn't get your Google+. Make sure the URL looks like http://plus.google.com/xxxxxx/ where xxxxx are digits?</p>
           </div>
-          <form id="gplus-form" action="{% url gplus_get_profile %}" method="POST">
+          <form id="gplus-form" action="{% url 'gplus_get_profile' %}" method="POST">
             {% csrf_token %}
             <label>Profile URL</label>
             <div class="input-append">
@@ -125,7 +125,7 @@
             </div>
           </form>
          
-          <form id="bio-form" action="{% url classphoto_save_bio sequence=sequence %}" method="POST">
+          <form id="bio-form" action="{% url 'classphoto_save_bio' sequence=sequence %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="avatar" {% if user_bio %}value="{{user_bio.avatar}}"{% endif %}>
             <div class="control-group hidden">

@@ -1,6 +1,6 @@
 Hi there
 
-Click here to complete your unsubscription request: http://{{mooc_domain}}/{% url unsubscribe_confirm key=key %}
+Click here to complete your unsubscription request: http://{{mooc_domain}}/{% url 'unsubscribe_confirm' key=key %}
 
 Cheers
 The Mechanical MOOC
