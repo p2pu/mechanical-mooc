@@ -54,19 +54,22 @@
                         {% endif %}
                     </td>
                     <td>
-                        {% if not mail.date_sent %}
-                            <div class="btn-group">
+                        <div class="btn-group">
+                            {% if not mail.date_sent %}
                                 <a class="btn btn-mini" href="{% url mail_edit mail.id %}"><i class="icon-edit"></i>
                                     edit email</a>
                                 <a class="btn btn-mini btn-danger" href="{% url mail_delete mail.id %}"><i
                                         class="icon-trash"></i> delete email</a>
                                 <a class="btn btn-mini btn-primary" href="{% url mail_send mail.id %}"><i
                                         class="icon-envelope"></i> send email to all {{ mail.audience }}</a>
-                            </div>
-                        {% endif %}
-                        <a class="btn btn-mini btn-primary" href="{% url mail_view_email mail.id %}">
-                            <i class="icon-envelope"></i> view
-                        </a>
+                            {% endif %}
+                            <a class="btn btn-mini btn-primary" href="{% url mail_view_email mail.id %}">
+                                <i class="icon-eye-open"></i> view
+                            </a>
+                            {% if mail.date_sent %}
+                                <a class="btn btn-mini btn-primary" href="{% url mail_copy mail.id %}"><i class="icon-file"></i> copy</a>
+                            {% endif %}
+                        </div>
                     </td>
                 </tr>
             {% endfor %}

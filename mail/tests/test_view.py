@@ -141,3 +141,30 @@ class ViewTest(TestCase):
         self.assertEquals(resp.status_code, 200)
         self.assertTrue(args[0].called)
 
+
+    @patch('mail.views.send_email')
+    def test_copy_email(self, *args):
+        c = Client()
+        self.assertTrue(c.login(username='admin', password='password'))
+
+        post_data = {
+            'subject': 'Test subject',
+            'body_text': '<p>This is a test</p>',
+            'tags': 'tag1,tag2,tag3',
+            'to': 'groups-1'
+        }
+        resp = c.post('/mail/compose/', post_data)
+        self.assertRedirects(resp, '/mail/schedule/')
+
+        resp = c.get('/mail/send/1/')
+        self.assertRedirects(resp, '/mail/schedule/')
+        self.assertTrue(args[0].called)
+
+        resp = c.get('/mail/schedule/')
+        email_id = resp.context['schedule'][0]['id']
+        resp = c.get('/mail/copy/{0}/'.format(email_id))
+        self.assertRedirects(resp, '/mail/edit/{0}/'.format(email_id+1))
+
+        resp = c.get('/mail/schedule/')
+        self.assertEquals(len(resp.context['schedule']), 2)
+

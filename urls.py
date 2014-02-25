@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^unsubscribe/', include('unsubscribe.urls')),
     url(r'^classphoto/', include('classphoto.urls')),
     url(r'^twitter/', include('twitter.urls')),
+    url(r'^gplus/', include('gplus.urls')),
     url(r'accounts/login/', 'django.contrib.auth.views.login'),
 )
 

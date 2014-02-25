@@ -13,10 +13,12 @@ def _bio2dict( bio_db ):
     }
     if bio_db.twitter:
         bio_dict['twitter'] = bio_db.twitter
+    if bio_db.gplus:
+        bio_dict['gplus'] = bio_db.gplus
     return bio_dict
 
 
-def save_bio( email, sequence, name, bio, avatar, twitter=None ):
+def save_bio( email, sequence, name, bio, avatar, twitter=None, gplus=None):
     
     now = datetime.datetime.utcnow()
 
@@ -33,6 +35,7 @@ def save_bio( email, sequence, name, bio, avatar, twitter=None ):
     bio_db.bio = bio
     bio_db.avatar = avatar
     bio_db.twitter = twitter
+    bio_db.gplus = gplus
     bio_db.date_added = now
     bio_db.date_updated = now
     bio_db.save()
