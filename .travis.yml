@@ -6,7 +6,6 @@ env:
   global:
     - SECRET_KEY=blajblajbasdf
   matrix:
-    - DJANGO=1.4
     - DJANGO=1.5
     - DJANGO=1.6
 
