@@ -77,6 +77,22 @@ That's it, you are all set up to run your very own Mechanical Mooc and enlighten
 
 If you've followed the instruction above, you will have a MOOC running at some url like randomname.herokuapp.com. You probably want your MechanicalMOOC to run at a URL like thebestcourseintheworld.org. To do this, follow [these](https://devcenter.heroku.com/articles/custom-domains) instructions from Heroku.
 
+### Setup for class photo (optional)
+
+The MechanicalMOOC also supports a light weigth method for users to put a face to their participation. To use this feature you will need a Amazon Webservices Account since images are uploaded to Amazon S3. Once you created the account, create a keypair with access to the AWS S3 bucket that you want to use.
+
+Next you need to obtain app keys for Twitter and Google+. For twitter you can follow [these](https://dev.twitter.com/docs/auth/tokens-devtwittercom) instructions. For Google+, see [this](https://developers.google.com/+/api/oauth).
+
+Once you've obtained all the necessary keys, update the following variables:
+
+- AWS_ACCESS_KEY_ID - your AWS credentials if you want to use the class photo function
+- AWS_SECRET_ACCESS_KEY - 
+- AWS_S3_BUCKET - the name of the bucket where the user images will be uploaded
+- TWITTER_ACCESS_TOKEN - Twitter credentials to allow users to get info from Twitter for the class photo.
+- TWITTER_ACCESS_TOKEN_SECRET - 
+- GOOGLE_PLUS_API_KEY - Google+ credentials to allow users to get info from Google+ for the class photo
+
+
 ## Example Use Cases
 
 The Mechanical MOOC has been used to create a number of educational experiences on the web. We've included the relevant Trello boards for the MOOCs to show the learning design and content development phases as well.
