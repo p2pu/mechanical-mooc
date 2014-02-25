@@ -70,7 +70,7 @@ def get_email(uri):
 
 
 def get_emails():
-    return [_2json(em) for em in db.Email.objects.all()]
+    return [_2json(em) for em in db.Email.objects.all().order_by('date_sent')]
 
 
 def schedule_email(uri, scheduled_datetime):
