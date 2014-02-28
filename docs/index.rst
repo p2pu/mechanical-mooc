@@ -12,8 +12,10 @@ Contents:
    :maxdepth: 2
 
    quickstart
-   mailgun
-   awsconf
-
-
-
+   email
+   content
+   domain
+   classphoto
+   grouping
+   sendmail
+   data

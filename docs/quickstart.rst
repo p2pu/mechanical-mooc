@@ -46,8 +46,7 @@ And finally, to open the Mechanical MOOC in your browser run::
 What's next?
 ------------
 
-* Setup email
-* Setup the heroku scheduler
-* Customize the copy and emails that the Mechanical MOOC sends out
-* Configure a custom domain
-* Configure class photo
+* :doc:`email`
+* :doc:`content`
+* :doc:`domain`
+* :doc:`classphoto`
