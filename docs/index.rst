@@ -12,9 +12,8 @@ Contents:
    :maxdepth: 2
 
    quickstart
-   email
+   setup
    content
-   domain
    classphoto
    grouping
    sendmail
