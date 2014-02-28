@@ -2,6 +2,10 @@
 
 The Mechanical MOOC is a web based app for running a course with a large number of users. Users can sign up for a course, you can send regular email updates about the course and group people into small groups where they can discuss the course with their peers. Nothing more and nothing less.
 
+## Documentation
+
+Documentation can be found [here](http://the-mechanical-mooc.readthedocs.org/en/latest/quickstart.html)
+
 ## Running your own instance
 
 The Mechanical MOOC is written as a Django application. You can use any hosting provider, but the easiest way to get going quickly is with [heroku](https://www.heroku.com/).
