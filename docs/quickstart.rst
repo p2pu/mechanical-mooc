@@ -46,7 +46,7 @@ And finally, to open the Mechanical MOOC in your browser run::
 What's next?
 ------------
 
-* :doc:`email`
-* :doc:`content`
-* :doc:`domain`
+* :doc:`Complete the Mechanical MOOC setup <setup>`
+* `Join the P2PU forum and get feedback on running a large course <http://thepeople.p2pu.org>`_
+* :doc:`Update website and messaging copy <content>`
 * :doc:`classphoto`
