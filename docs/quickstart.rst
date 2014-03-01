@@ -47,6 +47,6 @@ What's next?
 ------------
 
 * :doc:`Complete the Mechanical MOOC setup <setup>`
-* `Join the P2PU forum and get feedback on running a large course <http://thepeople.p2pu.org>`_
+* `Share your course idea and ask questions on the P2PU forum <http://thepeople.p2pu.org/t/using-the-mechanical-mooc-for-large-online-courses/437>`_
 * :doc:`Update website and messaging copy <content>`
 * :doc:`classphoto`
