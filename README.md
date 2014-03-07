@@ -12,20 +12,9 @@ You can also head over to the [P2PU forum](http://thepeople.p2pu.org/t/using-the
 
 The Mechanical MOOC has been used to create a number of educational experiences on the web. We've included the relevant Trello boards for the MOOCs to show the learning design and content development phases as well.
 
-### Learning Creative Learning: [learn.mit.edu](http://learn.media.mit.edu/)
-
-A partnership with the MIT Media Lab, the Learning Creative Learning Mechanical MOOC supported over 14,000 learners.
-
-### Data Explorer Mission: [schoolofdata.org/datamooc](http://schoolofdata.org/datamooc/)
-
-A pilot project with the [Open Knowledge Foundation](http://okfn.org/), the Data Explorer Mission supported 13 learning groups and 151 learners.
+- [Learning Creative Learning](http://learn.media.mit.edu/): A partnership with the MIT Media Lab, the Learning Creative Learning Mechanical MOOC supported over 14,000 learners.
+- [Data Explorer Mission](http://schoolofdata.org/datamooc/): A pilot project with the [Open Knowledge Foundation](http://okfn.org/), the Data Explorer Mission supported 13 learning groups and 151 learners.
 [Trello Board for Data Explorer Mission](https://trello.com/b/cUxgGZOO/data-explorer-mission)
-
-### A Gentle Introduction to Python: [mechanicalmooc.org](http://mechanicalmooc.org/)
-
-The original "Mechanical MOOC" is a partnership between MIT OCW, OpenStudy, Codecademy and P2PU. Now in its 4th cycle, MOOC has supported over 10,000 learners.
-
-### Play with your music: [playwithyourmusic.org](http://www.playwithyourmusic.org)
-
-A online course in audio production in collaboration with NYU Steinhardt with more than 3000 students in the first round.
+- [A Gentle Introduction to Python](http://mechanicalmooc.org/): The original "Mechanical MOOC" is a partnership between MIT OCW, OpenStudy, Codecademy and P2PU. Now in its 4th cycle, MOOC has supported over 10,000 learners.
+- [Play with your music](http://www.playwithyourmusic.org): A online course in audio production in collaboration with NYU Steinhardt with more than 3000 students in the first round.
 
