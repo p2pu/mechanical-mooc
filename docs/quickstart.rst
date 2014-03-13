@@ -24,7 +24,7 @@ Next push the application code to heroku::
 Then add the free development database and create the database tables::
 
     heroku addons:add heroku-postgresql:dev
-    heroku run python manage.py syncdb
+    heroku run python manage.py syncdb --migrate
 
 During the database creation, you need to create a superuser. This is the user that you will use to log in and create and send emails. Be sure to remember the credentials and don't make them admin:password!!
 
