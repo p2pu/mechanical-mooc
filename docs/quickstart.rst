@@ -28,16 +28,6 @@ Then add the free development database and create the database tables::
 
 During the database creation, you need to create a superuser. This is the user that you will use to log in and create and send emails. Be sure to remember the credentials and don't make them admin:password!!
 
-You need to create a sequence for your MOOC. A sequence is a single run of your course, obviously your course will be a resounding success and you will want to run many more!::
-
-    heroku run python manage.py shell
-    > from sequence import models
-    > from datetime import datetime
-    > start_date = datetime(2013, 12, 1)
-    > signup_close_date = datetime(2013, 11, 23)
-    > models.create_sequence(start_date, signup_close_date)
-    > exit()
-
 And finally, to open the Mechanical MOOC in your browser run::
 
     heroku open
