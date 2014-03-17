@@ -6,7 +6,7 @@ If you followed the instructions in the :doc:`quick start <quickstart>` you will
 Setting up email
 ------------------
 
-For sending email and managing mailing lists we use `mailgun <http://mailgun.com/>`. You need to sign up for a mailgun account and get the API keys.
+For sending email and managing mailing lists we use `mailgun <http://mailgun.com/>`_. You need to sign up for a mailgun account and get the API keys.
 
 Set the API keys in the mechanical MOOC by running::
     
