@@ -52,3 +52,16 @@ Mailgun needs a custom domain to `function properly <http://documentation.mailgu
     heroku config:set MAILGUN_API_DOMAIN=<your-domain>
 
 with your proper domain.
+
+Create a new sequence
+---------------------
+
+A sequence is a single run of your course, obviously your course will be a resounding success and you will want to run many more! To create a sequence run the following commands::
+
+    heroku run python manage.py shell
+    > from sequence import models
+    > from datetime import datetime
+    > start_date = datetime(2013, 12, 1)
+    > signup_close_date = datetime(2013, 11, 23)
+    > models.create_sequence(start_date, signup_close_date)
+    > exit()
