@@ -65,3 +65,5 @@ A sequence is a single run of your course, obviously your course will be a resou
     > signup_close_date = datetime(2013, 11, 23)
     > models.create_sequence(start_date, signup_close_date)
     > exit()
+    
+This will automatically create a mailgun campaing and a single mailgun mailing list to which new sign up will be added.
