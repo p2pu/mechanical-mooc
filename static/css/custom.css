@@ -1,9 +1,14 @@
 /* line 5, ../sass/custom.scss */
+body {
+  background-color: #FFF;
+}
+
+/* line 9, ../sass/custom.scss */
 .navbar .brand {
   float: right;
 }
 
-/* line 9, ../sass/custom.scss */
+/* line 13, ../sass/custom.scss */
 .nyu-logo {
   float: right;
   background: url("/static/img/nyusteinhardtlogo.png");
@@ -12,38 +17,33 @@
   margin: 18px 10px 17px;
 }
 
-/* line 17, ../sass/custom.scss */
+/* line 21, ../sass/custom.scss */
 .jumbotron {
-  background-image: url("/static/img/banner.jpg");
+  background-image: url("/static/img/pg-banner.jpg");
   background-size: cover;
   background-position: 0% 0%;
-  height: 334px;
-  margin-bottom: -60px;
-  font-size: 21px;
-  line-height: 1.3em;
-  text-shadow: 0 0 12px rgba(0, 0, 0, 0.5), 0 0 32px rgba(0, 0, 0, 0.25), 0 1px rgba(0, 0, 0, 0.75);
-  position: relative;
-  text-align: center;
-  position: relative;
+  height: 340px;
+  text-align: left;
 }
-/* line 29, ../sass/custom.scss */
-.jumbotron .head-text {
-  position: absolute;
-  bottom: 45%;
-  width: 100%;
-}
-/* line 34, ../sass/custom.scss */
+/* line 35, ../sass/custom.scss */
 .jumbotron .pre-title {
-  font-size: 1.3em;
-  margin: 15px 0;
+  font-size: 36pt;
   color: #FFF;
+  background-color: #005494;
+  padding: 10px;
+  margin-left: 30px;
+  line-height: 100%;
+  display: inline-block;
 }
-/* line 40, ../sass/custom.scss */
+/* line 45, ../sass/custom.scss */
 .jumbotron .title {
-  color: #FFF;
+  color: #000;
+  padding: 10px 40px;
+  font-size: 48pt;
+  line-height: 100%;
 }
 
-/* line 45, ../sass/custom.scss */
+/* line 53, ../sass/custom.scss */
 .subhead {
   height: inherit;
   margin-bottom: 30px;
@@ -51,54 +51,50 @@
   text-align: left;
 }
 
-/* line 52, ../sass/custom.scss */
+/* line 60, ../sass/custom.scss */
 .description {
   margin: 0 0 10px 0;
   padding: 30px;
   background-color: #FFF;
   position: relative;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.1);
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
 }
-/* line 61, ../sass/custom.scss */
+/* line 65, ../sass/custom.scss */
 .description ul {
   margin-left: -30px;
 }
-/* line 64, ../sass/custom.scss */
+/* line 68, ../sass/custom.scss */
 .description li {
   float: left;
   margin-left: 20px;
   width: 300px;
   margin: 30px 0 20px 5%;
 }
-/* line 69, ../sass/custom.scss */
+/* line 73, ../sass/custom.scss */
 .description li h2.pull-left i {
   margin: 11px 15px 0 0;
 }
-/* line 73, ../sass/custom.scss */
+/* line 77, ../sass/custom.scss */
 .description li .description-text h2 {
   min-height: 95px;
 }
 
-/* line 80, ../sass/custom.scss */
+/* line 84, ../sass/custom.scss */
 #step2, #step3 {
   margin-top: 30px;
 }
 
-/* line 84, ../sass/custom.scss */
+/* line 88, ../sass/custom.scss */
 #emailForm {
   margin-bottom: 50px;
 }
 
-/* line 87, ../sass/custom.scss */
+/* line 91, ../sass/custom.scss */
 .full-width {
   width: 99%;
 }
 
 /* Progress Bar */
-/* line 94, ../sass/custom.scss */
+/* line 98, ../sass/custom.scss */
 .progress-step .step-full, .progress-step .step-empty {
   height: 30px;
   width: 30px;
@@ -117,12 +113,12 @@
   line-height: 28px;
   font-weight: bold;
 }
-/* line 112, ../sass/custom.scss */
+/* line 116, ../sass/custom.scss */
 .progress-step .step-empty {
   background-color: #51A351;
 }
 
-/* line 118, ../sass/custom.scss */
+/* line 122, ../sass/custom.scss */
 .progress-step-square .step-full,
 .progress-step-square .step-empty {
   -webkit-border-radius: 2px;
@@ -130,7 +126,7 @@
   border-radius: 2px;
 }
 
-/* line 123, ../sass/custom.scss */
+/* line 127, ../sass/custom.scss */
 .progress.progress-step {
   margin: 14px 17px 14px 14px;
   position: relative;
@@ -138,7 +134,7 @@
 }
 
 /* Form */
-/* line 131, ../sass/custom.scss */
+/* line 135, ../sass/custom.scss */
 #step2 .help-block {
   margin-top: 0;
   padding-top: 5px;
@@ -146,28 +142,28 @@
   color: #999;
 }
 
-/* line 138, ../sass/custom.scss */
+/* line 142, ../sass/custom.scss */
 #step2 select {
   margin-top: 5px;
 }
 
-/* line 143, ../sass/custom.scss */
+/* line 147, ../sass/custom.scss */
 #infoForm .control-group.error .controls label {
   color: #333;
 }
 
 /* Success page */
-/* line 148, ../sass/custom.scss */
+/* line 152, ../sass/custom.scss */
 #step3 i {
   font-size: 130px;
 }
 
-/* line 151, ../sass/custom.scss */
+/* line 155, ../sass/custom.scss */
 #step3 {
   text-align: center;
 }
 
-/* line 155, ../sass/custom.scss */
+/* line 159, ../sass/custom.scss */
 .about p, .faq p {
   font-size: 18px;
   text-align: justify;
@@ -175,22 +171,22 @@
   padding-top: 0.7em;
 }
 
-/* line 162, ../sass/custom.scss */
+/* line 166, ../sass/custom.scss */
 .faq h2 {
   padding-top: 1em;
 }
 
-/* line 167, ../sass/custom.scss */
+/* line 171, ../sass/custom.scss */
 input[type="email"] {
   margin-bottom: 0;
 }
 
-/* line 172, ../sass/custom.scss */
+/* line 176, ../sass/custom.scss */
 .input-append,
 .input-prepend {
   font-size: 12px;
 }
-/* line 176, ../sass/custom.scss */
+/* line 180, ../sass/custom.scss */
 .input-append .add-on,
 .input-append .btn,
 .input-append .btn-group,
@@ -199,18 +195,18 @@ input[type="email"] {
 .input-prepend .btn-group {
   margin-right: -6px;
 }
-/* line 180, ../sass/custom.scss */
+/* line 184, ../sass/custom.scss */
 .input-append .alert,
 .input-prepend .alert {
   margin-left: 10px;
 }
 
-/* line 185, ../sass/custom.scss */
+/* line 189, ../sass/custom.scss */
 .class-gallery {
   margin-top: 1.5em;
 }
 
-/* line 189, ../sass/custom.scss */
+/* line 193, ../sass/custom.scss */
 .profile-wrapper {
   float: left;
   list-style: none;
@@ -218,14 +214,14 @@ input[type="email"] {
   height: 120px;
 }
 
-/* line 196, ../sass/custom.scss */
+/* line 200, ../sass/custom.scss */
 .profile {
   width: 120px;
   height: 120px;
   position: relative;
 }
 
-/* line 202, ../sass/custom.scss */
+/* line 206, ../sass/custom.scss */
 .profile-image {
   max-height: 120px;
   max-width: 120px;
@@ -233,7 +229,7 @@ input[type="email"] {
   margin: 0 auto;
 }
 
-/* line 209, ../sass/custom.scss */
+/* line 213, ../sass/custom.scss */
 .bubble:before {
   border-color: #2e88c4 rgba(0, 0, 0, 0);
   border-style: solid;
@@ -247,7 +243,7 @@ input[type="email"] {
   z-index: 999;
 }
 
-/* line 222, ../sass/custom.scss */
+/* line 226, ../sass/custom.scss */
 .bubble {
   background: linear-gradient(#2e88c4, #075698) repeat scroll 0 0 rgba(0, 0, 0, 0);
   border-radius: 10px 10px 10px 10px;
@@ -260,17 +256,17 @@ input[type="email"] {
   text-align: center;
 }
 
-/* line 234, ../sass/custom.scss */
+/* line 238, ../sass/custom.scss */
 .conference {
   text-align: center;
 }
-/* line 236, ../sass/custom.scss */
+/* line 240, ../sass/custom.scss */
 .conference img {
   width: 200px;
   margin: 20px;
 }
 
-/* line 242, ../sass/custom.scss */
+/* line 246, ../sass/custom.scss */
 .digit {
   background: linear-gradient(#2e88c4, #075698);
   font-size: xx-large;
@@ -279,39 +275,39 @@ input[type="email"] {
   color: #FFF;
 }
 
-/* line 250, ../sass/custom.scss */
+/* line 254, ../sass/custom.scss */
 .social {
   margin-left: 0;
   margin-bottom: 0;
   padding-left: 0;
   list-style: none;
 }
-/* line 255, ../sass/custom.scss */
+/* line 259, ../sass/custom.scss */
 .social li {
   display: inline-block;
   padding: 5px 8px;
   line-height: 1;
 }
 
-/* line 262, ../sass/custom.scss */
+/* line 266, ../sass/custom.scss */
 ul.tagit input[type="text"] {
   box-shadow: none;
 }
 
 @media (max-width: 996px) {
-  /* line 268, ../sass/custom.scss */
+  /* line 272, ../sass/custom.scss */
   body {
     padding: 0;
   }
 
-  /* line 271, ../sass/custom.scss */
+  /* line 275, ../sass/custom.scss */
   .github-fork img {
     width: 100px;
     height: 100px;
   }
 }
 @media (min-width: 979px) and (max-width: 1200px) {
-  /* line 277, ../sass/custom.scss */
+  /* line 281, ../sass/custom.scss */
   .description li {
     width: 290px;
     margin: 30px 0 15px 20px;
