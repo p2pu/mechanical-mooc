@@ -29,7 +29,7 @@ blockquote {
 	font-style: italic;
 }
 
-a{
+a {
 	color: #005494;
 	text-decoration: underline;
 }
@@ -38,9 +38,10 @@ a{
 	margin-left: 0;
 }
 
-.text-center{
+.text-center {
 	text-align: center;
 }
+
 /**********************************
 Navbar styles
 **********************************/
@@ -70,6 +71,10 @@ Navbar styles
 		top: 0;
 		right: 0;
 		left: initial;
+
+		img {
+			height: 24px;
+		}
 	}
 
 	.logo-plus-sign {
@@ -80,11 +85,22 @@ Navbar styles
 	}
 }
 
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+.navbar-inner {
+	background-color: #fdfdfd;
+	border-color: #fdfdfd;
+}
+
 /**********************************
 Jumbotron styles
 **********************************/
 .jumbotron {
-	background: url('/static/img/banner-bagel.png') #FDFDFD top right no-repeat;
+	background: url('/static/img/banner-peter-gabriel.png') #FDFDFD top right no-repeat;
 	background-size: contain;
 	height: 640px;
 	text-align: left;
@@ -160,8 +176,8 @@ Signup styles
 		padding: 10px;
 	}
 
-	.video iframe{
-		width:100%;
+	.video iframe {
+		width: 100%;
 		height: 670px
 	}
 }
