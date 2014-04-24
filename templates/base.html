@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,7 @@
 
     <link rel="stylesheet" href="/static/css/p2pu-bootstrap.css"/>
 
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Arvo:regular,italic,bold,bolditalic" rel="stylesheet">
 
     <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
@@ -41,11 +42,11 @@
     <div class="navbar-inner">
         <div class="container">
             <a class="navbar-btn visible-phone visible-tablet" href="#main-menu-panel">
-                <i class="icon-list-ul"></i>
+                <i class="fa fa-align-justify"></i>
             </a>
             <div class="nav-collapse collapse">
                 <ul class="nav main-menu">
-                    <li><a class="home" href="{% url home %}"><i class="icon-home"></i></a></li>
+                    <li><a class="home" href="{% url home %}"><i class="fa fa-home"></i></a></li>
                     <li><a href="{% url about %}">About</a></li>
                     <li><a href="{% url curriculum %}">Curriculum</a></li>
                     <li><a href="http://community.playwithyourmusic.org">Community</a></li>
@@ -54,9 +55,20 @@
                     <li><a href="{% url faq %}">FAQ</a></li>
                 </ul>
             </div>
-            <a class="brand" target="_blank" href="https://p2pu.org"></a>
-            <a class="nyu-logo" target="_blank" href="http://steinhardt.nyu.edu"></a>
         </div>
+	    <ul class="nav logos">
+            <li>
+                <a href="https://p2pu.org/en/">
+                    <img src="{% static 'img/logo-p2pu-menu.png' %}" alt="P2PU Logo">
+                </a>
+            </li>
+            <li class="logo-plus-sign"><i class="fa fa-plus"></i></li>
+            <li>
+                <a target="_blank" href="http://steinhardt.nyu.edu" class="cc-logo">
+                    <img src="{% static 'img/nyusteinhardtlogo.png' %}" alt="NY Steinhard Logo">
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
 
