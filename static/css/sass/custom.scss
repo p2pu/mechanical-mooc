@@ -1,6 +1,17 @@
 //
 // P2PU Mechanical Mooc customizations
 //-----------------------------------------------------
+
+/**********************************
+FONT for banner
+**********************************/
+@font-face {
+    font-family: 'Didiot';
+    src: url('/static/font/TheanoDidot-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /**********************************
 Main styles
 **********************************/
@@ -47,22 +58,12 @@ Navbar styles
 Jumbotron styles
 **********************************/
 .jumbotron {
-	background-image: url('/static/img/pg-banner.jpg');
-	background-size: cover;
-	background-position: 0% 0%;
-	height: 340px;
-	//font-size: 21px;
-	//position: relative;
+	background: url('/static/img/banner-bagel.png') #FDFDFD top right no-repeat;
+	background-size: contain;
+	height: 640px;
 	text-align: left;
-	//position: relative;
-	//.head-text{
-	//  position: absolute;
-	//  bottom: 45%;
-	//  width: 100%;
-	//}
 	.pre-title {
 		font-size: 36pt;
-		//margin: 55px 0;
 		color: #FFF;
 		background-color: #005494;
 		padding: 10px;
@@ -78,6 +79,9 @@ Jumbotron styles
 	}
 }
 
+/**********************************
+Jumbotron styles
+**********************************/
 .subhead {
 	height: inherit;
 	margin-bottom: 30px;
