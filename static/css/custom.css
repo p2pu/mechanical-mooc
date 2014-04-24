@@ -1,80 +1,132 @@
 /**********************************
+FONT for banner
+**********************************/
+@font-face {
+  font-family: 'Didiot';
+  src: url("/static/font/TheanoDidot-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+/**********************************
 Main styles
 **********************************/
 body {
-  background-color: #FFF; }
+  width: 100%;
+  background-color: #FDFDFD;
+  font-family: 'Open Sans', sans-serif; }
+
+blockquote {
+  font-size: 20px;
+  line-height: 40px;
+  font-family: "Arvo", "Times New Roman", serif;
+  margin: 50px 0;
+  font-style: italic; }
+
+a {
+  color: #005494;
+  text-decoration: underline; }
+
+.first {
+  margin-left: 0; }
+
+.text-center {
+  text-align: center; }
 
 /**********************************
 Navbar styles
 **********************************/
-.navbar .navbar-inner {
-  padding: 0 25px; }
-.navbar .main-menu {
-  margin: 11px 0; }
-.navbar .home {
-  padding: 0 10px !important; }
-  .navbar .home i {
-    font-size: 20px;
-    line-height: 30px; }
-.navbar .logos {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: initial; }
-.navbar .logo-plus-sign {
-  margin-top: 10px; }
+.navbar {
+  max-width: 100%;
+  margin: 0; }
+  .navbar .main-menu {
+    margin: 11px 0; }
+  .navbar .brand {
+    font-family: "arvo", Helvetica, sans-serif;
+    text-indent: 0;
+    font-size: 25px;
+    margin-top: 13px;
+    width: 25px;
+    line-height: 100%;
+    margin-bottom: 0;
+    color: #005494;
+    background-image: none; }
+  .navbar .logos {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: initial; }
+  .navbar .logo-plus-sign {
+    margin-top: 10px; }
+  .navbar .nav > li > a {
+    color: #005494; }
 
 /**********************************
 Jumbotron styles
 **********************************/
 .jumbotron {
-  background-image: url("/static/img/pg-banner.jpg");
-  background-size: cover;
-  background-position: 0% 0%;
-  height: 340px;
-  text-align: left; }
-  .jumbotron .pre-title {
-    font-size: 36pt;
+  background: url("/static/img/banner-bagel.png") #fdfdfd top right no-repeat;
+  background-size: contain;
+  height: 640px;
+  text-align: left;
+  position: relative; }
+  .jumbotron .head-text {
+    padding-right: 800px;
+    position: absolute;
+    bottom: 100px;
+    z-index: 3;
+    padding: 0; }
+  .jumbotron .subtitle {
+    font-family: 'Didiot', "Times New Roman", serif;
+    color: #000000;
+    font-size: 120pt;
+    line-height: 100pt; }
+  .jumbotron .subtitle-blue {
+    font-family: helvetica, Arial, serif;
+    font-size: 55pt;
+    font-weight: bold;
     color: #FFF;
     background-color: #005494;
     padding: 10px;
-    margin-left: 30px;
-    line-height: 100%;
+    margin-top: 30px;
+    line-height: 55pt;
     display: inline-block; }
-  .jumbotron .title {
-    color: #000;
-    padding: 10px 40px;
-    font-size: 48pt;
-    line-height: 100%; }
 
-.subhead {
-  height: inherit;
-  margin-bottom: 30px;
-  padding: 20px 0;
-  text-align: left; }
+/**********************************
+Signup styles
+**********************************/
+.intro {
+  margin: 0 0 10px 0;
+  position: relative;
+  background-color: #005494;
+  color: #fff; }
+
+.signup {
+  margin-top: 50px;
+  margin-bottom: 50px; }
+
+#emailForm {
+  background-color: #FDFDFD;
+  color: #333; }
+  #emailForm input {
+    margin: 20px 0;
+    width: 100%;
+    padding: 5px;
+    text-align: center; }
 
 .description {
-  margin: 0 0 10px 0;
-  padding: 30px;
-  background-color: #FFF;
-  position: relative; }
-  .description ul {
-    margin-left: -30px; }
-  .description li {
-    float: left;
-    margin-left: 20px;
-    width: 300px;
-    margin: 30px 0 20px 5%; }
-    .description li h2.pull-left i {
-      margin: 11px 15px 0 0; }
-    .description li .description-text h2 {
-      min-height: 95px; }
+  margin-top: 50px; }
+  .description i {
+    margin: 11px 15px 0 0;
+    font-size: 60px; }
+  .description .description-text {
+    overflow: hidden;
+    padding: 10px; }
+  .description .video iframe {
+    width: 100%;
+    height: 670px; }
 
 #step2, #step3 {
   margin-top: 30px; }
-
-#emailForm {
-  margin-bottom: 50px; }
 
 .full-width {
   width: 99%; }
@@ -226,14 +278,120 @@ input[type="email"] {
 ul.tagit input[type="text"] {
   box-shadow: none; }
 
-@media (max-width: 996px) {
+/*
+MOBILE DEVICES
+This is for devices like an iPhone.
+*/
+@media only screen and (min-device-width: 320px) {
   body {
     padding: 0; }
 
-  .github-fork img {
-    width: 100px;
-    height: 100px; } }
-@media (min-width: 979px) and (max-width: 1200px) {
-  .description li {
-    width: 290px;
-    margin: 30px 0 15px 20px; } }
+  blockquote {
+    margin: 5px; }
+
+  .navbar {
+    margin-bottom: 0; }
+
+  .jumbotron {
+    height: 145px;
+    padding-bottom: 170px;
+    margin-bottom: 25px; }
+    .jumbotron .head-text {
+      bottom: 0;
+      width: 100%;
+      text-align: center; }
+    .jumbotron .subtitle {
+      font-size: 40pt;
+      line-height: 35pt;
+      text-align: center; }
+    .jumbotron .subtitle-blue {
+      font-size: 20pt;
+      text-align: center;
+      margin-top: 15px;
+      line-height: 23pt; }
+
+  #emailForm {
+    margin: 5px;
+    padding: 20px; } }
+@media only screen and (min-width: 321px) {
+  /* Styles */
+  blockquote {
+    margin: 0; }
+
+  .jumbotron {
+    height: 220px;
+    padding-bottom: 0;
+    margin-bottom: 0; }
+    .jumbotron .head-text {
+      bottom: 35px;
+      width: initial; }
+    .jumbotron .subtitle {
+      font-size: 30pt;
+      line-height: 30pt; }
+    .jumbotron .subtitle-blue {
+      font-size: 13pt;
+      line-height: 13pt;
+      margin-top: 10px; } }
+/* iPads ----------- */
+@media only screen and (min-width: 768px) {
+  body {
+    padding-top: 60px; }
+
+  .jumbotron {
+    height: 350px; }
+    .jumbotron .subtitle {
+      font-size: 50pt;
+      line-height: 45pt; }
+    .jumbotron .subtitle-blue {
+      font-size: 25pt;
+      line-height: 25pt;
+      margin-top: 25px; }
+
+  #emailForm {
+    margin: 0;
+    padding: 55px 30px; } }
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  /* Styles */
+  body {
+    padding-top: 60px; }
+
+  .jumbotron .subtitle {
+    font-size: 60pt;
+    line-height: 50pt; }
+  .jumbotron .subtitle-blue {
+    font-size: 30pt;
+    line-height: 30pt; } }
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  /* Styles */
+  body {
+    padding-top: 0; }
+
+  .jumbotron .head-text {
+    bottom: 65px; }
+  .jumbotron .subtitle {
+    font-size: 40pt;
+    line-height: 35pt; }
+  .jumbotron .subtitle-blue {
+    font-size: 23pt;
+    line-height: 23pt; }
+
+  .description i {
+    margin: 25px 15px 0 0;
+    font-size: 40px; } }
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
+  /* Styles */
+  .jumbotron {
+    height: 450px;
+    padding-bottom: 0; }
+    .jumbotron .subtitle {
+      font-size: 70pt;
+      line-height: 65pt; }
+    .jumbotron .subtitle-blue {
+      font-size: 35pt;
+      line-height: 35pt; }
+
+  #emailForm {
+    padding: 17px 30px; } }

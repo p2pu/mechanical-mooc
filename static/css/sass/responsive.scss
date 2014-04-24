@@ -1,0 +1,182 @@
+/*
+MOBILE DEVICES
+This is for devices like an iPhone.
+*/
+@media only screen and (min-device-width: 320px) {
+// styles in 320up.scss
+	body {
+		padding: 0;
+	}
+
+	blockquote {
+		margin: 5px;
+	}
+
+	.navbar {
+		margin-bottom: 0;
+	}
+
+	.jumbotron {
+		height: 145px;
+		padding-bottom: 170px;
+		margin-bottom: 25px;
+
+		.head-text {
+			bottom: 0;
+			width: 100%;
+			text-align: center;
+		}
+
+		.subtitle {
+			font-size: 40pt;
+			line-height: 35pt;
+			text-align: center;
+		}
+
+		.subtitle-blue {
+			font-size: 20pt;
+			text-align: center;
+			margin-top: 15px;
+			line-height: 23pt;
+		}
+	}
+
+	#emailForm {
+		margin: 5px;
+		padding: 20px;
+	}
+}
+
+// iPhone in Portrait mode
+@media only screen and (min-width: 321px) {
+/* Styles */
+	blockquote {
+		margin: 0;
+	}
+	.jumbotron {
+		height: 220px;
+		padding-bottom: 0;
+		margin-bottom: 0;
+		.head-text {
+			bottom: 35px;
+			width: initial;
+		}
+
+		.subtitle {
+			font-size: 30pt;
+			line-height: 30pt;
+		}
+
+		.subtitle-blue {
+			font-size: 13pt;
+			line-height: 13pt;
+			margin-top: 10px;
+		}
+	}
+}
+
+/* iPads ----------- */
+@media only screen and (min-width: 768px) {
+	body {
+		padding-top: 60px;
+	}
+	.jumbotron {
+		height: 350px;
+
+		.subtitle {
+			font-size: 50pt;
+			line-height: 45pt;
+		}
+
+		.subtitle-blue {
+			font-size: 25pt;
+			line-height: 25pt;
+			margin-top: 25px;
+		}
+	}
+
+	#emailForm {
+		margin: 0;
+		padding: 55px 30px;
+	}
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+/* Styles */
+	body {
+		padding-top: 60px;
+	}
+	.jumbotron {
+
+		.subtitle {
+			font-size: 60pt;
+			line-height: 50pt;
+		}
+
+		.subtitle-blue {
+			font-size: 30pt;
+			line-height: 30pt;
+		}
+	}
+
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+/* Styles */
+	body {
+		padding-top: 0;
+	}
+	.jumbotron {
+
+		.head-text {
+			bottom: 65px;
+		}
+
+		.subtitle {
+			font-size: 40pt;
+			line-height: 35pt;
+		}
+
+		.subtitle-blue {
+			font-size: 23pt;
+			line-height: 23pt;
+		}
+	}
+
+	.description {
+		i {
+			margin: 25px 15px 0 0;
+			font-size: 40px;
+		}
+	}
+
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
+/* Styles */
+	.jumbotron {
+		height: 450px;
+		padding-bottom: 0;
+
+		.head-text {
+
+		}
+
+		.subtitle {
+			font-size: 70pt;
+			line-height: 65pt;
+		}
+
+		.subtitle-blue {
+			font-size: 35pt;
+			line-height: 35pt;
+		}
+	}
+
+	#emailForm {
+		padding: 17px 30px;
+	}
+}
