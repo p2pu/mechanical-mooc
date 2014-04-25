@@ -2,284 +2,368 @@
 // P2PU Mechanical Mooc customizations
 //-----------------------------------------------------
 
+/**********************************
+FONT for banner
+**********************************/
+@font-face {
+	font-family: 'Didiot';
+	src: url('/static/font/TheanoDidot-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/**********************************
+Main styles
+**********************************/
 body {
-  background-color: #FFF;
+	width: 100%;
+	background-color: #FDFDFD;
+	font-family: 'Open Sans', sans-serif;
 }
 
-.navbar .brand {
-    float:right;
+blockquote {
+	font-size: 20px;
+	line-height: 40px;
+	font-family: "Arvo", "Times New Roman", serif;
+	margin: 50px 0;
+	font-style: italic;
 }
 
-.nyu-logo {
-    float:right;
-    background: url("/static/img/nyusteinhardtlogo.png");
-    width: 194px;
-    height: 24px;
-    margin: 18px 10px 17px;
+a {
+	color: #005494;
+	text-decoration: underline;
 }
 
-.jumbotron{
-    background-image: url('/static/img/pg-banner.jpg');
-    background-size: cover;
-    background-position: 0% 0%;
-    height: 340px;
-    //font-size: 21px;
-    //position: relative;
-    text-align: left;
-    //position: relative;
-    //.head-text{
-    //  position: absolute;
-    //  bottom: 45%;
-    //  width: 100%;
-    //}
-    .pre-title{
-      font-size: 36pt;
-      //margin: 55px 0;
-      color: #FFF;
-      background-color: #005494;
-      padding: 10px;
-      margin-left: 30px;
-      line-height: 100%;
-      display: inline-block;
-    }
-    .title{
-      color: #000;
-      padding: 10px 40px;
-      font-size: 48pt;
-      line-height: 100%;
-    }
+.first {
+	margin-left: 0;
 }
 
-.subhead{
-  height: inherit;
-  margin-bottom: 30px;
-  padding: 20px 0;
-  text-align: left;
+.text-center {
+	text-align: center;
 }
 
-.description{
-  margin: 0 0 10px 0;
-  padding: 30px;
-  background-color: #FFF;
-  position: relative;
-  ul{
-    margin-left: -30px;
-  }
-  li{
-    float: left;
-    margin-left: 20px;
-    width: 300px;
-    margin: 30px 0 20px 5%;
-    h2.pull-left i{
-      margin: 11px 15px 0 0;
-    }
-    .description-text{
-      h2{
-        min-height: 95px;
-      }
-    }
-  }
+/**********************************
+Navbar styles
+**********************************/
+
+.navbar {
+	max-width: 100%;
+	margin: 0;
+
+	.main-menu {
+		margin: 11px 0;
+	}
+
+	.brand {
+		font-family: "arvo", Helvetica, sans-serif;
+		text-indent: 0;
+		font-size: 25px;
+		margin-top: 13px;
+		width: 25px;
+		line-height: 100%;
+		margin-bottom: 0;
+		color: #005494;
+		background-image: none;
+	}
+
+	.logos {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: initial;
+
+		img {
+			height: 24px;
+		}
+	}
+
+	.logo-plus-sign {
+		margin-top: 10px;
+	}
+	.nav > li > a {
+		color: #005494;
+	}
 }
 
-#step2, #step3{
-  margin-top: 30px;
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
 
-#emailForm{
-  margin-bottom: 50px;
+.navbar-inner {
+	background-color: #fdfdfd;
+	border-color: #fdfdfd;
 }
-.full-width{
-  width: 99%;
+
+/**********************************
+Jumbotron styles
+**********************************/
+.jumbotron {
+	background: url('/static/img/banner-peter-gabriel.png') #FDFDFD top right no-repeat;
+	background-size: contain;
+	height: 640px;
+	text-align: left;
+	position: relative;
+
+	.head-text {
+		padding-right: 800px;
+		position: absolute;
+		bottom: 100px;
+		z-index: 3;
+		padding: 0;
+	}
+
+	.subtitle {
+		font-family: 'Didiot', "Times New Roman", serif;
+		color: #000000;
+		font-size: 120pt;
+		line-height: 100pt;
+	}
+
+	.subtitle-blue {
+		font-family: helvetica, Arial, serif;
+		font-size: 55pt;
+		font-weight: bold;
+		color: #FFF;
+		background-color: #005494;
+		padding: 10px;
+		margin-top: 30px;
+		line-height: 55pt;
+		display: inline-block;
+	}
+
+}
+
+/**********************************
+Signup styles
+**********************************/
+.intro {
+	margin: 0 0 10px 0;
+	position: relative;
+	background-color: #005494;
+	color: #fff;
+
+}
+
+.signup {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+#emailForm {
+	background-color: #FDFDFD;
+	color: #333;
+
+	input {
+		margin: 20px 0;
+		width: 100%;
+		padding: 5px;
+		text-align: center;
+	}
+
+}
+
+.description {
+	margin-top: 50px;
+
+	i {
+		margin: 11px 15px 0 0;
+		font-size: 60px;
+	}
+	.description-text {
+		overflow: hidden;
+		padding: 10px;
+	}
+
+	.video iframe {
+		width: 100%;
+		height: 670px
+	}
+}
+
+#step2, #step3 {
+	margin-top: 30px;
+}
+
+.full-width {
+	width: 99%;
 }
 
 /* Progress Bar */
 
-.progress-step{
-  .step-full, .step-empty{
-    height: 30px;
-    width: 30px;
-    background-color: #0e90d2;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-    position: absolute;
-    left: 0%;
-    margin-top: -6px;
-    margin-left: -14px;
-    font-size: 12pt;
-    color: white;
-    text-shadow: 0px 0px 3px #222;
-    text-align: center;
-    line-height: 28px;
-    font-weight: bold;
-  }
-  .step-empty{
-    background-color: #51A351;
-  }
+.progress-step {
+	.step-full, .step-empty {
+		height: 30px;
+		width: 30px;
+		background-color: #0e90d2;
+		-webkit-border-radius: 15px;
+		-moz-border-radius: 15px;
+		border-radius: 15px;
+		position: absolute;
+		left: 0%;
+		margin-top: -6px;
+		margin-left: -14px;
+		font-size: 12pt;
+		color: white;
+		text-shadow: 0px 0px 3px #222;
+		text-align: center;
+		line-height: 28px;
+		font-weight: bold;
+	}
+	.step-empty {
+		background-color: #51A351;
+	}
 }
 
 .progress-step-square .step-full,
 .progress-step-square .step-empty {
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
 }
+
 .progress.progress-step {
-  margin: 14px 17px 14px 14px;
-  position: relative;
-  overflow: visible;
+	margin: 14px 17px 14px 14px;
+	position: relative;
+	overflow: visible;
 }
 
 /* Form */
 
-#step2 .help-block{
-  margin-top: 0;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  color: #999;
+#step2 .help-block {
+	margin-top: 0;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: #999;
 }
 
-#step2 select{
-  margin-top: 5px;
+#step2 select {
+	margin-top: 5px;
 }
 
-
-#infoForm .control-group.error .controls label{
-  color: #333;
+#infoForm .control-group.error .controls label {
+	color: #333;
 }
 
 /* Success page */
-#step3 i{
-  font-size: 130px;
+#step3 i {
+	font-size: 130px;
 }
+
 #step3 {
-  text-align: center;
+	text-align: center;
 }
 
 .about p, .faq p {
-  font-size: 18px;
-  text-align: justify;
-  line-height: 26px;
-  padding-top: 0.7em;
+	font-size: 18px;
+	text-align: justify;
+	line-height: 26px;
+	padding-top: 0.7em;
 }
 
 .faq h2 {
-  padding-top: 1em;
+	padding-top: 1em;
 }
 
 // Compose mail template
-input[type="email"]{
-    margin-bottom: 0;
-  }
+input[type="email"] {
+	margin-bottom: 0;
+}
 
 .input-append,
-.input-prepend{
-  font-size: 12px;
-  .add-on,
-  .btn,
-  .btn-group{
-    margin-right: -6px;
-  }
+.input-prepend {
+	font-size: 12px;
+	.add-on,
+	.btn,
+	.btn-group {
+		margin-right: -6px;
+	}
 
-  .alert{
-    margin-left: 10px;
-  }
+	.alert {
+		margin-left: 10px;
+	}
 }
 
 .class-gallery {
-    margin-top: 1.5em;
+	margin-top: 1.5em;
 }
 
 .profile-wrapper {
-    float: left;
-    list-style: none;
-    width: 120px;
-    height: 120px;
+	float: left;
+	list-style: none;
+	width: 120px;
+	height: 120px;
 }
 
 .profile {
-    width: 120px;
-    height: 120px;
-    position: relative;
+	width: 120px;
+	height: 120px;
+	position: relative;
 }
 
 .profile-image {
-    max-height: 120px;
-    max-width: 120px;
-    display: block;
-    margin: 0 auto;
+	max-height: 120px;
+	max-width: 120px;
+	display: block;
+	margin: 0 auto;
 }
 
 .bubble:before {
-    border-color: #2E88C4 rgba(0, 0, 0, 0);
-    border-style: solid;
-    border-width: 0 20px 20px 20px;
-    top: -20px;
-    content: "";
-    display: block;
-    left: 50px;
-    position: absolute;
-    width: 0;
-    z-index: 999;
+	border-color: #2E88C4 rgba(0, 0, 0, 0);
+	border-style: solid;
+	border-width: 0 20px 20px 20px;
+	top: -20px;
+	content: "";
+	display: block;
+	left: 50px;
+	position: absolute;
+	width: 0;
+	z-index: 999;
 }
 
 .bubble {
-    background: linear-gradient(#2E88C4, #075698) repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border-radius: 10px 10px 10px 10px;
-    color: #FFFFFF;
-    margin: 1em 0 3em;
-    padding: 15px;
-    position: absolute;
-    width: 200px;
-    z-index: 999;
-    text-align: center;
+	background: linear-gradient(#2E88C4, #075698) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border-radius: 10px 10px 10px 10px;
+	color: #FFFFFF;
+	margin: 1em 0 3em;
+	padding: 15px;
+	position: absolute;
+	width: 200px;
+	z-index: 999;
+	text-align: center;
 }
 
-.conference{
-  text-align: center;
-  img{
-    width: 200px;
-    margin: 20px
-  }
+.conference {
+	text-align: center;
+	img {
+		width: 200px;
+		margin: 20px
+	}
 }
 
 .digit {
-    background: linear-gradient(#2E88C4, #075698);
-    font-size: xx-large;
-    border-radius: 8px;
-    padding: 0px 10px;
-    color: #FFF;
+	background: linear-gradient(#2E88C4, #075698);
+	font-size: xx-large;
+	border-radius: 8px;
+	padding: 0px 10px;
+	color: #FFF;
 }
 
-.social{
-  margin-left: 0;
-  margin-bottom: 0;
-  padding-left: 0;
-  list-style: none;
-  li{
-    display: inline-block;
-    padding: 5px 8px;
-    line-height: 1;
-  }
+.social {
+	margin-left: 0;
+	margin-bottom: 0;
+	padding-left: 0;
+	list-style: none;
+	li {
+		display: inline-block;
+		padding: 5px 8px;
+		line-height: 1;
+	}
 }
 
-ul.tagit input[type="text"]{
-  box-shadow: none;
+ul.tagit input[type="text"] {
+	box-shadow: none;
 }
 
-// Media queries for responsive design
-@media (max-width: 996px){
-  body {
-    padding: 0;
-  }
-  .github-fork img{
-    width: 100px;
-    height: 100px;
-  }
-}
-@media (min-width: 979px) and (max-width: 1200px) {
-  .description li {
-    width: 290px;
-    margin: 30px 0 15px 20px;
-  }
-}
+@import "responsive";

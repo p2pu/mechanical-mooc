@@ -1,100 +1,148 @@
-/* line 5, ../sass/custom.scss */
+/**********************************
+FONT for banner
+**********************************/
+@font-face {
+  font-family: 'Didiot';
+  src: url("/static/font/TheanoDidot-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+/**********************************
+Main styles
+**********************************/
 body {
-  background-color: #FFF;
-}
+  width: 100%;
+  background-color: #FDFDFD;
+  font-family: 'Open Sans', sans-serif; }
 
-/* line 9, ../sass/custom.scss */
-.navbar .brand {
-  float: right;
-}
+blockquote {
+  font-size: 20px;
+  line-height: 40px;
+  font-family: "Arvo", "Times New Roman", serif;
+  margin: 50px 0;
+  font-style: italic; }
 
-/* line 13, ../sass/custom.scss */
-.nyu-logo {
-  float: right;
-  background: url("/static/img/nyusteinhardtlogo.png");
-  width: 194px;
-  height: 24px;
-  margin: 18px 10px 17px;
-}
+a {
+  color: #005494;
+  text-decoration: underline; }
 
-/* line 21, ../sass/custom.scss */
+.first {
+  margin-left: 0; }
+
+.text-center {
+  text-align: center; }
+
+/**********************************
+Navbar styles
+**********************************/
+.navbar {
+  max-width: 100%;
+  margin: 0; }
+  .navbar .main-menu {
+    margin: 11px 0; }
+  .navbar .brand {
+    font-family: "arvo", Helvetica, sans-serif;
+    text-indent: 0;
+    font-size: 25px;
+    margin-top: 13px;
+    width: 25px;
+    line-height: 100%;
+    margin-bottom: 0;
+    color: #005494;
+    background-image: none; }
+  .navbar .logos {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: initial; }
+    .navbar .logos img {
+      height: 24px; }
+  .navbar .logo-plus-sign {
+    margin-top: 10px; }
+  .navbar .nav > li > a {
+    color: #005494; }
+
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none; }
+
+.navbar-inner {
+  background-color: #fdfdfd;
+  border-color: #fdfdfd; }
+
+/**********************************
+Jumbotron styles
+**********************************/
 .jumbotron {
-  background-image: url("/static/img/pg-banner.jpg");
-  background-size: cover;
-  background-position: 0% 0%;
-  height: 340px;
+  background: url("/static/img/banner-peter-gabriel.png") #fdfdfd top right no-repeat;
+  background-size: contain;
+  height: 640px;
   text-align: left;
-}
-/* line 35, ../sass/custom.scss */
-.jumbotron .pre-title {
-  font-size: 36pt;
-  color: #FFF;
-  background-color: #005494;
-  padding: 10px;
-  margin-left: 30px;
-  line-height: 100%;
-  display: inline-block;
-}
-/* line 45, ../sass/custom.scss */
-.jumbotron .title {
-  color: #000;
-  padding: 10px 40px;
-  font-size: 48pt;
-  line-height: 100%;
-}
+  position: relative; }
+  .jumbotron .head-text {
+    padding-right: 800px;
+    position: absolute;
+    bottom: 100px;
+    z-index: 3;
+    padding: 0; }
+  .jumbotron .subtitle {
+    font-family: 'Didiot', "Times New Roman", serif;
+    color: #000000;
+    font-size: 120pt;
+    line-height: 100pt; }
+  .jumbotron .subtitle-blue {
+    font-family: helvetica, Arial, serif;
+    font-size: 55pt;
+    font-weight: bold;
+    color: #FFF;
+    background-color: #005494;
+    padding: 10px;
+    margin-top: 30px;
+    line-height: 55pt;
+    display: inline-block; }
 
-/* line 53, ../sass/custom.scss */
-.subhead {
-  height: inherit;
-  margin-bottom: 30px;
-  padding: 20px 0;
-  text-align: left;
-}
-
-/* line 60, ../sass/custom.scss */
-.description {
+/**********************************
+Signup styles
+**********************************/
+.intro {
   margin: 0 0 10px 0;
-  padding: 30px;
-  background-color: #FFF;
   position: relative;
-}
-/* line 65, ../sass/custom.scss */
-.description ul {
-  margin-left: -30px;
-}
-/* line 68, ../sass/custom.scss */
-.description li {
-  float: left;
-  margin-left: 20px;
-  width: 300px;
-  margin: 30px 0 20px 5%;
-}
-/* line 73, ../sass/custom.scss */
-.description li h2.pull-left i {
-  margin: 11px 15px 0 0;
-}
-/* line 77, ../sass/custom.scss */
-.description li .description-text h2 {
-  min-height: 95px;
-}
+  background-color: #005494;
+  color: #fff; }
 
-/* line 84, ../sass/custom.scss */
-#step2, #step3 {
-  margin-top: 30px;
-}
+.signup {
+  margin-top: 50px;
+  margin-bottom: 50px; }
 
-/* line 88, ../sass/custom.scss */
 #emailForm {
-  margin-bottom: 50px;
-}
+  background-color: #FDFDFD;
+  color: #333; }
+  #emailForm input {
+    margin: 20px 0;
+    width: 100%;
+    padding: 5px;
+    text-align: center; }
 
-/* line 91, ../sass/custom.scss */
+.description {
+  margin-top: 50px; }
+  .description i {
+    margin: 11px 15px 0 0;
+    font-size: 60px; }
+  .description .description-text {
+    overflow: hidden;
+    padding: 10px; }
+  .description .video iframe {
+    width: 100%;
+    height: 670px; }
+
+#step2, #step3 {
+  margin-top: 30px; }
+
 .full-width {
-  width: 99%;
-}
+  width: 99%; }
 
 /* Progress Bar */
-/* line 98, ../sass/custom.scss */
 .progress-step .step-full, .progress-step .step-empty {
   height: 30px;
   width: 30px;
@@ -111,125 +159,87 @@ body {
   text-shadow: 0px 0px 3px #222;
   text-align: center;
   line-height: 28px;
-  font-weight: bold;
-}
-/* line 116, ../sass/custom.scss */
+  font-weight: bold; }
 .progress-step .step-empty {
-  background-color: #51A351;
-}
+  background-color: #51A351; }
 
-/* line 122, ../sass/custom.scss */
 .progress-step-square .step-full,
 .progress-step-square .step-empty {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  border-radius: 2px;
-}
+  border-radius: 2px; }
 
-/* line 127, ../sass/custom.scss */
 .progress.progress-step {
   margin: 14px 17px 14px 14px;
   position: relative;
-  overflow: visible;
-}
+  overflow: visible; }
 
 /* Form */
-/* line 135, ../sass/custom.scss */
 #step2 .help-block {
   margin-top: 0;
   padding-top: 5px;
   padding-bottom: 5px;
-  color: #999;
-}
+  color: #999; }
 
-/* line 142, ../sass/custom.scss */
 #step2 select {
-  margin-top: 5px;
-}
+  margin-top: 5px; }
 
-/* line 147, ../sass/custom.scss */
 #infoForm .control-group.error .controls label {
-  color: #333;
-}
+  color: #333; }
 
 /* Success page */
-/* line 152, ../sass/custom.scss */
 #step3 i {
-  font-size: 130px;
-}
+  font-size: 130px; }
 
-/* line 155, ../sass/custom.scss */
 #step3 {
-  text-align: center;
-}
+  text-align: center; }
 
-/* line 159, ../sass/custom.scss */
 .about p, .faq p {
   font-size: 18px;
   text-align: justify;
   line-height: 26px;
-  padding-top: 0.7em;
-}
+  padding-top: 0.7em; }
 
-/* line 166, ../sass/custom.scss */
 .faq h2 {
-  padding-top: 1em;
-}
+  padding-top: 1em; }
 
-/* line 171, ../sass/custom.scss */
 input[type="email"] {
-  margin-bottom: 0;
-}
+  margin-bottom: 0; }
 
-/* line 176, ../sass/custom.scss */
 .input-append,
 .input-prepend {
-  font-size: 12px;
-}
-/* line 180, ../sass/custom.scss */
-.input-append .add-on,
-.input-append .btn,
-.input-append .btn-group,
-.input-prepend .add-on,
-.input-prepend .btn,
-.input-prepend .btn-group {
-  margin-right: -6px;
-}
-/* line 184, ../sass/custom.scss */
-.input-append .alert,
-.input-prepend .alert {
-  margin-left: 10px;
-}
+  font-size: 12px; }
+  .input-append .add-on,
+  .input-append .btn,
+  .input-append .btn-group,
+  .input-prepend .add-on,
+  .input-prepend .btn,
+  .input-prepend .btn-group {
+    margin-right: -6px; }
+  .input-append .alert,
+  .input-prepend .alert {
+    margin-left: 10px; }
 
-/* line 189, ../sass/custom.scss */
 .class-gallery {
-  margin-top: 1.5em;
-}
+  margin-top: 1.5em; }
 
-/* line 193, ../sass/custom.scss */
 .profile-wrapper {
   float: left;
   list-style: none;
   width: 120px;
-  height: 120px;
-}
+  height: 120px; }
 
-/* line 200, ../sass/custom.scss */
 .profile {
   width: 120px;
   height: 120px;
-  position: relative;
-}
+  position: relative; }
 
-/* line 206, ../sass/custom.scss */
 .profile-image {
   max-height: 120px;
   max-width: 120px;
   display: block;
-  margin: 0 auto;
-}
+  margin: 0 auto; }
 
-/* line 213, ../sass/custom.scss */
 .bubble:before {
   border-color: #2e88c4 rgba(0, 0, 0, 0);
   border-style: solid;
@@ -240,10 +250,8 @@ input[type="email"] {
   left: 50px;
   position: absolute;
   width: 0;
-  z-index: 999;
-}
+  z-index: 999; }
 
-/* line 226, ../sass/custom.scss */
 .bubble {
   background: linear-gradient(#2e88c4, #075698) repeat scroll 0 0 rgba(0, 0, 0, 0);
   border-radius: 10px 10px 10px 10px;
@@ -253,63 +261,148 @@ input[type="email"] {
   position: absolute;
   width: 200px;
   z-index: 999;
-  text-align: center;
-}
+  text-align: center; }
 
-/* line 238, ../sass/custom.scss */
 .conference {
-  text-align: center;
-}
-/* line 240, ../sass/custom.scss */
-.conference img {
-  width: 200px;
-  margin: 20px;
-}
+  text-align: center; }
+  .conference img {
+    width: 200px;
+    margin: 20px; }
 
-/* line 246, ../sass/custom.scss */
 .digit {
   background: linear-gradient(#2e88c4, #075698);
   font-size: xx-large;
   border-radius: 8px;
   padding: 0px 10px;
-  color: #FFF;
-}
+  color: #FFF; }
 
-/* line 254, ../sass/custom.scss */
 .social {
   margin-left: 0;
   margin-bottom: 0;
   padding-left: 0;
-  list-style: none;
-}
-/* line 259, ../sass/custom.scss */
-.social li {
-  display: inline-block;
-  padding: 5px 8px;
-  line-height: 1;
-}
+  list-style: none; }
+  .social li {
+    display: inline-block;
+    padding: 5px 8px;
+    line-height: 1; }
 
-/* line 266, ../sass/custom.scss */
 ul.tagit input[type="text"] {
-  box-shadow: none;
-}
+  box-shadow: none; }
 
-@media (max-width: 996px) {
-  /* line 272, ../sass/custom.scss */
+/*
+MOBILE DEVICES
+This is for devices like an iPhone.
+*/
+@media only screen and (min-device-width: 320px) {
   body {
-    padding: 0;
-  }
+    padding: 0; }
 
-  /* line 275, ../sass/custom.scss */
-  .github-fork img {
-    width: 100px;
-    height: 100px;
-  }
-}
-@media (min-width: 979px) and (max-width: 1200px) {
-  /* line 281, ../sass/custom.scss */
-  .description li {
-    width: 290px;
-    margin: 30px 0 15px 20px;
-  }
-}
+  blockquote {
+    margin: 5px; }
+
+  .navbar {
+    margin-bottom: 0; }
+
+  .jumbotron {
+    height: 145px;
+    padding-bottom: 170px;
+    margin-bottom: 25px; }
+    .jumbotron .head-text {
+      bottom: 0;
+      width: 100%;
+      text-align: center; }
+    .jumbotron .subtitle {
+      font-size: 40pt;
+      line-height: 35pt;
+      text-align: center; }
+    .jumbotron .subtitle-blue {
+      font-size: 20pt;
+      text-align: center;
+      margin-top: 15px;
+      line-height: 23pt; }
+
+  #emailForm {
+    margin: 5px;
+    padding: 20px; } }
+@media only screen and (min-width: 321px) {
+  /* Styles */
+  blockquote {
+    margin: 0; }
+
+  .jumbotron {
+    height: 220px;
+    padding-bottom: 0;
+    margin-bottom: 0; }
+    .jumbotron .head-text {
+      bottom: 35px;
+      width: initial; }
+    .jumbotron .subtitle {
+      font-size: 30pt;
+      line-height: 30pt; }
+    .jumbotron .subtitle-blue {
+      font-size: 13pt;
+      line-height: 13pt;
+      margin-top: 10px; } }
+/* iPads ----------- */
+@media only screen and (min-width: 768px) {
+  body {
+    padding-top: 60px; }
+
+  .jumbotron {
+    height: 350px; }
+    .jumbotron .subtitle {
+      font-size: 50pt;
+      line-height: 45pt; }
+    .jumbotron .subtitle-blue {
+      font-size: 25pt;
+      line-height: 25pt;
+      margin-top: 25px; }
+
+  #emailForm {
+    margin: 0;
+    padding: 55px 30px; } }
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  /* Styles */
+  body {
+    padding-top: 60px; }
+
+  .jumbotron .subtitle {
+    font-size: 60pt;
+    line-height: 50pt; }
+  .jumbotron .subtitle-blue {
+    font-size: 30pt;
+    line-height: 30pt; } }
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  /* Styles */
+  body {
+    padding-top: 0; }
+
+  .jumbotron .head-text {
+    bottom: 65px; }
+  .jumbotron .subtitle {
+    font-size: 40pt;
+    line-height: 35pt; }
+  .jumbotron .subtitle-blue {
+    font-size: 23pt;
+    line-height: 23pt; }
+
+  .description i {
+    margin: 25px 15px 0 0;
+    font-size: 40px; } }
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
+  /* Styles */
+  .jumbotron {
+    height: 450px;
+    padding-bottom: 0; }
+    .jumbotron .subtitle {
+      font-size: 70pt;
+      line-height: 65pt; }
+    .jumbotron .subtitle-blue {
+      font-size: 35pt;
+      line-height: 35pt; }
+
+  #emailForm {
+    padding: 17px 30px; } }

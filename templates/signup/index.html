@@ -2,220 +2,279 @@
 
 {% block body %}
 
-    <div id="step1">
-        <div class="jumbotron">
-            <div class="head-text container">
-                <div class="span8">
-                  <h1 class="title">play with your music</h1>
-                  <h2 class="pre-title">Peter Gabriel Edition</h2>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="description clearfix">
-                <div class="span7"><iframe width="640" height="360" style="max-width:100%;" src="//www.youtube.com/embed/PAwJ9XTQsos" frameborder="0" allowfullscreen></iframe></div>
-                <div class="span4">
-                <form id="emailForm" class="text-center" accept-charset="UTF-8">
-                    <div class="">
-                        <h3><i class="icon-calendar"></i> The next course starts May 16, 2014</h3>
-                        <h4>
-                            <small>Sign up now.</small>
-                        </h4>
-                    </div>
+	<div id="step1">
+		<div class="jumbotron">
+			<div class="container">
+				<div class="head-text">
+					<div class="subtitle">&nbsp;play with <br>your music</div>
+					<div class="subtitle-blue">Peter Gabriel Edition</div>
+				</div>
+			</div>
+		</div>
 
-                    <div class="control-group">
-                        <div class="input-append">
-                            <input id="email" name="email" class="input" type="text" placeholder="you@example.com">
-                            <button id="join" type="submit" class="btn btn-primary">Join</button>
-                        </div>
-                    </div>
-                </form>
-                </div>
-                <div class="clearfix"></div>
-                <hr>
-                <ul class="unstyled">
-                    <li>
-                        <h2 class="pull-left"><i class="icon-music"></i> </h2>
-                        <div class="description-text">
-                            <h2>Play with the Music You Love.</h2>
-                            <p>
-                                Fiddle with loops, time, tempo and vocals on your favorite tracks. You'll make 2-3 mixes of your very own, using the newest tools on the web. Get even closer to the songs you've had on repeat since you were 15.
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <h2 class="pull-left"><i class="icon-headphones"></i> </h2>
-                        <div class="description-text">
-                            <h2>Learn from a Powerhouse.</h2>
-                            <p>
-                            "Play With Your Music 2.0" is a nifty collaboration between <a href="http://www.nyu.edu/">New York University</a>, <a href="http://petergabriel.com">Peter Gabriel</a>, <a href="https://p2pu.org/en/">Peer 2 Peer University</a>, and the <a href="http://media.mit.edu/">MIT Media Lab</a>. Master the ins and outs of mixing tracks from the folks at NYU's <a href="http://steinhardt.nyu.edu/music/">Steinhardt School of Music</a>, and from other luminaries in the field. PWYM is produced with support from the <a href="http://www.shuttleworthfoundation.org/">Shuttleworth Foundation</a>.
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <h2 class="pull-left"><i class="icon-random"></i> </h2>
-                        <div class="description-text">
-                            <h2>(Re)Mix in the Browser.</h2>
-                            <p>
-                            You'll be working with <a href="http://soundation.com/">Soundation</a>'s web-based production environment, posting your tracks to <a href="https://soundcloud.com/">SoundCloud</a>'s listening community, and collaborating with your peers in the <a href="http://community.playwithyourmusic.org">PWYM Community forums</a>. Don't worry--all you'll need to get started is a computer and an internet connection.
-                            </p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-<!-- step 2 -->
-    <div id="step2" class="container hide">
-    <div class="row">
-        <div class="span8 offset2">
-            <h3>You're almost done!</h3>
+		<div class="intro clearfix">
+			<div class="container">
+				<div class="signup clearfix">
+					<div class="span5 first">
+						<form id="emailForm" class="text-center" accept-charset="UTF-8">
+							<div class="">
+								<h4>The course starts</h4>
 
-            <div class="progress progress-step">
-                <div class="step-full"><i class="icon-off"></i></div>
-                <div class="step-full" style="left:50%"><i class=" icon-info-sign"></i></div>
-                <div class="step-empty" style="left:100%"><i class="icon-ok"></i></div>
-                <div class="bar" style="width: 50%;"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-    <div class="span8 offset2">
-    <form id="infoForm" class="form-horizontal" accept-charset="UTF-8" action="{% url signup %}" method="POST">
-          {% csrf_token %}
-          <input id="hiddenEmailField" type="hidden" name="email"></hidden>
-          <input id="timezone" type="hidden" name="timezone">
-          <fieldset>
+								<h3><i class="fa fa-calendar"></i> May 16, 2014</h3>
+							</div>
+							<div class="control-group">
+								<input id="email" name="email" type="text"
+								       placeholder="you@example.com">
+								<button id="join" type="submit" class="btn btn-success">Sign up now</button>
+							</div>
+						</form>
+					</div>
+					<div class="span7">
+						<blockquote>
+							If you’ve ever wanted to learn to mix your own songs using the newest tools on the web, you
+							can
+							now do
 
-            <div class="control-group">
-              <label class="control-label"><i class="icon-headphones"></i> Critical Listening</label>
-              <div class="controls">
-                <p class="help-block">Can you hear a piece of music and identify the instruments?</p>
-                <label class="radio inline">
-                  <input type="radio" name="criticalListening" value="1">
-                  1.
-                </label>
-                <label class="radio inline">
-                  <input type="radio" name="criticalListening" value="2">
-                  2.
-                </label>
-                <label class="radio inline">
-                  <input type="radio" name="criticalListening" value="3">
-                  3.
-                </label>
-                <label class="radio inline">
-                  <input type="radio" name="criticalListening" value="4">
-                  4.
-                </label>
-                <label class="radio inline">
-                  <input type="radio" name="criticalListening" value="5">
-                  5.
-                </label>
-                <label class="inline"></label>
-                <p class="help-block">1 - Not really. 5 - I am a Maestro.</p>
-              </div>
-            </div>
+							so as part of “Play With Your Music” #PWYM – an online community and course offered in
+							collaboration
 
-            <div class="control-group">
-              <label class="control-label"><i class="icon-random"></i> Editing and Mixing</label>
-              <div class="controls">
-                <p class="help-block">What's your comfort level using digital audio production tools, such as Audacity or Reaper??</p>
-                <label class="radio inline">
-                  <input type="radio" name="editingAndMixing" value="1">
-                  1.
-                </label>
-                <label class="radio inline">
-                  <input type="radio" name="editingAndMixing" value="2">
-                  2.
-                </label>
-                <label class="radio inline">
-                  <input type="radio" name="editingAndMixing" value="3">
-                  3.
-                </label>
-                <label class="radio inline">
-                  <input type="radio" name="editingAndMixing" value="4">
-                  4.
-                </label>
-                <label class="radio inline">
-                  <input type="radio" name="editingAndMixing" value="5">
-                  5.
-                </label>
-                <p class="help-block">1 - What these "tools" you speak of? 5 - Basically I'm Girl Talk.</p>
-              </div>
-            </div>
+							between NYU Steinhardt’s Department of Music and Performing Arts Professions, Peter Gabriel
+							and
+							Peer
 
-            <div class="control-group">
-              <label class="control-label"><i class="icon-share-alt"></i> Sharing Music</label>
-              <div class="controls">
-                <p class="help-block">What's your familiarity with SoundCloud?</p>
-                <label class="radio inline">
-                  <input type="radio" name="sharing"  value="1">
-                  1.
-                </label>
-                <label class="radio inline">
-                  <input type="radio" name="sharing"  value="2">
-                  2.
-                </label>
-                <label class="radio inline">
-                  <input type="radio" name="sharing"  value="3">
-                  3.
-                </label>
-                <label class="radio inline">
-                  <input type="radio" name="sharing"  value="4">
-                  4.
-                </label>
-                <label class="radio inline">
-                  <input type="radio" name="sharing"  value="5">
-                  5.
-                </label>
-                <p class="help-block">1 - Haven't used it. 5 - More followers than Skrillex.</p>
-              </div>
-            </div>
+							2 Peer University.
+						</blockquote>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container clearfix description">
+			<div class="span6 first video">
+				<iframe src="//www.youtube.com/embed/PAwJ9XTQsos"
+				        frameborder="0" allowfullscreen></iframe>
+			</div>
 
-            <div class="control-group">
-              <label class="control-label"><i class="icon-star"></i> Your Top 5</label>
-              <div class="controls">
-                <p class="help-block">Who are the top 5 musical artists whose music you'd like to spend more time getting to know?</p>
-                    <input type="text" name="artist1" placeholder="Number 1." >
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="controls">
-                <input type="text" name="artist2" placeholder="Number 2." >
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="controls">
-                <input type="text" name="artist3" placeholder="Number 3." >
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="controls">
-                <input type="text" name="artist4" placeholder="Number 4." >
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="controls">
-                <input type="text" name="artist5" placeholder="Number 5." >
-              </div>
-            </div>
+			<div class="span6">
+				<div>
+					<div class="span1 text-center"><i class="fa fa-music"></i></div>
 
-            <div class="form-actions">
-              <button id="finish" type="submit" class="btn btn-success"><i class="icon-ok"></i> Finish</button>
-            </div>
-          </fieldset>
-        </form>
-    </div>
-    </div>
-    </div>
+					<div class="description-text">
+						<h2>Play with the Music You Love.</h2>
+
+						<p>
+							Fiddle with loops, time, tempo and vocals on your favorite tracks. You'll make 2-3 mixes
+							of your very own, using the newest tools on the web. Get even closer to the songs you've
+							had on repeat since you were 15.
+						</p>
+					</div>
+				</div>
+				<div>
+					<div class="span1 text-center"><i class="fa fa-headphones"></i></div>
+
+					<div class="description-text">
+						<h2>Learn from a Powerhouse.</h2>
+
+						<p>
+							"Play With Your Music 2.0" is a nifty collaboration between
+						<ul>
+							<li><a href="http://www.nyu.edu/">New York University</a>,</li>
+							<li><a href="http://petergabriel.com">Peter Gabriel</a>,</li>
+							<li><a href="https://p2pu.org/en/">Peer 2 Peer University</a> and the</li>
+							<li><a href="http://media.mit.edu/">MIT Media Lab</a>.</li>
+						</ul>
+						Master the ins and outs of mixing tracks from the folks at NYU's
+						<a href="http://steinhardt.nyu.edu/music/">
+						Steinhardt School of Music</a>, and from other luminaries in the field.
+						PWYM is produced with support from the
+						<a href="http://www.shuttleworthfoundation.org/">Shuttleworth Foundation</a>.
+						</p>
+					</div>
+				</div>
+				<div>
+					<div class="span1 text-center"><i class="fa fa-random"></i></div>
+
+					<div class="description-text">
+						<h2>(Re)Mix in the Browser.</h2>
+
+						<p>
+							You'll be working with <a href="http://soundation.com/">Soundation</a>'s web-based
+							production environment, posting your tracks to <a
+								href="https://soundcloud.com/">SoundCloud</a>'s
+							listening community, and collaborating with your peers in the <a
+								href="http://community.playwithyourmusic.org">PWYM Community forums</a>. Don't
+							worry--all you'll need to get started is a computer and an internet connection.
+						</p>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+	<!-- step 2 -->
+	<div id="step2" class="container hide">
+		<div class="row">
+			<div class="span8 offset2">
+				<h3>You're almost done!</h3>
+
+				<div class="progress progress-step">
+					<div class="step-full"><i class="fa fa-off"></i></div>
+					<div class="step-full" style="left:50%"><i class=" fa fa-info-sign"></i></div>
+					<div class="step-empty" style="left:100%"><i class="fa fa-ok"></i></div>
+					<div class="bar" style="width: 50%;"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span8 offset2">
+				<form id="infoForm" class="form-horizontal" accept-charset="UTF-8" action="{% url signup %}"
+				      method="POST">
+					{% csrf_token %}
+					<input id="hiddenEmailField" type="hidden" name="email"></hidden>
+					<input id="timezone" type="hidden" name="timezone">
+					<fieldset>
+
+						<div class="control-group">
+							<label class="control-label"><i class="fa fa-headphones"></i> Critical Listening</label>
+
+							<div class="controls">
+								<p class="help-block">Can you hear a piece of music and identify the instruments?</p>
+								<label class="radio inline">
+									<input type="radio" name="criticalListening" value="1">
+									1.
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="criticalListening" value="2">
+									2.
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="criticalListening" value="3">
+									3.
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="criticalListening" value="4">
+									4.
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="criticalListening" value="5">
+									5.
+								</label>
+								<label class="inline"></label>
+
+								<p class="help-block">1 - Not really. 5 - I am a Maestro.</p>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label"><i class="fa fa-random"></i> Editing and Mixing</label>
+
+							<div class="controls">
+								<p class="help-block">What's your comfort level using digital audio production tools,
+								                      such as Audacity or Reaper??</p>
+								<label class="radio inline">
+									<input type="radio" name="editingAndMixing" value="1">
+									1.
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="editingAndMixing" value="2">
+									2.
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="editingAndMixing" value="3">
+									3.
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="editingAndMixing" value="4">
+									4.
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="editingAndMixing" value="5">
+									5.
+								</label>
+
+								<p class="help-block">1 - What these "tools" you speak of? 5 - Basically I'm Girl
+								                      Talk.</p>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label"><i class="fa fa-share-alt"></i> Sharing Music</label>
+
+							<div class="controls">
+								<p class="help-block">What's your familiarity with SoundCloud?</p>
+								<label class="radio inline">
+									<input type="radio" name="sharing" value="1">
+									1.
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="sharing" value="2">
+									2.
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="sharing" value="3">
+									3.
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="sharing" value="4">
+									4.
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="sharing" value="5">
+									5.
+								</label>
+
+								<p class="help-block">1 - Haven't used it. 5 - More followers than Skrillex.</p>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label"><i class="fa fa-star"></i> Your Top 5</label>
+
+							<div class="controls">
+								<p class="help-block">Who are the top 5 musical artists whose music you'd like to spend
+								                      more time getting to know?</p>
+								<input type="text" name="artist1" placeholder="Number 1.">
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<input type="text" name="artist2" placeholder="Number 2.">
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<input type="text" name="artist3" placeholder="Number 3.">
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<input type="text" name="artist4" placeholder="Number 4.">
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<input type="text" name="artist5" placeholder="Number 5.">
+							</div>
+						</div>
+
+						<div class="form-actions">
+							<button id="finish" type="submit" class="btn btn-success"><i class="fa fa-ok"></i> Finish
+							</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}
 
 {% block js %}
 
-    <script src="/static/js/jstz/jstz.min.js"></script>
-    <script>
-        MMOOC.Splash.signup();
-    </script>
+	<script src="/static/js/jstz/jstz.min.js"></script>
+	<script>
+		MMOOC.Splash.signup();
+	</script>
 
 {% endblock %}
