@@ -22,7 +22,7 @@ def send_email(to_email, from_email, subject, text_body, html_body=None, tags=No
     )
 
 
-def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, tags=None, campaign_id=None):
+def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, tags=None, campaign_id=None, recipient_variables=None):
     """ send email to multiple users, but each being to only one in the to field """
     post_data = [
         ('from', from_email),
@@ -34,7 +34,10 @@ def send_mass_email(to_emails, from_email, subject, text_body, html_body=None, t
     ]
 
     post_data += [ ('to', to_email) for to_email in to_emails ]
-    post_data += [ ('recipient-variables', [json.dumps({to_email:{}}) for to_email in to_emails] ) ]
+    if recipient_variables:
+        post_data += [ ('recipient-variables', recipient_variables) ]
+    else:
+        post_data += [ ('recipient-variables', json.dumps({ to_email:{} for to_email in to_emails }) ) ]
 
     if html_body:
         post_data += [('html', html_body),]
@@ -175,6 +178,54 @@ def get_logs(limit=100, skip=0):
     if resp.status_code != 200:
         raise Exception(resp.text)
     return resp.json()
+
+
+def fetch_all_logs():
+    logs = []
+    limit = 100
+    offset = 0
+    while True:
+        print('Fetching logs offset={0}'.format(offset))
+        res = get_logs(limit, offset)
+        logs += res['items']
+        offset += limit
+        if len(res['items']) == 0:
+            break
+    return logs
+
+
+def get_events(limit, **kwargs):
+    params = {'limit': limit}
+    params.update(kwargs)
+
+    resp  = call_mailgun(
+        'GET', '/'.join([settings.MAILGUN_API_DOMAIN, 'events']),
+        {}, params
+    )
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+    return resp.json()
+
+
+def get_all_events(**kwargs):
+    """ get all events """
+    params = {}
+    params.update(kwargs)
+    resp  = call_mailgun(
+        'GET', '/'.join([settings.MAILGUN_API_DOMAIN, 'events']),
+        {}, params
+    )
+    if resp.status_code != 200:
+        raise Exception(resp.text)
+    events = []
+    while len(resp.json()['items']):
+        events += resp.json()['items']
+        url = resp.json()['paging']['next'].replace(settings.MAILGUN_API_URL+'/', '')
+        resp = call_mailgun('GET', url, {})
+
+    return events
+   
+
 
 
 def get_campaign_events(campaign_id, event, recipient=None, limit=None, page=None, count=None):

@@ -28,7 +28,7 @@ def _text_from_html(html):
 
 
 def _rewrite_links(html):
-    expression = re.compile(r'(?P<url>http://email.{}/c/.*?)[\"\' ]'.format(settings.MAILGUN_API_DOMAIN))
+    expression = re.compile(r'(?P<url>http://email.{0}/c/.*?)[\"\' ]'.format(settings.MAILGUN_API_DOMAIN))
 
     # for every link
     while expression.search(html):
@@ -73,6 +73,23 @@ def compose( request ):
         context,
         context_instance=RequestContext(request)
     )
+
+
+@login_required
+def copy( request, id ):
+    email_uri = mail_api.id2uri(id)
+    email = mail_api.get_email(email_uri)
+    new_email = mail_api.save_email(
+        email['subject'],
+        email['text_body'],
+        email['html_body'],
+        email['sequence'],
+        email['audience'],
+        email['tags']
+    )
+    #TODO should we update the sequence
+
+    return http.HttpResponseRedirect(reverse('mail_edit', kwargs={'id': new_email['id']}))
 
 
 @login_required
@@ -158,3 +175,19 @@ def schedule_email( request, id ):
         return http.HttpResponse(_('Scheduled time is in the past'), status=400)
     mail_api.schedule_email(email_uri, dt)
     return http.HttpResponse('')
+
+
+@login_required
+def view_email( request, id ):
+    email_uri = mail_api.id2uri(id)
+    email = mail_api.get_email(email_uri)
+
+    context = {
+        'email': email,
+    }
+    return render_to_response(
+        'mail/view.html',
+        context,
+        context_instance=RequestContext(request)
+    )
+

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="jumbotron subhead">
+        <div class="container">
+            <h2 class="title">Mechanical Mooc Admin - Signups for Sequence {{ sequence }}</h2>
+        </div>
+    </div>
+    <div class="container">
+      <h3>Signups for sequence {{ sequence }}:</h3>
+      <br/>
+      {% for digit in signup_count %}
+        <span class="digit">{{ digit }}</span>
+      {% endfor %}
+    <div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

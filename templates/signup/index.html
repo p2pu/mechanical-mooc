@@ -11,7 +11,7 @@
         </div>
         <div class="container">
             <div class="description clearfix">
-                <form id="emailForm" class="text-center">
+                <form id="emailForm" class="text-center" accept-charset="UTF-8">
                     <div class="">
                         <h3><i class="icon-calendar"></i> Next Class begins Fall 2013</h3>
                         <h4>
@@ -79,7 +79,7 @@
     </div>
     <div class="row">
     <div class="span8 offset2">
-    <form id="infoForm" class="form-horizontal" action="{% url signup %}" method="POST">
+    <form id="infoForm" class="form-horizontal" accept-charset="UTF-8" action="{% url 'signup' %}" method="POST">
           {% csrf_token %}
           <input id="hiddenEmailField" type="hidden" name="email"></hidden>
           <fieldset>

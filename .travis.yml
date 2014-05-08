@@ -1,0 +1,20 @@
+language: python
+python:
+  - "2.7"
+
+env:
+  global:
+    - SECRET_KEY=blajblajbasdf
+  matrix:
+    - DJANGO=1.5
+    - DJANGO=1.6
+
+install:
+  - pip install -r requirements.txt
+
+script: python manage.py test classphoto groups mail sequence signup unsubscribe
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
