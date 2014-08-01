@@ -35,8 +35,8 @@ def signup( request, iframe=False ):
     
     if request.is_ajax():
         response = http.HttpResponse(code=200)
-        response['Access-Control-Allow-Origin'] = '*.p2pu.org'
-        response['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+        response['Access-Control-Allow-Origin'] = '*'
+        response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
         #response['Access-Control-Allow-Headers'] =  'X-PINGOTHER'
         response['Access-Control-Max-Age'] = '1728000'
         return response
