@@ -39,19 +39,33 @@ def signup( request, iframe=False ):
     return http.HttpResponseRedirect(reverse('signup_success'))
 
 
+def allow_cors( method ):
+    def call_method( *args, **kwargs):
+        request = args[0]
+        if request.method == 'OPTIONS':
+            return http.HttpResponse(200);
+        response = method(*args, **kwargs)
+        response['Access-Control-Allow-Origin'] = '*'
+        response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+        response['Access-Control-Allow-Headers'] =  '*'
+        response['Access-Control-Max-Age'] = '1728000'
+        return response
+    return call_method
+
+
 @csrf_exempt
 def signup_ajax( request ):
     form = SignupForm(request.POST)
 
     if not form.is_valid():
-        return http.HttpResponse(code=400)
+        return http.HttpResponse(400)
 
     email = form.cleaned_data['email']
     signup_questions = request.POST.dict()
     del signup_questions['email']
 
     signup_model.create_or_update_signup(email, signup_questions )
-    response = http.HttpResponse(code=200)
+    response = http.HttpResponse(200)
     response['Access-Control-Allow-Origin'] = '*'
     response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
     response['Access-Control-Allow-Headers'] =  '*'
