@@ -12,8 +12,8 @@ from django.core.serializers.json import DjangoJSONEncoder
 from forms import SignupForm
 from signup import models as signup_model
 
+#@require_http_methods(['POST'])
 @csrf_exempt
-@require_http_methods(['POST'])
 def signup( request, iframe=False ):
 
     form = SignupForm(request.POST)
