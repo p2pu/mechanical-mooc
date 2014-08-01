@@ -31,7 +31,7 @@ def signup( request, iframe=False ):
         response = http.HttpResponse(code=200)
         response['Access-Control-Allow-Origin'] = '*'
         response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-        #response['Access-Control-Allow-Headers'] =  'X-PINGOTHER'
+        response['Access-Control-Allow-Headers'] =  '*'
         response['Access-Control-Max-Age'] = '1728000'
         return response
     elif iframe:
