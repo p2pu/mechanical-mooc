@@ -26,8 +26,15 @@ def signup( request, iframe=False ):
     del signup_questions['csrfmiddlewaretoken']
 
     signup_model.create_or_update_signup(email, signup_questions )
-
-    if iframe:
+    
+    if request.is_ajax():
+        response = http.HttpResponse(code=200)
+        response['Access-Control-Allow-Origin'] = '*'
+        response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+        #response['Access-Control-Allow-Headers'] =  'X-PINGOTHER'
+        response['Access-Control-Max-Age'] = '1728000'
+        return response
+    elif iframe:
         return http.HttpResponseRedirect(reverse('signup_success_iframe'))
     return http.HttpResponseRedirect(reverse('signup_success'))
 
