@@ -12,8 +12,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from forms import SignupForm
 from signup import models as signup_model
 
-#@require_http_methods(['POST'])
-@csrf_exempt
+@require_http_methods(['POST'])
 def signup( request, iframe=False ):
 
     form = SignupForm(request.POST)
@@ -43,6 +42,26 @@ def signup( request, iframe=False ):
     elif iframe:
         return http.HttpResponseRedirect(reverse('signup_success_iframe'))
     return http.HttpResponseRedirect(reverse('signup_success'))
+
+
+@csrf_exempt
+def signup_ajax( request ):
+    form = SignupForm(request.POST)
+
+    if not form.is_valid():
+        return http.HttpResponse(code=400)
+
+    email = form.cleaned_data['email']
+    signup_questions = request.POST.dict()
+    del signup_questions['email']
+
+    signup_model.create_or_update_signup(email, signup_questions )
+    response = http.HttpResponse(code=200)
+    response['Access-Control-Allow-Origin'] = '*'
+    response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+    response['Access-Control-Allow-Headers'] =  '*'
+    response['Access-Control-Max-Age'] = '1728000'
+    return response
 
 
 def signup_success( request ):
