@@ -7,6 +7,10 @@
         "SECRET_KEY": {
             "description": "This gets generated",
             "generator": "secret"
+        },
+        "MOOC_TITLE": {
+            "description": "Title for your course",
+            "value": ""
         }
     },
     "scripts": {
