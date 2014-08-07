@@ -3,4 +3,13 @@
     "description": "A course management tool",
     "repository": "https://github.com/p2pu/mechanical-mooc",
     "keywords": ["mooc", "p2pu", "education", "course"]
+    "env": {
+        "SECRET_KEY": {
+            "description": "This gets generated",
+            "generator": "secret"
+        }
+    },
+    "scripts": {
+        "postdeploy": "python manage.py syncdb --migrate"
+    }
 }
