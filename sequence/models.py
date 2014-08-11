@@ -8,14 +8,14 @@ import datetime
 
 def sequence_list_name( sequence_number ):
     if settings.DEBUG:
-        return 'sequence-{0}-all-test@{1}'.format(sequence_number, settings.EMAIL_DOMAIN)
-    return 'sequence-{0}-all@{1}'.format(sequence_number, settings.EMAIL_DOMAIN)
+        return '{0}-{1}-all-test@{2}'.format(settings.MOOC_TITLE.replace(' ', '-').lower(), sequence_number, settings.EMAIL_DOMAIN)
+    return '{0}-{1}-all@{2}'.format(settings.MOOC_TITLE.replace(' ', '-').lower(), sequence_number, settings.EMAIL_DOMAIN)
 
 
 def sequence_campaign( sequence_number ):
     if settings.DEBUG:
-        return 'sequence-{0}-campaign-test'.format(sequence_number)
-    return 'sequence-{0}-campaign'.format(sequence_number)
+        return '{0}-{1}-campaign-test'.format(settings.MOOC_TITLE.replace(' ', '-').lower(), sequence_number)
+    return '{0}-{1}-campaign'.format(settings.MOOC_TITLE.replace(' ', '-').lower(), sequence_number)
 
 
 def sequence2dict( sequence_db ):
