@@ -129,7 +129,7 @@ def handle_new_signups( ):
         Update db when done. """
     signups = db.UserSignup.objects.filter(date_tasks_handled__isnull=True, date_deleted__isnull=True)[:500]
     while len(signups):
-        emails.send_welcome_emails([signup.email for signup in signups])
+        #TODO emails.send_welcome_emails([signup.email for signup in signups])
         for signup in signups:
             add_user_to_global_list(signup.email, signup.sequence)
             #make sure new signups aren't in the mailgun blocked list
