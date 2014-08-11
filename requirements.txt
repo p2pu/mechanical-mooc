@@ -6,6 +6,7 @@ Werkzeug==0.9.4
 argparse==1.1
 bleach==1.2.1
 boto==2.13.3
+distribute==0.6.34
 dj-database-url==0.2.1
 django-debug-toolbar==1.0.1
 django-extensions==1.0.3
