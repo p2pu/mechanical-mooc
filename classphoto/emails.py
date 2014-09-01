@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.template.loader import render_to_string
-from django.utils import simplejson as json
+import json
 
 import mailgun
 from signup import models as signup_api

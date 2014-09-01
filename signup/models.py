@@ -2,7 +2,7 @@ import random
 import string
 from datetime import datetime
 
-from django.utils import simplejson
+import json
 
 from signup import db
 from signup import emails
@@ -22,7 +22,7 @@ def create_signup( email, questions ):
     signup = db.UserSignup(
         email=email,
         invite_code=invite_code,
-        questions=simplejson.dumps(questions),
+        questions=json.dumps(questions),
         sequence=sequence,
         date_added=now,
         date_updated=now
@@ -36,11 +36,11 @@ def update_signup( email, questions ):
     sequence = sequence_model.get_current_sequence_number()
     signup_db = db.UserSignup.objects.get(email__iexact=email, sequence=sequence)
 
-    old_questions = simplejson.loads(signup_db.questions)
+    old_questions = json.loads(signup_db.questions)
     for key, value in questions.items():
         old_questions[key] = value
 
-    signup_db.questions = simplejson.dumps(old_questions)
+    signup_db.questions = json.dumps(old_questions)
     signup_db.date_updated = datetime.utcnow()
     signup_db.date_deleted = None
     signup_db.save()
@@ -67,7 +67,7 @@ def delete_signup( email, sequence ):
 def _signup2json( signup_db ):
     signup = {
         'email': signup_db.email,
-        'questions': simplejson.loads(signup_db.questions),
+        'questions': json.loads(signup_db.questions),
         'sequence': signup_db.sequence,
         'date_created': signup_db.date_added,
         'date_updated': signup_db.date_updated,
