@@ -44,6 +44,10 @@ Setup a domain for Heroku
 
 Because of the way that Heroku works, it is best to run the Mechanical MOOC at a subdomain (remember that www. is also a subdomain if another subdomain doesn't make sense). You can follow `these <https://devcenter.heroku.com/articles/custom-domains>`_ instructions on how to configure a custom domain. This will be the domain where you send users to sign up.
 
+Configure the Mechanical MOOC for your domain by running::
+
+    heroku config:set MOOC_DOMAIN=<your-domain>
+
 Setup a domain for mailgun
 --------------------------
 
