@@ -36,14 +36,14 @@ def create_sequence( start_date, signup_close_date ):
     sequence_db.save()
 
     mailgun_api.create_list(
-        u'sequence-{0}-all@{1}'.format(sequence_db.id, settings.EMAIL_DOMAIN),
+        sequence_list_name(sequence_db.id),
         'Sequence {0} global list'.format(sequence_db.id),
         'List for all members of sequence {0}'.format(sequence_db.id),
         'readonly'
     )
 
     mailgun_api.create_campaign(
-        'sequence-{0}-campaign'.format(sequence_db.id),
+        sequence_campaign(sequence_db.id),
         'Sequence {0} campaign'.format(sequence_db.id)
     )
 
