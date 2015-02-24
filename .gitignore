@@ -5,3 +5,5 @@ staticfiles
 .idea
 settings_local.py
 docs/_build/
+venv/
+static/css/.sass-cache/
