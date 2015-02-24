@@ -27,30 +27,9 @@ def signup( request, iframe=False ):
 
     signup_model.create_or_update_signup(email, signup_questions )
     
-    if request.is_ajax():
-        response = http.HttpResponse(code=200)
-        response['Access-Control-Allow-Origin'] = '*'
-        response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-        response['Access-Control-Allow-Headers'] =  '*'
-        response['Access-Control-Max-Age'] = '1728000'
-        return response
-    elif iframe:
+    if iframe:
         return http.HttpResponseRedirect(reverse('signup_success_iframe'))
     return http.HttpResponseRedirect(reverse('signup_success'))
-
-
-def allow_cors( method ):
-    def call_method( *args, **kwargs):
-        request = args[0]
-        if request.method == 'OPTIONS':
-            return http.HttpResponse(200);
-        response = method(*args, **kwargs)
-        response['Access-Control-Allow-Origin'] = '*'
-        response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-        response['Access-Control-Allow-Headers'] =  '*'
-        response['Access-Control-Max-Age'] = '1728000'
-        return response
-    return call_method
 
 
 @csrf_exempt
