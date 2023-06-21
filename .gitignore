@@ -1,9 +1,0 @@
-*.pyc
-celerybeat-schedule
-staticfiles
-*.swp
-.idea
-settings_local.py
-docs/_build/
-venv/
-static/css/.sass-cache/

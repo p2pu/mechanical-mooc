@@ -1,3 +1,0 @@
-{{ email.text_body|safe }}
-
-If you would like to unsubscribe follow this link: http://{{mooc_domain}}/{% url 'unsubscribe_unsubscribe' %}
